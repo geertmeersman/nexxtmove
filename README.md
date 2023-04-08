@@ -7,7 +7,6 @@
 
 A Home Assistant integration allowing to monitor your EV charging and manage your charging points
 
-
 ---
 
 <!-- [START BADGES] -->
@@ -17,6 +16,7 @@ A Home Assistant integration allowing to monitor your EV charging and manage you
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
 [![maintainer](https://img.shields.io/badge/maintainer-Geert%20Meersman-green?style=for-the-badge&logo=github)](https://github.com/geertmeersman)
 [![buyme_coffee](https://img.shields.io/badge/Buy%20me%20a%20Duvel-donate-yellow?style=for-the-badge&logo=buymeacoffee)](https://www.buymeacoffee.com/geertmeersman)
+[![discord](https://img.shields.io/discord/1094193683332612116?style=for-the-badge&logo=discord)](https://discord.gg/PTpExQJsWA)
 
 [![GitHub issues](https://img.shields.io/github/issues/geertmeersman/nexxtmove)](https://github.com/geertmeersman/nexxtmove/issues)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/geertmeersman/nexxtmove.svg)](http://isitmaintained.com/project/geertmeersman/nexxtmove)
@@ -53,8 +53,8 @@ A Home Assistant integration allowing to monitor your EV charging and manage you
 
 This integration will set up the following platforms.
 
-| Platform  | Description                                      |
-| --------- | ------------------------------------------------ |
+| Platform    | Description                                     |
+| ----------- | ----------------------------------------------- |
 | `nexxtmove` | Home Assistant component for Nexxtmove services |
 
 ## Contributions are welcome!
