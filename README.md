@@ -74,9 +74,9 @@ logger:
 
 ## Lovelace examples
 
-### Recent charges
+### Latest charges
 
-![Recent charges](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/recent_charges.png)
+![Latest charges](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/latest_charges.png)
 
 <details><summary>Show markdown code</summary>
 
