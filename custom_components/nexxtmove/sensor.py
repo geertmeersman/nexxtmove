@@ -40,8 +40,12 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     ),
     NexxtmoveSensorDescription(key="charging_device", icon="mdi:ev-station"),
     NexxtmoveSensorDescription(key="charging_point", icon="mdi:ev-plug-type1"),
-    NexxtmoveSensorDescription(key="charging_events", icon="mdi:calendar-multiple-check"),
+    NexxtmoveSensorDescription(
+        key="charging_events", icon="mdi:calendar-multiple-check"
+    ),
     NexxtmoveSensorDescription(key="charges", icon="mdi:currency-eur"),
+    NexxtmoveSensorDescription(key="residential_location", icon="mdi:home"),
+    NexxtmoveSensorDescription(key="work_location", icon="mdi:office-building"),
 ]
 
 
@@ -77,9 +81,7 @@ async def async_setup_entry(
                     icon=description.icon,
                 )
 
-                log_debug(
-                    f"[sensor|async_setup_entry|adding] {item.name}"
-                )
+                log_debug(f"[sensor|async_setup_entry|adding] {item.name}")
                 entities.append(
                     NexxtmoveSensor(
                         coordinator=coordinator,
@@ -109,9 +111,7 @@ class NexxtmoveSensor(NexxtmoveEntity, SensorEntity):
     ) -> None:
         """Set entity ID."""
         super().__init__(coordinator, description, item)
-        self.entity_id = (
-            f"sensor.{DOMAIN}_{self.item.key}"
-        )
+        self.entity_id = f"sensor.{DOMAIN}_{self.item.key}"
 
     @property
     def native_value(self) -> str:

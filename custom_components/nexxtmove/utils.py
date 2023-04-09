@@ -70,4 +70,3 @@ def get_json_dict_path(dictionary, path):
     if isinstance(json_dict, list):
         json_dict = json_dict[0]
     return json_dict
-
