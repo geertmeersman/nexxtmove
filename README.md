@@ -71,3 +71,42 @@ logger:
   logs:
     custom_components.nexxtmove: debug
 ```
+
+## Lovelace examples
+
+### Recent charges
+
+![Recent charges](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/recent_charges.png)
+
+<details><summary>Show markdown code</summary>
+
+**Replace &lt;username&gt; by your Nexxtmove username**
+
+```
+type: markdown
+content: >
+  |Date/Time|Consumption|Cost|Point ID|Building|
+
+  |----:|----:|----:|----:|----:|
+
+  {% for charge in
+  states.sensor.nexxtmove_<username>_recent_charges.attributes.charges -%}
+
+  | {{charge.startTimestamp | as_timestamp | timestamp_custom("%d-%m-%Y
+  %H:%M")}} |  {{charge.energyConsumedKWh|round(1)}} KWh | € {{charge.costVat |
+  round(2)}} | {{charge.chargingPointName}} | {{charge.buildingName}} |
+
+  {% endfor %}
+title: Latest charges
+
+```
+
+</details>
+
+## Screenshots
+
+| Description             | Screenshot                                                                                                                     |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Profile                 | ![Profile](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/profile.png)                                 |
+| Company                 | ![Company](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/company.png)                                 |
+| Nexxtender Mobile Black | ![Nexxtender Mobile Black](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/nexxtender_mobile_black.png) |
