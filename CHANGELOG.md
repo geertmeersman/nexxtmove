@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.5](https://github.com/geertmeersman/nexxtmove/tree/v0.1.5) (2023-04-09)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.4...v0.1.5)
+
+**Documentation:**
+
+- Update README.md [\#8](https://github.com/geertmeersman/nexxtmove/pull/8) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.4](https://github.com/geertmeersman/nexxtmove/tree/v0.1.4) (2023-04-09)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.3...v0.1.4)
