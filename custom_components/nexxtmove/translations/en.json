@@ -1,0 +1,57 @@
+{
+  "config": {
+    "step": {
+      "connection_init": {
+        "title": "New Nexxtmove account",
+        "description": "Set up your Nexxtmove user account",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Account is already configured"
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid authentication",
+      "unknown": "Unexpected error",
+      "service_error": "Service unavailable"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Reconfigure Nexxtmove",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
+      },
+      "password": {
+        "title": "Update your password",
+        "description": "To do when you changed your password on 'Nexxtmove'",
+        "data": {
+          "password": "Password"
+        }
+      },
+      "options_init": {
+        "title": "Change options",
+        "menu_options": {
+          "language": "Sensor language",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid authentication",
+      "unknown": "Unexpected error",
+      "service_error": "Service unavailable"
+    },
+    "abort": {
+      "already_configured": "Account is already configured"
+    }
+  }
+}
