@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.4](https://github.com/geertmeersman/nexxtmove/tree/v0.1.4) (2023-04-09)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.3...v0.1.4)
+
+**Fixed bugs:**
+
+- Fix error message in config flow [\#7](https://github.com/geertmeersman/nexxtmove/pull/7) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.3](https://github.com/geertmeersman/nexxtmove/tree/v0.1.3) (2023-04-09)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.2...v0.1.3)
