@@ -26,7 +26,7 @@ DEFAULT_NEXXTMOVE_ENVIRONMENT = NexxtmoveEnvironment(
 BASE_HEADERS = {
     "API-KEY": DEFAULT_NEXXTMOVE_ENVIRONMENT.api_key,
     "X-App-Platform": DEFAULT_NEXXTMOVE_ENVIRONMENT.x_app_platform,
-    "Content-Type": "application/json; charset=utf-8"
+    "Content-Type": "application/json; charset=utf-8",
 }
 
 COORDINATOR_UPDATE_INTERVAL = timedelta(minutes=5)

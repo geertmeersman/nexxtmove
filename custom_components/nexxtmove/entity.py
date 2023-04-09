@@ -46,9 +46,7 @@ class NexxtmoveEntity(CoordinatorEntity[NexxtmoveDataUpdateCoordinator]):
         """
         extra attributes!
         """
-        self._attr_unique_id = (
-            f"{DOMAIN}_{self.item.key}"
-        )
+        self._attr_unique_id = f"{DOMAIN}_{self.item.key}"
         self._key = self.item.key
         self.client = coordinator.client
         self.last_synced = datetime.now()

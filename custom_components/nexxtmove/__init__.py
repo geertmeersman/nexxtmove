@@ -81,9 +81,7 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self) -> dict | None:
         """Update data."""
         try:
-            items = await self.hass.async_add_executor_job(
-                self.client.fetch_data
-            )
+            items = await self.hass.async_add_executor_job(self.client.fetch_data)
         except ConnectionError as exception:
             raise UpdateFailed(f"ConnectionError {exception}") from exception
         except NexxtmoveServiceException as exception:
@@ -95,7 +93,6 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
 
         items: list[NexxtmoveItem] = items
 
-
         current_items = {
             list(device.identifiers)[0][1]
             for device in dr.async_entries_for_config_entry(
@@ -104,9 +101,7 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
         }
 
         if len(items) > 0:
-            fetched_items = {
-                str(items[item].device_key) for item in items
-            }
+            fetched_items = {str(items[item].device_key) for item in items}
             log_debug(
                 f"[init|NexxtmoveDataUpdateCoordinator|_async_update_data|fetched_items] {fetched_items}"
             )
