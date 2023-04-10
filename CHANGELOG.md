@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.8](https://github.com/geertmeersman/nexxtmove/tree/v0.1.8) (2023-04-10)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.7...v0.1.8)
+
+**Merged pull requests:**
+
+- Bump ruff from 0.0.260 to 0.0.261 [\#10](https://github.com/geertmeersman/nexxtmove/pull/10) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.1.7](https://github.com/geertmeersman/nexxtmove/tree/v0.1.7) (2023-04-10)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.6...v0.1.7)
