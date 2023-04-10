@@ -36,7 +36,7 @@ class NexxtmoveEntity(CoordinatorEntity[NexxtmoveDataUpdateCoordinator]):
         self._item = item
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, str(self.item.device_key))},
-            name=self.item.device_name,
+            name=f"{NAME} {self.item.device_name}",
             manufacturer=NAME,
             configuration_url=WEBSITE,
             entry_type=DeviceEntryType.SERVICE,

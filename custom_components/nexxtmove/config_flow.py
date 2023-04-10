@@ -130,7 +130,7 @@ class NexxtmoveCommonFlow(ABC, FlowHandler):
                     password=user_input[CONF_PASSWORD],
                 )
                 log_debug(
-                    f"Password changed for {test['user_details'].get('customer_number')}"
+                    f"Password changed for {user_input[CONF_USERNAME]}"
                 )
                 return self.finish_flow()
 

@@ -39,7 +39,6 @@
       "options_init": {
         "title": "Change options",
         "menu_options": {
-          "language": "Sensor language",
           "password": "Password"
         }
       }
