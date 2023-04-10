@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.7](https://github.com/geertmeersman/nexxtmove/tree/v0.1.7) (2023-04-10)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.6...v0.1.7)
+
+**Implemented enhancements:**
+
+- Device name includes Nexxtmove [\#11](https://github.com/geertmeersman/nexxtmove/pull/11) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.6](https://github.com/geertmeersman/nexxtmove/tree/v0.1.6) (2023-04-10)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.5...v0.1.6)
