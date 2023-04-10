@@ -110,3 +110,9 @@ title: Latest charges
 | Profile                 | ![Profile](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/profile.png)                                 |
 | Company                 | ![Company](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/company.png)                                 |
 | Nexxtender Mobile Black | ![Nexxtender Mobile Black](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/nexxtender_mobile_black.png) |
+
+## Code origin
+
+The code of this Home Assistant integration has been written by analysing the calls done made by the Nexxtmove mobile applications to the Nexxtmove.me platform. Goal is to automate as much as possible and to monitor usage.
+
+I have no link with Nexxtmove/Powerdale
