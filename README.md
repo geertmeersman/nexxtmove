@@ -113,6 +113,6 @@ title: Latest charges
 
 ## Code origin
 
-The code of this Home Assistant integration has been written by analysing the calls done made by the Nexxtmove mobile applications to the Nexxtmove.me platform. Goal is to automate as much as possible and to monitor usage.
+The code of this Home Assistant integration has been written by analysing the calls made by the Nexxtmove mobile application to the Nexxtmove.me platform. Goal is to automate as much as possible and to monitor usage.
 
 I have no link with Nexxtmove/Powerdale
