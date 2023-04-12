@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.11](https://github.com/geertmeersman/nexxtmove/tree/v0.1.11) (2023-04-12)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.10...v0.1.11)
+
+**Implemented enhancements:**
+
+- username TextSelector type changed  from email to text [\#14](https://github.com/geertmeersman/nexxtmove/pull/14) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.10](https://github.com/geertmeersman/nexxtmove/tree/v0.1.10) (2023-04-10)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.9...v0.1.10)
