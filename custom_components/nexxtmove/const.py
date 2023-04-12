@@ -13,7 +13,7 @@ SHOW_DEBUG_AS_WARNING = False
 
 _LOGGER = logging.getLogger(__name__)
 
-PLATFORMS: Final = [Platform.SENSOR]
+PLATFORMS: Final = [Platform.SENSOR, Platform.SWITCH]
 
 ATTRIBUTION: Final = "Data provided by Nexxtmove"
 

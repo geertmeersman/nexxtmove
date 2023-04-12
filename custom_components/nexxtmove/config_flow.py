@@ -92,7 +92,9 @@ class NexxtmoveCommonFlow(ABC, FlowHandler):
             ),
         }
         return self.async_show_form(
-            step_id="connection_init", data_schema=vol.Schema(fields),errors=errors,
+            step_id="connection_init",
+            data_schema=vol.Schema(fields),
+            errors=errors,
         )
 
     async def test_connection(self, user_input: dict | None = None) -> dict:
@@ -129,9 +131,7 @@ class NexxtmoveCommonFlow(ABC, FlowHandler):
                 self.new_entry_data |= NexxtmoveConfigEntryData(
                     password=user_input[CONF_PASSWORD],
                 )
-                log_debug(
-                    f"Password changed for {user_input[CONF_USERNAME]}"
-                )
+                log_debug(f"Password changed for {user_input[CONF_USERNAME]}")
                 return self.finish_flow()
 
         fields = {
