@@ -19,6 +19,7 @@ repos:
         entry: flake8
         language: system
         types: [python]
+        args: ["-j8", "--ignore=E501,W503"]
         require_serial: true
       - id: reorder-python-imports
         name: Reorder python imports

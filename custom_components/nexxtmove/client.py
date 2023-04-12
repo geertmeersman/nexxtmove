@@ -32,11 +32,11 @@ class NexxtmoveClient:
         environment: NexxtmoveEnvironment = DEFAULT_NEXXTMOVE_ENVIRONMENT,
     ) -> None:
         """Initialize NexxtmoveClient."""
-        self.session = session if session else Session()
+        self.session = Session()
         self.username = username
         self.password = password
         self.environment = environment
-        self.session.headers = headers
+        self._headers = headers
         self.profile = {}
         self.request_error = {}
         self.token = None
@@ -54,10 +54,19 @@ class NexxtmoveClient:
         """Send a request to Nexxtmove."""
         if data is None:
             log_debug(f"{caller} Calling GET {url}")
-            response = self.session.get(url, timeout=REQUEST_TIMEOUT)
+            response = self.session.get(
+                url,
+                timeout=REQUEST_TIMEOUT,
+                headers=self._headers | {"Authorize": f"Token {self.token}"},
+            )
         else:
             log_debug(f"{caller} Calling POST {url} with {data}")
-            response = self.session.post(url, json=data, timeout=REQUEST_TIMEOUT)
+            response = self.session.post(
+                url,
+                json=data,
+                timeout=REQUEST_TIMEOUT,
+                headers=self._headers | {"Authorize": f"Token {self.token}"},
+            )
         log_debug(
             f"{caller} http status code = {response.status_code} (expecting {expected})"
         )
@@ -102,7 +111,7 @@ class NexxtmoveClient:
         result = response.json()
         try:
             self.token = result.get("authToken")
-            self.session.headers |= {"Authorize": f"Token {self.token}"}
+            log_debug(f"Setting Token {self.token}")
             self.profile = result.get("profile")
         except Exception as exception:
             raise BadCredentialsException(
