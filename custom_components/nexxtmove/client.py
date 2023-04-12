@@ -125,6 +125,7 @@ class NexxtmoveClient:
             name=company.get("name"),
             key=key,
             type="company",
+            sensor_type="sensor",
             device_key=device_key,
             device_name=device_name,
             device_model=device_model,
@@ -141,6 +142,7 @@ class NexxtmoveClient:
                     name=location.get("name"),
                     key=key,
                     type="work_location",
+                    sensor_type="sensor",
                     device_key=device_key,
                     device_name=device_name,
                     device_model=device_model,
@@ -156,6 +158,7 @@ class NexxtmoveClient:
             name="Profile",
             key=key,
             type="profile",
+            sensor_type="sensor",
             device_key=device_key,
             device_name=device_name,
             device_model=device_model,
@@ -169,6 +172,7 @@ class NexxtmoveClient:
                 name="Recent charges",
                 key=key,
                 type="charges",
+                sensor_type="sensor",
                 device_key=device_key,
                 device_name=device_name,
                 device_model=device_model,
@@ -182,6 +186,7 @@ class NexxtmoveClient:
                 name="Consumption",
                 key=key,
                 type="consumption",
+                sensor_type="sensor",
                 device_key=device_key,
                 device_name=device_name,
                 device_model=device_model,
@@ -197,6 +202,7 @@ class NexxtmoveClient:
                     name=location.get("name"),
                     key=key,
                     type="residential_location",
+                    sensor_type="sensor",
                     device_key=device_key,
                     device_name=device_name,
                     device_model=device_model,
@@ -216,12 +222,46 @@ class NexxtmoveClient:
                 name=charging_device.get("name"),
                 key=key,
                 type="charging_device",
+                sensor_type="sensor",
                 device_key=device_key,
                 device_name=device_name,
                 device_model=device_model,
                 state=charging_device.get("buildingName"),
                 extra_attributes=charging_device,
             )
+
+            """
+            #Switch will be used when it becomes useful
+            key = format_entity_name(
+                f"{self.username} charging device {charging_device.get('id')} switch"
+            )
+            data[key] = NexxtmoveItem(
+                name=charging_device.get("name"),
+                key=key,
+                type="charging_device",
+                sensor_type="switch",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=False,
+            )
+            """
+
+            pin = self.device_pin(charging_device.get("id"))
+            key = format_entity_name(
+                f"{self.username} charging device {charging_device.get('id')} pin"
+            )
+            data[key] = NexxtmoveItem(
+                name=f"{charging_device.get('name')} PIN",
+                key=key,
+                type="charging_device_pin",
+                sensor_type="sensor",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=pin.get("pin"),
+            )
+
             events = self.device_events(charging_device.get("id"))
             if events.get("events") and len(events.get("events")):
                 key = format_entity_name(
@@ -231,6 +271,7 @@ class NexxtmoveClient:
                     name=f"{charging_device.get('name')} events",
                     key=key,
                     type="charging_events",
+                    sensor_type="sensor",
                     device_key=device_key,
                     device_name=device_name,
                     device_model=device_model,
@@ -247,6 +288,7 @@ class NexxtmoveClient:
                         name=charging_point.get("name"),
                         key=key,
                         type="charging_point",
+                        sensor_type="sensor",
                         device_key=device_key,
                         device_name=device_name,
                         device_model=device_model,
@@ -262,6 +304,7 @@ class NexxtmoveClient:
                             name=f"{charging_point.get('name')} events",
                             key=key,
                             type="charging_events",
+                            sensor_type="sensor",
                             device_key=device_key,
                             device_name=device_name,
                             device_model=device_model,
@@ -304,6 +347,19 @@ class NexxtmoveClient:
         response = self.request(
             f"{self.environment.api_endpoint}/device/{device_id}/events",
             "[NexxtmoveClient|device_events]",
+            None,
+            200,
+        )
+        if response is False:
+            return False
+        return response.json()
+
+    def device_pin(self, device_id):
+        """Fetch Device pin."""
+        log_debug("[NexxtmoveClient|device_pin] Fetching device pin from Nexxtmove")
+        response = self.request(
+            f"{self.environment.api_endpoint}/device/{device_id}/pin",
+            "[NexxtmoveClient|device_pin]",
             None,
             200,
         )

@@ -31,6 +31,7 @@ class NexxtmoveSensorDescription(SensorEntityDescription):
 
 SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     NexxtmoveSensorDescription(key="company", icon="mdi:account-group"),
+    NexxtmoveSensorDescription(key="charging_device_pin", icon="mdi:lock-question"),
     NexxtmoveSensorDescription(key="profile", icon="mdi:face-man"),
     NexxtmoveSensorDescription(
         key="consumption",
@@ -68,34 +69,38 @@ async def async_setup_entry(
     if coordinator.data is not None:
         for item in coordinator.data:
             item = coordinator.data[item]
-            if description := SUPPORTED_KEYS.get(item.type):
-                if item.native_unit_of_measurement is not None:
-                    native_unit_of_measurement = item.native_unit_of_measurement
-                else:
-                    native_unit_of_measurement = description.native_unit_of_measurement
-                sensor_description = NexxtmoveSensorDescription(
-                    key=str(item.key),
-                    name=item.name,
-                    value_fn=description.value_fn,
-                    native_unit_of_measurement=native_unit_of_measurement,
-                    icon=description.icon,
-                )
-
-                log_debug(f"[sensor|async_setup_entry|adding] {item.name}")
-                entities.append(
-                    NexxtmoveSensor(
-                        coordinator=coordinator,
-                        description=sensor_description,
-                        item=item,
+            if item.sensor_type == "sensor":
+                if description := SUPPORTED_KEYS.get(item.type):
+                    if item.native_unit_of_measurement is not None:
+                        native_unit_of_measurement = item.native_unit_of_measurement
+                    else:
+                        native_unit_of_measurement = (
+                            description.native_unit_of_measurement
+                        )
+                    sensor_description = NexxtmoveSensorDescription(
+                        key=str(item.key),
+                        name=item.name,
+                        value_fn=description.value_fn,
+                        native_unit_of_measurement=native_unit_of_measurement,
+                        icon=description.icon,
                     )
-                )
-            else:
-                log_debug(
-                    f"[sensor|async_setup_entry|no support type found] {item.name}, type: {item.type}, keys: {SUPPORTED_KEYS.get(item.type)}",
-                    True,
-                )
 
-        async_add_entities(entities)
+                    log_debug(f"[sensor|async_setup_entry|adding] {item.name}")
+                    entities.append(
+                        NexxtmoveSensor(
+                            coordinator=coordinator,
+                            description=sensor_description,
+                            item=item,
+                        )
+                    )
+                else:
+                    log_debug(
+                        f"[sensor|async_setup_entry|no support type found] {item.name}, type: {item.type}, keys: {SUPPORTED_KEYS.get(item.type)}",
+                        True,
+                    )
+
+        if len(entities):
+            async_add_entities(entities)
 
 
 class NexxtmoveSensor(NexxtmoveEntity, SensorEntity):

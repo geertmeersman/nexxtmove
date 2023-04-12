@@ -29,6 +29,7 @@ class NexxtmoveItem:
     name: str = ""
     key: str = ""
     type: str = ""
+    sensor_type: str = ""
     state: str = ""
     device_key: str = ""
     device_name: str = ""

@@ -57,7 +57,7 @@ class NexxtmoveEntity(CoordinatorEntity[NexxtmoveDataUpdateCoordinator]):
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
-        if len(self.coordinator.data):
+        if self.coordinator.data is not None and len(self.coordinator.data):
             for item in self.coordinator.data:
                 item = self.coordinator.data[item]
                 if self._key == item.key:
