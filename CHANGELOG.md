@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.13](https://github.com/geertmeersman/nexxtmove/tree/v0.1.13) (2023-04-12)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.12...v0.1.13)
+
+**Merged pull requests:**
+
+- Headers fixed in case of multiple accounts [\#16](https://github.com/geertmeersman/nexxtmove/pull/16) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.12](https://github.com/geertmeersman/nexxtmove/tree/v0.1.12) (2023-04-12)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.11...v0.1.12)
@@ -68,7 +76,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.3...v0.1.4)
 
-**Fixed bugs:**
+**Merged pull requests:**
 
 - Fix error message in config flow [\#7](https://github.com/geertmeersman/nexxtmove/pull/7) ([geertmeersman](https://github.com/geertmeersman))
 
