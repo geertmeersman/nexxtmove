@@ -83,7 +83,7 @@ class NexxtmoveCommonFlow(ABC, FlowHandler):
             errors = test["errors"]
         fields = {
             vol.Required(CONF_USERNAME): TextSelector(
-                TextSelectorConfig(type=TextSelectorType.EMAIL, autocomplete="username")
+                TextSelectorConfig(type=TextSelectorType.TEXT, autocomplete="username")
             ),
             vol.Required(CONF_PASSWORD): TextSelector(
                 TextSelectorConfig(
