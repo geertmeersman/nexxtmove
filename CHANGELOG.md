@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.12](https://github.com/geertmeersman/nexxtmove/tree/v0.1.12) (2023-04-12)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.11...v0.1.12)
+
+**Implemented enhancements:**
+
+- Device PIN added as a sensor [\#15](https://github.com/geertmeersman/nexxtmove/pull/15) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.11](https://github.com/geertmeersman/nexxtmove/tree/v0.1.11) (2023-04-12)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.10...v0.1.11)
