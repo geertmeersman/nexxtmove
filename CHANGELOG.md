@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.14](https://github.com/geertmeersman/nexxtmove/tree/v0.1.14) (2023-04-13)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.13...v0.1.14)
+
+**Merged pull requests:**
+
+- The lost switch :-\) [\#17](https://github.com/geertmeersman/nexxtmove/pull/17) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.13](https://github.com/geertmeersman/nexxtmove/tree/v0.1.13) (2023-04-12)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.12...v0.1.13)
