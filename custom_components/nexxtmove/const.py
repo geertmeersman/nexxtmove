@@ -29,6 +29,8 @@ BASE_HEADERS = {
     "Content-Type": "application/json; charset=utf-8",
 }
 
+GRAPH_START_DATE = "20220101"
+
 COORDINATOR_UPDATE_INTERVAL = timedelta(minutes=5)
 CONNECTION_RETRY = 5
 REQUEST_TIMEOUT = 20

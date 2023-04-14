@@ -9,7 +9,8 @@ from homeassistant.components.sensor import SensorDeviceClass
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.components.sensor import SensorEntityDescription
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import ENERGY_KILO_WATT_HOUR
+from homeassistant.const import CURRENCY_EURO
+from homeassistant.const import UnitOfEnergy
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityDescription
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -36,9 +37,16 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     NexxtmoveSensorDescription(
         key="consumption",
         device_class=SensorDeviceClass.ENERGY,
-        native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
+        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         icon="mdi:gauge",
     ),
+    NexxtmoveSensorDescription(
+        key="totalEnergyWh",
+        device_class=SensorDeviceClass.ENERGY,
+        native_unit_of_measurement=UnitOfEnergy.WATT_HOUR,
+        icon="mdi:gauge",
+    ),
+    NexxtmoveSensorDescription(key="counter", icon="mdi:counter"),
     NexxtmoveSensorDescription(key="charging_device", icon="mdi:ev-station"),
     NexxtmoveSensorDescription(key="charging_point", icon="mdi:ev-plug-type1"),
     NexxtmoveSensorDescription(
@@ -46,6 +54,12 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     ),
     NexxtmoveSensorDescription(key="price", icon="mdi:currency-eur"),
     NexxtmoveSensorDescription(key="charges", icon="mdi:currency-eur"),
+    NexxtmoveSensorDescription(
+        key="euro",
+        icon="mdi:currency-eur",
+        device_class=SensorDeviceClass.MONETARY,
+        native_unit_of_measurement=CURRENCY_EURO,
+    ),
     NexxtmoveSensorDescription(key="residential_location", icon="mdi:home"),
     NexxtmoveSensorDescription(key="work_location", icon="mdi:office-building"),
 ]
