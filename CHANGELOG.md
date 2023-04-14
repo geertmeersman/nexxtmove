@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.1](https://github.com/geertmeersman/nexxtmove/tree/v0.3.1) (2023-04-14)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.0...v0.3.1)
+
+**Implemented enhancements:**
+
+- Number of charges in graph period count [\#20](https://github.com/geertmeersman/nexxtmove/pull/20) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.3.0](https://github.com/geertmeersman/nexxtmove/tree/v0.3.0) (2023-04-14)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.2.0...v0.3.0)
