@@ -243,6 +243,10 @@ class NexxtmoveClient:
                 extra_attributes=charging_device,
             )
 
+            extra_attributes = {
+                "start_date": GRAPH_START_DATE,
+                "end_date": datetime.datetime.now().strftime("%Y%m%d"),
+            }
             graph_data = self.charging_device_graph(
                 charging_device_id,
                 GRAPH_START_DATE,
@@ -262,14 +266,14 @@ class NexxtmoveClient:
                 device_name=device_name,
                 device_model=device_model,
                 state=graph_data.get("totals").get("totalReimbursed"),
+                extra_attributes=extra_attributes,
             )
             monthly_date = []
             monthly_cost = []
             monthly_energy = []
             monthly_charges = []
-            period_energy = 0
+            period_charges = 0
             for record in graph_data.get("records"):
-                period_energy += record.get("energyWh")
                 monthly_date.append(record.get("date"))
                 cost = {}
                 energy = {}
@@ -290,6 +294,11 @@ class NexxtmoveClient:
                         .get(category.upper())
                         .get("charges")
                     }
+                    period_charges += (
+                        record.get("detailsPerAccount")
+                        .get(category.upper())
+                        .get("charges")
+                    )
                 monthly_cost.append(cost)
                 monthly_energy.append(energy)
                 monthly_charges.append(charges)
@@ -307,7 +316,8 @@ class NexxtmoveClient:
                 device_name=device_name,
                 device_model=device_model,
                 state=graph_data.get("totals").get("totalCost"),
-                extra_attributes={"dates": monthly_date, "values": monthly_cost},
+                extra_attributes=extra_attributes
+                | {"dates": monthly_date, "values": monthly_cost},
             )
             suffix = "period energy"
             key = format_entity_name(
@@ -322,7 +332,8 @@ class NexxtmoveClient:
                 device_name=device_name,
                 device_model=device_model,
                 state=graph_data.get("totals").get("totalEnergyWh") / 1000,
-                extra_attributes={"dates": monthly_date, "values": monthly_energy},
+                extra_attributes=extra_attributes
+                | {"dates": monthly_date, "values": monthly_energy},
             )
             suffix = "period charges"
             key = format_entity_name(
@@ -336,8 +347,9 @@ class NexxtmoveClient:
                 device_key=device_key,
                 device_name=device_name,
                 device_model=device_model,
-                state=0,
-                extra_attributes={"dates": monthly_date, "values": monthly_charges},
+                state=period_charges,
+                extra_attributes=extra_attributes
+                | {"dates": monthly_date, "values": monthly_charges},
             )
 
             """
