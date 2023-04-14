@@ -243,6 +243,10 @@ class NexxtmoveClient:
                 extra_attributes=charging_device,
             )
 
+            extra_attributes = {
+                "start_date": GRAPH_START_DATE,
+                "end_date": datetime.datetime.now().strftime("%Y%m%d"),
+            }
             graph_data = self.charging_device_graph(
                 charging_device_id,
                 GRAPH_START_DATE,
@@ -262,6 +266,7 @@ class NexxtmoveClient:
                 device_name=device_name,
                 device_model=device_model,
                 state=graph_data.get("totals").get("totalReimbursed"),
+                extra_attributes=extra_attributes,
             )
             monthly_date = []
             monthly_cost = []
@@ -311,7 +316,8 @@ class NexxtmoveClient:
                 device_name=device_name,
                 device_model=device_model,
                 state=graph_data.get("totals").get("totalCost"),
-                extra_attributes={"dates": monthly_date, "values": monthly_cost},
+                extra_attributes=extra_attributes
+                | {"dates": monthly_date, "values": monthly_cost},
             )
             suffix = "period energy"
             key = format_entity_name(
@@ -326,7 +332,8 @@ class NexxtmoveClient:
                 device_name=device_name,
                 device_model=device_model,
                 state=graph_data.get("totals").get("totalEnergyWh") / 1000,
-                extra_attributes={"dates": monthly_date, "values": monthly_energy},
+                extra_attributes=extra_attributes
+                | {"dates": monthly_date, "values": monthly_energy},
             )
             suffix = "period charges"
             key = format_entity_name(
@@ -341,7 +348,8 @@ class NexxtmoveClient:
                 device_name=device_name,
                 device_model=device_model,
                 state=period_charges,
-                extra_attributes={"dates": monthly_date, "values": monthly_charges},
+                extra_attributes=extra_attributes
+                | {"dates": monthly_date, "values": monthly_charges},
             )
 
             """
