@@ -267,9 +267,8 @@ class NexxtmoveClient:
             monthly_cost = []
             monthly_energy = []
             monthly_charges = []
-            period_energy = 0
+            period_charges = 0
             for record in graph_data.get("records"):
-                period_energy += record.get("energyWh")
                 monthly_date.append(record.get("date"))
                 cost = {}
                 energy = {}
@@ -290,6 +289,11 @@ class NexxtmoveClient:
                         .get(category.upper())
                         .get("charges")
                     }
+                    period_charges += (
+                        record.get("detailsPerAccount")
+                        .get(category.upper())
+                        .get("charges")
+                    )
                 monthly_cost.append(cost)
                 monthly_energy.append(energy)
                 monthly_charges.append(charges)
@@ -336,7 +340,7 @@ class NexxtmoveClient:
                 device_key=device_key,
                 device_name=device_name,
                 device_model=device_model,
-                state=0,
+                state=period_charges,
                 extra_attributes={"dates": monthly_date, "values": monthly_charges},
             )
 
