@@ -221,8 +221,9 @@ class NexxtmoveClient:
 
         device_list = self.device_list()
         for charging_device in device_list.get("chargingDevices"):
+            charging_device_id = charging_device.get("id")
             key = format_entity_name(
-                f"{self.username} charging device {charging_device.get('id')}"
+                f"{self.username} charging device {charging_device_id}"
             )
             device_key = key
             device_name = charging_device.get("name")
@@ -240,9 +241,12 @@ class NexxtmoveClient:
             )
 
             """
+            tokens = self.charging_device_tokens(charging_device_id)
+            log_debug(f"Charging tokens: {tokens}", True)
+
             #Switch will be used when it becomes useful
             key = format_entity_name(
-                f"{self.username} charging device {charging_device.get('id')} switch"
+                f"{self.username} charging device {charging_device_id} switch"
             )
             data[key] = NexxtmoveItem(
                 name=charging_device.get("name"),
@@ -258,7 +262,7 @@ class NexxtmoveClient:
 
             pin = self.device_pin(charging_device.get("id"))
             key = format_entity_name(
-                f"{self.username} charging device {charging_device.get('id')} pin"
+                f"{self.username} charging device {charging_device_id} pin"
             )
             data[key] = NexxtmoveItem(
                 name=f"{charging_device.get('name')} PIN",
@@ -274,7 +278,7 @@ class NexxtmoveClient:
             events = self.device_events(charging_device.get("id"))
             if events.get("events") and len(events.get("events")):
                 key = format_entity_name(
-                    f"{self.username} charging device {charging_device.get('id')} events"
+                    f"{self.username} charging device {charging_device_id} events"
                 )
                 data[key] = NexxtmoveItem(
                     name=f"{charging_device.get('name')} events",
@@ -303,6 +307,21 @@ class NexxtmoveClient:
                         device_model=device_model,
                         state=charging_point.get("status"),
                         extra_attributes=charging_point,
+                    )
+                    key = format_entity_name(
+                        f"{self.username} charging point {id} price"
+                    )
+                    price_info = charging_point.get("price").split(" ")
+                    data[key] = NexxtmoveItem(
+                        name=f"{charging_point.get('name')} price",
+                        key=key,
+                        type="price",
+                        sensor_type="sensor",
+                        device_key=device_key,
+                        device_name=device_name,
+                        device_model=device_model,
+                        state=price_info[0],
+                        native_unit_of_measurement=price_info[1],
                     )
                     events = self.charging_point_events(id)
                     if events.get("events") and len(events.get("events")):
@@ -369,6 +388,21 @@ class NexxtmoveClient:
         response = self.request(
             f"{self.environment.api_endpoint}/device/{device_id}/pin",
             "[NexxtmoveClient|device_pin]",
+            None,
+            200,
+        )
+        if response is False:
+            return False
+        return response.json()
+
+    def charging_device_tokens(self, device_id):
+        """Fetch Device tokens."""
+        log_debug(
+            "[NexxtmoveClient|charging_device_tokens] Fetching device tokens from Nexxtmove"
+        )
+        response = self.request(
+            f"{self.environment.api_endpoint}/charging-device-token/list?chargingDeviceId={device_id}",
+            "[NexxtmoveClient|charging_device_tokens]",
             None,
             200,
         )

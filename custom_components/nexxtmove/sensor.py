@@ -44,6 +44,7 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     NexxtmoveSensorDescription(
         key="charging_events", icon="mdi:calendar-multiple-check"
     ),
+    NexxtmoveSensorDescription(key="price", icon="mdi:currency-eur"),
     NexxtmoveSensorDescription(key="charges", icon="mdi:currency-eur"),
     NexxtmoveSensorDescription(key="residential_location", icon="mdi:home"),
     NexxtmoveSensorDescription(key="work_location", icon="mdi:office-building"),
