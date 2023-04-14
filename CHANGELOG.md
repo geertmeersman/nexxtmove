@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.2.0](https://github.com/geertmeersman/nexxtmove/tree/v0.2.0) (2023-04-14)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.14...v0.2.0)
+
+**Implemented enhancements:**
+
+- Price sensor for charging point [\#18](https://github.com/geertmeersman/nexxtmove/pull/18) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.14](https://github.com/geertmeersman/nexxtmove/tree/v0.1.14) (2023-04-13)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.13...v0.1.14)
