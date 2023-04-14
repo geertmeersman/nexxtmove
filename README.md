@@ -74,7 +74,231 @@ logger:
 
 ## Lovelace examples
 
-### Latest charges
+### Period graphs
+
+![Period Graphs](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/period_graphs.png)
+
+<details><summary>Show markdown code</summary>
+
+**Replace &lt;username&gt; by your Nexxtmove username**
+
+```
+type: custom:config-template-card
+variables:
+  nexxtmove:
+    account: geertgerits
+    device_id: 1204969
+entities:
+  - >-
+    ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_cost"}
+card:
+  type: vertical-stack
+  cards:
+    - type: custom:apexcharts-card
+      apex_config:
+        tooltip:
+          enabled: true
+          followCursor: true
+          x:
+            show: false
+            format: MMMM yyyy
+          'y':
+            show: true
+      graph_span: 1year
+      header:
+        standard_format: false
+        show: true
+        show_states: false
+        title: ${'Nexxtmove costs for the past year €'}
+      now:
+        show: true
+      series:
+        - entity: >-
+            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_cost"}
+          name: Home
+          type: column
+          color: 73C56C
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].home];
+            });
+        - entity: >-
+            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_cost"}
+          name: Work
+          type: column
+          color: ff8d00
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].work];
+            });
+        - entity: >-
+            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_cost"}
+          name: Payment
+          type: column
+          color: 00a8ff
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].payment];
+            });
+        - entity: >-
+            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_cost"}
+          name: Guest
+          type: column
+          color: d100a0
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].guest];
+            });
+    - type: custom:apexcharts-card
+      apex_config:
+        tooltip:
+          enabled: true
+          followCursor: true
+          x:
+            show: false
+            format: MMMM yyyy
+          'y':
+            show: true
+      graph_span: 1year
+      header:
+        standard_format: false
+        show: true
+        show_states: false
+        title: ${'Nexxtmove energy usage for the past year Wh'}
+      now:
+        show: true
+      series:
+        - entity: >-
+            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_energy"}
+          name: Home
+          type: column
+          color: 73C56C
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].home];
+            });
+        - entity: >-
+            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_energy"}
+          name: Work
+          type: column
+          color: ff8d00
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].work];
+            });
+        - entity: >-
+            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_energy"}
+          name: Payment
+          type: column
+          color: 00a8ff
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].payment];
+            });
+        - entity: >-
+            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_energy"}
+          name: Guest
+          type: column
+          color: d100a0
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].guest];
+            });
+    - type: custom:apexcharts-card
+      apex_config:
+        tooltip:
+          enabled: true
+          followCursor: true
+          x:
+            show: false
+            format: MMMM yyyy
+          'y':
+            show: true
+      graph_span: 1year
+      header:
+        standard_format: false
+        show: true
+        show_states: false
+        title: ${'Nexxtmove charges for the past year \#'}
+      now:
+        show: true
+      series:
+        - entity: >-
+            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_charges"}
+          name: Home
+          type: column
+          color: 73C56C
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].home];
+            });
+        - entity: >-
+            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_charges"}
+          name: Work
+          type: column
+          color: ff8d00
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].work];
+            });
+        - entity: >-
+            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_charges"}
+          name: Payment
+          type: column
+          color: 00a8ff
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].payment];
+            });
+        - entity: >-
+            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_energy"}
+          name: Guest
+          type: column
+          color: d100a0
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].guest];
+            });
+
+```
+
+</details>
 
 ![Latest charges](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/latest_charges.png)
 
@@ -107,6 +331,7 @@ title: Latest charges
 
 | Description             | Screenshot                                                                                                                     |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Period Graphs           | ![Period Graphs](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/period_graphs.png)                     |
 | Profile                 | ![Profile](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/profile.png)                                 |
 | Company                 | ![Company](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/company.png)                                 |
 | Nexxtender Mobile Black | ![Nexxtender Mobile Black](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/nexxtender_mobile_black.png) |
