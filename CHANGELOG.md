@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.0](https://github.com/geertmeersman/nexxtmove/tree/v0.3.0) (2023-04-14)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.2.0...v0.3.0)
+
+**Implemented enhancements:**
+
+- Period graphs [\#19](https://github.com/geertmeersman/nexxtmove/pull/19) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.2.0](https://github.com/geertmeersman/nexxtmove/tree/v0.2.0) (2023-04-14)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.14...v0.2.0)
