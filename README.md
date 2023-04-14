@@ -80,14 +80,14 @@ logger:
 
 <details><summary>Show markdown code</summary>
 
-**Replace &lt;username&gt; by your Nexxtmove username**
+**Replace &lt;username&gt; by your Nexxtmove username and &lt;deviceid&gt; by your Nexxtmove charging device id**
 
 ```
 type: custom:config-template-card
 variables:
   nexxtmove:
-    account: geertgerits
-    device_id: 1204969
+    account: <username>
+    device_id: <deviceid>
 entities:
   - >-
     ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_cost"}
