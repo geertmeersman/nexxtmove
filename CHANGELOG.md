@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.3](https://github.com/geertmeersman/nexxtmove/tree/v0.3.3) (2023-04-15)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.2...v0.3.3)
+
+**Documentation:**
+
+- Readme graph improvement lovelace [\#22](https://github.com/geertmeersman/nexxtmove/pull/22) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.3.2](https://github.com/geertmeersman/nexxtmove/tree/v0.3.2) (2023-04-14)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.1...v0.3.2)
