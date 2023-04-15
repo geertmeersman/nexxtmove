@@ -85,14 +85,17 @@ logger:
 ```
 type: custom:config-template-card
 variables:
-  nexxtmove:
-    account: <username>
-    device_id: <deviceid>
+  sensor:
+    cost: sensor.nexxtmove_<username>_charging_device_<deviceid>_period_cost
+    energy: sensor.nexxtmove_<username>_charging_device_<deviceid>_period_energy
+    charges: sensor.nexxtmove_<username>_charging_device_<deviceid>_period_charges
 entities:
-  - >-
-    ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_cost"}
+  - ${sensor.cost}
+  - ${sensor.energy}
+  - ${sensor.charges}
 card:
   type: vertical-stack
+  title: Geert Meersman
   cards:
     - type: custom:apexcharts-card
       apex_config:
@@ -113,8 +116,7 @@ card:
       now:
         show: true
       series:
-        - entity: >-
-            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_cost"}
+        - entity: ${sensor.cost}
           name: Home
           type: column
           color: 73C56C
@@ -125,8 +127,7 @@ card:
             return entity.attributes.dates.map((day, index) => {
               return [new Date(day), entity.attributes.values[index].home];
             });
-        - entity: >-
-            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_cost"}
+        - entity: ${sensor.cost}
           name: Work
           type: column
           color: ff8d00
@@ -137,8 +138,7 @@ card:
             return entity.attributes.dates.map((day, index) => {
               return [new Date(day), entity.attributes.values[index].work];
             });
-        - entity: >-
-            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_cost"}
+        - entity: ${sensor.cost}
           name: Payment
           type: column
           color: 00a8ff
@@ -149,8 +149,7 @@ card:
             return entity.attributes.dates.map((day, index) => {
               return [new Date(day), entity.attributes.values[index].payment];
             });
-        - entity: >-
-            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_cost"}
+        - entity: ${sensor.cost}
           name: Guest
           type: column
           color: d100a0
@@ -180,8 +179,7 @@ card:
       now:
         show: true
       series:
-        - entity: >-
-            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_energy"}
+        - entity: ${sensor.energy}
           name: Home
           type: column
           color: 73C56C
@@ -192,8 +190,7 @@ card:
             return entity.attributes.dates.map((day, index) => {
               return [new Date(day), entity.attributes.values[index].home];
             });
-        - entity: >-
-            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_energy"}
+        - entity: ${sensor.energy}
           name: Work
           type: column
           color: ff8d00
@@ -204,8 +201,7 @@ card:
             return entity.attributes.dates.map((day, index) => {
               return [new Date(day), entity.attributes.values[index].work];
             });
-        - entity: >-
-            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_energy"}
+        - entity: ${sensor.energy}
           name: Payment
           type: column
           color: 00a8ff
@@ -216,8 +212,7 @@ card:
             return entity.attributes.dates.map((day, index) => {
               return [new Date(day), entity.attributes.values[index].payment];
             });
-        - entity: >-
-            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_energy"}
+        - entity: ${sensor.energy}
           name: Guest
           type: column
           color: d100a0
@@ -247,8 +242,7 @@ card:
       now:
         show: true
       series:
-        - entity: >-
-            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_charges"}
+        - entity: ${sensor.charges}
           name: Home
           type: column
           color: 73C56C
@@ -259,8 +253,7 @@ card:
             return entity.attributes.dates.map((day, index) => {
               return [new Date(day), entity.attributes.values[index].home];
             });
-        - entity: >-
-            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_charges"}
+        - entity: ${sensor.charges}
           name: Work
           type: column
           color: ff8d00
@@ -271,8 +264,7 @@ card:
             return entity.attributes.dates.map((day, index) => {
               return [new Date(day), entity.attributes.values[index].work];
             });
-        - entity: >-
-            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_charges"}
+        - entity: ${sensor.charges}
           name: Payment
           type: column
           color: 00a8ff
@@ -283,8 +275,7 @@ card:
             return entity.attributes.dates.map((day, index) => {
               return [new Date(day), entity.attributes.values[index].payment];
             });
-        - entity: >-
-            ${"sensor.nexxtmove_"+nexxtmove.account+"_charging_device_"+nexxtmove.device_id+"_period_energy"}
+        - entity: ${sensor.charges}
           name: Guest
           type: column
           color: d100a0
