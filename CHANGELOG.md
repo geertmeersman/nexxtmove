@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.4](https://github.com/geertmeersman/nexxtmove/tree/v0.3.4) (2023-04-18)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.3...v0.3.4)
+
+**Merged pull requests:**
+
+- Update pip requirement from \<23.1,\>=8.0.3 to \>=8.0.3,\<23.2 [\#23](https://github.com/geertmeersman/nexxtmove/pull/23) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.3.3](https://github.com/geertmeersman/nexxtmove/tree/v0.3.3) (2023-04-15)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.2...v0.3.3)
