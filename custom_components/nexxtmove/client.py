@@ -423,18 +423,20 @@ class NexxtmoveClient:
                     key = format_entity_name(
                         f"{self.username} charging point {id} price"
                     )
-                    price_info = charging_point.get("price").split(" ")
-                    data[key] = NexxtmoveItem(
-                        name=f"{charging_point.get('name')} price",
-                        key=key,
-                        type="price",
-                        sensor_type="sensor",
-                        device_key=device_key,
-                        device_name=device_name,
-                        device_model=device_model,
-                        state=price_info[0],
-                        native_unit_of_measurement=price_info[1],
-                    )
+                    price = charging_point.get("price")
+                    if price is not None and len(price) != 0:
+                        price_info = price.split(" ")
+                        data[key] = NexxtmoveItem(
+                            name=f"{charging_point.get('name')} price",
+                            key=key,
+                            type="price",
+                            sensor_type="sensor",
+                            device_key=device_key,
+                            device_name=device_name,
+                            device_model=device_model,
+                            state=price_info[0],
+                            native_unit_of_measurement=price_info[1],
+                        )
                     events = self.charging_point_events(id)
                     if events.get("events") and len(events.get("events")):
                         key = format_entity_name(
