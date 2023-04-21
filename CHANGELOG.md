@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.6](https://github.com/geertmeersman/nexxtmove/tree/v0.3.6) (2023-04-21)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.5...v0.3.6)
+
+**Merged pull requests:**
+
+- Update README.md [\#26](https://github.com/geertmeersman/nexxtmove/pull/26) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.3.5](https://github.com/geertmeersman/nexxtmove/tree/v0.3.5) (2023-04-21)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.4...v0.3.5)
