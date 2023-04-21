@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.5](https://github.com/geertmeersman/nexxtmove/tree/v0.3.5) (2023-04-21)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.4...v0.3.5)
+
+**Merged pull requests:**
+
+- Catch if no price is set, references \#24 [\#25](https://github.com/geertmeersman/nexxtmove/pull/25) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.3.4](https://github.com/geertmeersman/nexxtmove/tree/v0.3.4) (2023-04-18)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.3...v0.3.4)
