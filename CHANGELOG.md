@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.7](https://github.com/geertmeersman/nexxtmove/tree/v0.3.7) (2023-04-21)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.6...v0.3.7)
+
+**Documentation:**
+
+- Update bug\_report.md [\#27](https://github.com/geertmeersman/nexxtmove/pull/27) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.3.6](https://github.com/geertmeersman/nexxtmove/tree/v0.3.6) (2023-04-21)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.5...v0.3.6)
