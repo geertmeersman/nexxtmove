@@ -8,6 +8,7 @@ from typing import Any
 from homeassistant.components.sensor import SensorDeviceClass
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.components.sensor import SensorEntityDescription
+from homeassistant.components.sensor import SensorStateClass
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CURRENCY_EURO
 from homeassistant.const import UnitOfEnergy
@@ -41,6 +42,13 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
         icon="mdi:gauge",
     ),
     NexxtmoveSensorDescription(
+        key="consumptionTotal",
+        device_class=SensorDeviceClass.ENERGY,
+        state_class=SensorStateClass.TOTAL,
+        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
+        icon="mdi:gauge",
+    ),
+    NexxtmoveSensorDescription(
         key="totalEnergyWh",
         device_class=SensorDeviceClass.ENERGY,
         native_unit_of_measurement=UnitOfEnergy.WATT_HOUR,
@@ -59,6 +67,12 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
         icon="mdi:currency-eur",
         device_class=SensorDeviceClass.MONETARY,
         native_unit_of_measurement=CURRENCY_EURO,
+    ),
+    NexxtmoveSensorDescription(
+        key="pricekwh",
+        icon="mdi:currency-eur",
+        state_class=SensorStateClass.MEASUREMENT,
+        device_class=SensorDeviceClass.MONETARY,
     ),
     NexxtmoveSensorDescription(key="residential_location", icon="mdi:home"),
     NexxtmoveSensorDescription(key="work_location", icon="mdi:office-building"),
