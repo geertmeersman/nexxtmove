@@ -1,5 +1,24 @@
 # Changelog
 
+## [v0.4.0](https://github.com/geertmeersman/nexxtmove/tree/v0.4.0) (2023-05-04)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.7...v0.4.0)
+
+**Implemented enhancements:**
+
+- Price sensor unit\_of\_measurement to ISO4217 and state\_class:total add… [\#32](https://github.com/geertmeersman/nexxtmove/pull/32) ([geertmeersman](https://github.com/geertmeersman))
+- Manually launch version & release workflow [\#30](https://github.com/geertmeersman/nexxtmove/pull/30) ([geertmeersman](https://github.com/geertmeersman))
+
+**Closed issues:**
+
+- Error after manual installation [\#24](https://github.com/geertmeersman/nexxtmove/issues/24)
+
+**Merged pull requests:**
+
+- Bump ruff from 0.0.262 to 0.0.263 [\#31](https://github.com/geertmeersman/nexxtmove/pull/31) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump actions/setup-python from 4.5.0 to 4.6.0 [\#29](https://github.com/geertmeersman/nexxtmove/pull/29) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump ruff from 0.0.261 to 0.0.262 [\#28](https://github.com/geertmeersman/nexxtmove/pull/28) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.3.7](https://github.com/geertmeersman/nexxtmove/tree/v0.3.7) (2023-04-21)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.6...v0.3.7)
