@@ -197,7 +197,7 @@ class NexxtmoveClient:
             data[key] = NexxtmoveItem(
                 name="Consumption",
                 key=key,
-                type="consumption",
+                type="consumptionTotal",
                 sensor_type="sensor",
                 device_key=device_key,
                 device_name=device_name,
@@ -429,13 +429,15 @@ class NexxtmoveClient:
                         data[key] = NexxtmoveItem(
                             name=f"{charging_point.get('name')} price",
                             key=key,
-                            type="price",
+                            type="pricekwh",
                             sensor_type="sensor",
                             device_key=device_key,
                             device_name=device_name,
                             device_model=device_model,
                             state=price_info[0],
-                            native_unit_of_measurement=price_info[1],
+                            native_unit_of_measurement=self.price_to_ISO4217(
+                                price_info[1]
+                            ),
                         )
                     events = self.charging_point_events(id)
                     if events.get("events") and len(events.get("events")):
@@ -454,6 +456,10 @@ class NexxtmoveClient:
                             extra_attributes=events,
                         )
         return data
+
+    def price_to_ISO4217(self, unit):
+        """Convert price info to ISO4217."""
+        return unit.replace("€", "EUR")
 
     def company(self):
         """Fetch Company info."""
