@@ -3,21 +3,18 @@ from __future__ import annotations
 
 import datetime
 
-from requests import (
-    Session,
-)
+from requests import Session
 
-from .const import BASE_HEADERS
-from .const import CONNECTION_RETRY
-from .const import DEFAULT_NEXXTMOVE_ENVIRONMENT
-from .const import GRAPH_START_DATE
-from .const import REQUEST_TIMEOUT
-from .exceptions import BadCredentialsException
-from .exceptions import NexxtmoveServiceException
-from .models import NexxtmoveEnvironment
-from .models import NexxtmoveItem
-from .utils import format_entity_name
-from .utils import log_debug
+from .const import (
+    BASE_HEADERS,
+    CONNECTION_RETRY,
+    DEFAULT_NEXXTMOVE_ENVIRONMENT,
+    GRAPH_START_DATE,
+    REQUEST_TIMEOUT,
+)
+from .exceptions import BadCredentialsException, NexxtmoveServiceException
+from .models import NexxtmoveEnvironment, NexxtmoveItem
+from .utils import format_entity_name, log_debug
 
 
 class NexxtmoveClient:
@@ -193,6 +190,10 @@ class NexxtmoveClient:
             )
         consumption = self.consumption()
         if consumption.get("consumptionInKwh") is not None:
+            charges = self.charges()
+            if charges is False:
+                charges = {}
+
             key = format_entity_name(f"{self.username} consumption")
             data[key] = NexxtmoveItem(
                 name="Consumption",
@@ -203,6 +204,7 @@ class NexxtmoveClient:
                 device_name=device_name,
                 device_model=device_model,
                 state=consumption.get("consumptionInKwh"),
+                extra_attributes=charges,
             )
         buildings = self.residential_buildings()
         if buildings.get("locations") and len(buildings.get("locations")):
@@ -594,6 +596,19 @@ class NexxtmoveClient:
         response = self.request(
             f"{self.environment.api_endpoint}/charge/consumption",
             "[NexxtmoveClient|consumption]",
+            None,
+            200,
+        )
+        if response is False:
+            return False
+        return response.json()
+
+    def charges(self):
+        """Fetch charges."""
+        log_debug("[NexxtmoveClient|charges] Fetching charges from Nexxtmove")
+        response = self.request(
+            f"{self.environment.api_endpoint}/charge/current?maxRows=100&offset=0",
+            "[NexxtmoveClient|charges]",
             None,
             200,
         )
