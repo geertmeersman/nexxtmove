@@ -1,13 +1,26 @@
 # Changelog
 
+## [v0.5.0](https://github.com/geertmeersman/nexxtmove/tree/v0.5.0) (2023-06-16)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.4.0...v0.5.0)
+
+**Merged pull requests:**
+
+- feat: add current charges as attributes to consumption sensor [\#45](https://github.com/geertmeersman/nexxtmove/pull/45) ([geertmeersman](https://github.com/geertmeersman))
+- Create FUNDING.yml [\#44](https://github.com/geertmeersman/nexxtmove/pull/44) ([geertmeersman](https://github.com/geertmeersman))
+- Bump ruff from 0.0.270 to 0.0.272 [\#43](https://github.com/geertmeersman/nexxtmove/pull/43) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: beta release [\#42](https://github.com/geertmeersman/nexxtmove/pull/42) ([geertmeersman](https://github.com/geertmeersman))
+- docs: drawable images + workflows [\#41](https://github.com/geertmeersman/nexxtmove/pull/41) ([geertmeersman](https://github.com/geertmeersman))
+- Bump ruff from 0.0.267 to 0.0.270 [\#40](https://github.com/geertmeersman/nexxtmove/pull/40) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump actions/setup-python from 4.6.0 to 4.6.1 [\#39](https://github.com/geertmeersman/nexxtmove/pull/39) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Discord webhook [\#36](https://github.com/geertmeersman/nexxtmove/pull/36) ([geertmeersman](https://github.com/geertmeersman))
+- Bump ruff from 0.0.265 to 0.0.267 [\#35](https://github.com/geertmeersman/nexxtmove/pull/35) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump danielchabr/pr-labels-checker from 3.1 to 3.2 [\#34](https://github.com/geertmeersman/nexxtmove/pull/34) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump ruff from 0.0.263 to 0.0.265 [\#33](https://github.com/geertmeersman/nexxtmove/pull/33) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.4.0](https://github.com/geertmeersman/nexxtmove/tree/v0.4.0) (2023-05-04)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.7...v0.4.0)
-
-**Implemented enhancements:**
-
-- Price sensor unit\_of\_measurement to ISO4217 and state\_class:total add… [\#32](https://github.com/geertmeersman/nexxtmove/pull/32) ([geertmeersman](https://github.com/geertmeersman))
-- Manually launch version & release workflow [\#30](https://github.com/geertmeersman/nexxtmove/pull/30) ([geertmeersman](https://github.com/geertmeersman))
 
 **Closed issues:**
 
@@ -15,7 +28,9 @@
 
 **Merged pull requests:**
 
+- Price sensor unit\_of\_measurement to ISO4217 and state\_class:total add… [\#32](https://github.com/geertmeersman/nexxtmove/pull/32) ([geertmeersman](https://github.com/geertmeersman))
 - Bump ruff from 0.0.262 to 0.0.263 [\#31](https://github.com/geertmeersman/nexxtmove/pull/31) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Manually launch version & release workflow [\#30](https://github.com/geertmeersman/nexxtmove/pull/30) ([geertmeersman](https://github.com/geertmeersman))
 - Bump actions/setup-python from 4.5.0 to 4.6.0 [\#29](https://github.com/geertmeersman/nexxtmove/pull/29) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump ruff from 0.0.261 to 0.0.262 [\#28](https://github.com/geertmeersman/nexxtmove/pull/28) ([dependabot[bot]](https://github.com/apps/dependabot))
 
@@ -71,7 +86,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.3.0...v0.3.1)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Number of charges in graph period count [\#20](https://github.com/geertmeersman/nexxtmove/pull/20) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -79,7 +94,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.2.0...v0.3.0)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Period graphs [\#19](https://github.com/geertmeersman/nexxtmove/pull/19) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -87,7 +102,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.14...v0.2.0)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Price sensor for charging point [\#18](https://github.com/geertmeersman/nexxtmove/pull/18) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -111,7 +126,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.11...v0.1.12)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Device PIN added as a sensor [\#15](https://github.com/geertmeersman/nexxtmove/pull/15) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -119,7 +134,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.10...v0.1.11)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - username TextSelector type changed  from email to text [\#14](https://github.com/geertmeersman/nexxtmove/pull/14) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -151,7 +166,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.6...v0.1.7)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Device name includes Nexxtmove [\#11](https://github.com/geertmeersman/nexxtmove/pull/11) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -159,7 +174,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.1.5...v0.1.6)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - CODEOWNERS file added [\#9](https://github.com/geertmeersman/nexxtmove/pull/9) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -207,12 +222,9 @@
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/1d36abdd895838935c52adfd1783a36ce52920fb...v0.1.0)
 
-**Implemented enhancements:**
-
-- First basic sensors [\#3](https://github.com/geertmeersman/nexxtmove/pull/3) ([geertmeersman](https://github.com/geertmeersman))
-
 **Merged pull requests:**
 
+- First basic sensors [\#3](https://github.com/geertmeersman/nexxtmove/pull/3) ([geertmeersman](https://github.com/geertmeersman))
 - Discord link [\#1](https://github.com/geertmeersman/nexxtmove/pull/1) ([geertmeersman](https://github.com/geertmeersman))
 
 
