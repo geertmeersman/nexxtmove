@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.5.1](https://github.com/geertmeersman/nexxtmove/tree/v0.5.1) (2023-06-16)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.5.0...v0.5.1)
+
+**Merged pull requests:**
+
+- fix: suggested\_display\_precision = 1 [\#46](https://github.com/geertmeersman/nexxtmove/pull/46) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.5.0](https://github.com/geertmeersman/nexxtmove/tree/v0.5.0) (2023-06-16)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.4.0...v0.5.0)
