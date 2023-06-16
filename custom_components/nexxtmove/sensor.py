@@ -5,13 +5,14 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-from homeassistant.components.sensor import SensorDeviceClass
-from homeassistant.components.sensor import SensorEntity
-from homeassistant.components.sensor import SensorEntityDescription
-from homeassistant.components.sensor import SensorStateClass
+from homeassistant.components.sensor import (
+    SensorDeviceClass,
+    SensorEntity,
+    SensorEntityDescription,
+    SensorStateClass,
+)
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CURRENCY_EURO
-from homeassistant.const import UnitOfEnergy
+from homeassistant.const import CURRENCY_EURO, UnitOfEnergy
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityDescription
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -40,18 +41,21 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
         device_class=SensorDeviceClass.ENERGY,
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         icon="mdi:gauge",
+        suggested_display_precision=1,
     ),
     NexxtmoveSensorDescription(
         key="consumptionTotal",
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL,
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
+        suggested_display_precision=1,
         icon="mdi:gauge",
     ),
     NexxtmoveSensorDescription(
         key="totalEnergyWh",
         device_class=SensorDeviceClass.ENERGY,
         native_unit_of_measurement=UnitOfEnergy.WATT_HOUR,
+        suggested_display_precision=1,
         icon="mdi:gauge",
     ),
     NexxtmoveSensorDescription(key="counter", icon="mdi:counter"),
@@ -60,11 +64,14 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     NexxtmoveSensorDescription(
         key="charging_events", icon="mdi:calendar-multiple-check"
     ),
-    NexxtmoveSensorDescription(key="price", icon="mdi:currency-eur"),
+    NexxtmoveSensorDescription(
+        key="price", suggested_display_precision=1, icon="mdi:currency-eur"
+    ),
     NexxtmoveSensorDescription(key="charges", icon="mdi:currency-eur"),
     NexxtmoveSensorDescription(
         key="euro",
         icon="mdi:currency-eur",
+        suggested_display_precision=1,
         device_class=SensorDeviceClass.MONETARY,
         native_unit_of_measurement=CURRENCY_EURO,
     ),
