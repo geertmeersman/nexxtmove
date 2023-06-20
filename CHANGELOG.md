@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.6.0](https://github.com/geertmeersman/nexxtmove/tree/v0.6.0) (2023-06-20)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.5.1...v0.6.0)
+
+**Merged pull requests:**
+
+- feat: past month data points [\#47](https://github.com/geertmeersman/nexxtmove/pull/47) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.5.1](https://github.com/geertmeersman/nexxtmove/tree/v0.5.1) (2023-06-16)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.5.0...v0.5.1)
