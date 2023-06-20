@@ -43,6 +43,7 @@ A Home Assistant integration allowing to monitor your EV charging and manage you
 The Pull request is still pending merge for the hacs-default repository. So until that time, add my repository as a custom repository in hacs and the integration will show up.
 
 Explanation: https://hacs.xyz/docs/faq/custom_repositories/
+
 ```
 Repository: geertmeersman/nexxtmove
 Category: Integration
@@ -74,14 +75,17 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 
 ## Troubleshooting
 
-1. You can enable logging for this integration specifically and share your logs, so I can have a deep dive investigation. To enable logging, update your `configuration.yaml` like this, we can get more information in Configuration -> Logs page
+### ENABLING DEBUG LOGGING
 
-```
-logger:
-  default: warning
-  logs:
-    custom_components.nexxtmove: debug
-```
+To enable debug logging, go to Settings -> Devices & Services and then click the triple dots for the Nexxtmove integration and click Enable Debug Logging.
+
+![enable-debug-logging](https://raw.githubusercontent.com/geertmeersman/nexxtmove/main/images/screenshots/enable-debug-logging.gif)
+
+### DISABLE DEBUG LOGGING AND DOWNLOAD LOGS
+
+Once you enable debug logging, you ideally need to make the error happen. Run your automation, change up your device or whatever was giving you an error and then come back and disable Debug Logging. Disabling debug logging is the same as enabling, but now you will see Disable Debug Logging. After you disable debug logging, it will automatically prompt you to download your log file. Please provide this logfile.
+
+![disable-debug-logging](https://raw.githubusercontent.com/geertmeersman/nexxtmove/main/images/screenshots/disable-debug-logging.gif)
 
 ## Lovelace examples
 
@@ -106,7 +110,6 @@ entities:
   - ${sensor.charges}
 card:
   type: vertical-stack
-  title: Geert Meersman
   cards:
     - type: custom:apexcharts-card
       apex_config:
@@ -296,6 +299,124 @@ card:
           data_generator: |
             return entity.attributes.dates.map((day, index) => {
               return [new Date(day), entity.attributes.values[index].guest];
+            });
+
+```
+
+</details>
+
+![Last Month Period Graphs](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/lovelace_past_month_consumption.png)
+
+<details><summary>Show markdown code</summary>
+
+**Replace &lt;username&gt; by your Nexxtmove username and &lt;deviceid&gt; by your Nexxtmove charging device id**
+
+```
+type: custom:config-template-card
+variables:
+  sensor:
+    cost: sensor.nexxtmove_<username>_charging_device_<deviceid>_month_cost
+    energy: sensor.nexxtmove_<username>_charging_device_<deviceid>_month_energy
+    charges: sensor.nexxtmove_<username>_charging_device_<deviceid>_month_charges
+entities:
+  - ${sensor.cost}
+  - ${sensor.energy}
+  - ${sensor.charges}
+card:
+  type: vertical-stack
+  cards:
+    - type: custom:apexcharts-card
+      apex_config:
+        tooltip:
+          enabled: true
+          followCursor: true
+          x:
+            show: false
+            format: dd MMMM yyyy
+          'y':
+            show: true
+      graph_span: 1month
+      header:
+        standard_format: false
+        show: true
+        show_states: false
+        title: ${'Nexxtmove costs for the past month €'}
+      now:
+        show: true
+        label: Today
+      series:
+        - entity: ${sensor.cost}
+          name: Home
+          type: column
+          color: 73C56C
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].home];
+            });
+    - type: custom:apexcharts-card
+      apex_config:
+        tooltip:
+          enabled: true
+          followCursor: true
+          x:
+            show: false
+            format: dd MMMM yyyy
+          'y':
+            show: true
+      graph_span: 1month
+      header:
+        standard_format: false
+        show: true
+        show_states: false
+        title: ${'Nexxtmove consumption for the past month kWh'}
+      now:
+        show: true
+        label: Today
+      series:
+        - entity: ${sensor.energy}
+          name: Home
+          type: column
+          color: 73C56C
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].home/1000];
+            });
+    - type: custom:apexcharts-card
+      apex_config:
+        tooltip:
+          enabled: true
+          followCursor: true
+          x:
+            show: false
+            format: dd MMMM yyyy
+          'y':
+            show: true
+      graph_span: 1month
+      header:
+        standard_format: false
+        show: true
+        show_states: false
+        title: ${'Nexxtmove charges for the past month \#'}
+      now:
+        show: true
+        label: Today
+      series:
+        - entity: ${sensor.charges}
+          name: Home
+          type: column
+          color: 73C56C
+          show:
+            legend_value: false
+          float_precision: 2
+          data_generator: |
+            return entity.attributes.dates.map((day, index) => {
+              return [new Date(day), entity.attributes.values[index].home];
             });
 
 ```
