@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import datetime
 
+from dateutil.relativedelta import relativedelta
 from requests import Session
 
 from .const import (
@@ -245,14 +246,15 @@ class NexxtmoveClient:
                 extra_attributes=charging_device,
             )
 
+            end_date = datetime.datetime.now().strftime("%Y%m%d")
             extra_attributes = {
                 "start_date": GRAPH_START_DATE,
-                "end_date": datetime.datetime.now().strftime("%Y%m%d"),
+                "end_date": end_date,
             }
             graph_data = self.charging_device_graph(
                 charging_device_id,
                 GRAPH_START_DATE,
-                datetime.datetime.now().strftime("%Y%m%d"),
+                end_date,
             )
 
             suffix = "period reimbursed"
@@ -338,6 +340,120 @@ class NexxtmoveClient:
                 | {"dates": monthly_date, "values": monthly_energy},
             )
             suffix = "period charges"
+            key = format_entity_name(
+                f"{self.username} charging device {charging_device_id} {suffix}"
+            )
+            data[key] = NexxtmoveItem(
+                name=f"{charging_device.get('name')} {suffix}",
+                key=key,
+                type="counter",
+                sensor_type="sensor",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=period_charges,
+                extra_attributes=extra_attributes
+                | {"dates": monthly_date, "values": monthly_charges},
+            )
+            # Montly charge sessions
+            start_date = (
+                datetime.datetime.now()
+                - relativedelta(months=1)
+                + relativedelta(days=1)
+            ).strftime("%Y%m%d")
+            extra_attributes = {
+                "start_date": start_date,
+                "end_date": end_date,
+            }
+            graph_data = self.charging_device_graph(
+                charging_device_id,
+                start_date,
+                end_date,
+            )
+
+            suffix = "month reimbursed"
+            key = format_entity_name(
+                f"{self.username} charging device {charging_device_id} {suffix}"
+            )
+            data[key] = NexxtmoveItem(
+                name=f"{charging_device.get('name')} {suffix}",
+                key=key,
+                type="euro",
+                sensor_type="sensor",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=graph_data.get("totals").get("totalReimbursed"),
+                extra_attributes=extra_attributes,
+            )
+            monthly_date = []
+            monthly_cost = []
+            monthly_energy = []
+            monthly_charges = []
+            period_charges = 0
+            for record in graph_data.get("records"):
+                monthly_date.append(record.get("date"))
+                cost = {}
+                energy = {}
+                charges = {}
+                for category in ["home", "payment", "guest", "work"]:
+                    cost |= {
+                        category: record.get("detailsPerAccount")
+                        .get(category.upper())
+                        .get("cost")
+                    }
+                    energy |= {
+                        category: record.get("detailsPerAccount")
+                        .get(category.upper())
+                        .get("energyWh")
+                    }
+                    charges |= {
+                        category: record.get("detailsPerAccount")
+                        .get(category.upper())
+                        .get("charges")
+                    }
+                    period_charges += (
+                        record.get("detailsPerAccount")
+                        .get(category.upper())
+                        .get("charges")
+                    )
+                monthly_cost.append(cost)
+                monthly_energy.append(energy)
+                monthly_charges.append(charges)
+
+            suffix = "month cost"
+            key = format_entity_name(
+                f"{self.username} charging device {charging_device_id} {suffix}"
+            )
+            data[key] = NexxtmoveItem(
+                name=f"{charging_device.get('name')} {suffix}",
+                key=key,
+                type="euro",
+                sensor_type="sensor",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=graph_data.get("totals").get("totalCost"),
+                extra_attributes=extra_attributes
+                | {"dates": monthly_date, "values": monthly_cost},
+            )
+            suffix = "month energy"
+            key = format_entity_name(
+                f"{self.username} charging device {charging_device_id} {suffix}"
+            )
+            data[key] = NexxtmoveItem(
+                name=f"{charging_device.get('name')} {suffix}",
+                key=key,
+                type="consumption",
+                sensor_type="sensor",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=graph_data.get("totals").get("totalEnergyWh") / 1000,
+                extra_attributes=extra_attributes
+                | {"dates": monthly_date, "values": monthly_energy},
+            )
+            suffix = "month charges"
             key = format_entity_name(
                 f"{self.username} charging device {charging_device_id} {suffix}"
             )
@@ -581,7 +697,7 @@ class NexxtmoveClient:
         """Fetch charges."""
         log_debug("[NexxtmoveClient|charge_latest] Fetching charges from Nexxtmove")
         response = self.request(
-            f"{self.environment.api_endpoint}/charge/latest?maxRows=20&offset=0",
+            f"{self.environment.api_endpoint}/charge/latest?maxRows=200&offset=0",
             "[NexxtmoveClient|charge_latest]",
             None,
             200,
