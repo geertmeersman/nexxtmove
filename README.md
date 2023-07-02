@@ -47,8 +47,8 @@ A Home Assistant integration allowing to monitor your EV charging and manage you
     - [Manual](#manual)
   - [Contributions are welcome!](#contributions-are-welcome)
   - [Troubleshooting](#troubleshooting)
-    - [ENABLING DEBUG LOGGING](#enabling-debug-logging)
-    - [DISABLE DEBUG LOGGING AND DOWNLOAD LOGS](#disable-debug-logging-and-download-logs)
+    - [Enable debug logging](#enable-debug-logging)
+    - [Disable debug logging and download logs](#disable-debug-logging-and-download-logs)
   - [Lovelace examples](#lovelace-examples)
     - [Period graphs](#period-graphs)
   - [Screenshots](#screenshots)
@@ -88,13 +88,13 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 
 ## Troubleshooting
 
-### ENABLING DEBUG LOGGING
+### Enable debug logging
 
 To enable debug logging, go to Settings -> Devices & Services and then click the triple dots for the Nexxtmove integration and click Enable Debug Logging.
 
 ![enable-debug-logging](https://raw.githubusercontent.com/geertmeersman/nexxtmove/main/images/screenshots/enable-debug-logging.gif)
 
-### DISABLE DEBUG LOGGING AND DOWNLOAD LOGS
+### Disable debug logging and download logs
 
 Once you enable debug logging, you ideally need to make the error happen. Run your automation, change up your device or whatever was giving you an error and then come back and disable Debug Logging. Disabling debug logging is the same as enabling, but now you will see Disable Debug Logging. After you disable debug logging, it will automatically prompt you to download your log file. Please provide this logfile.
 
