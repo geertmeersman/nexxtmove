@@ -507,7 +507,11 @@ class NexxtmoveClient:
                 )
 
             events = self.device_events(charging_device.get("id"))
-            if events.get("events") and len(events.get("events")):
+            if (
+                events is not False
+                and events.get("events")
+                and len(events.get("events"))
+            ):
                 key = format_entity_name(
                     f"{self.username} charging device {charging_device_id} events"
                 )
