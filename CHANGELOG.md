@@ -1,5 +1,20 @@
 # Changelog
 
+## [v0.7.0](https://github.com/geertmeersman/nexxtmove/tree/v0.7.0) (2023-07-18)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.6.0...v0.7.0)
+
+**Merged pull requests:**
+
+- fix: bypass device\_pin if not retrieved, references \#55 [\#56](https://github.com/geertmeersman/nexxtmove/pull/56) ([geertmeersman](https://github.com/geertmeersman))
+- Bump ruff from 0.0.277 to 0.0.278 [\#54](https://github.com/geertmeersman/nexxtmove/pull/54) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Update pip requirement from \<23.2,\>=8.0.3 to \>=8.0.3,\<23.3 [\#53](https://github.com/geertmeersman/nexxtmove/pull/53) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump actions/setup-python from 4.6.1 to 4.7.0 [\#52](https://github.com/geertmeersman/nexxtmove/pull/52) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump ruff from 0.0.275 to 0.0.277 [\#51](https://github.com/geertmeersman/nexxtmove/pull/51) ([dependabot[bot]](https://github.com/apps/dependabot))
+- docs: troubleshooting [\#50](https://github.com/geertmeersman/nexxtmove/pull/50) ([geertmeersman](https://github.com/geertmeersman))
+- docs: repo finally added to HACS [\#49](https://github.com/geertmeersman/nexxtmove/pull/49) ([geertmeersman](https://github.com/geertmeersman))
+- Bump ruff from 0.0.272 to 0.0.275 [\#48](https://github.com/geertmeersman/nexxtmove/pull/48) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.6.0](https://github.com/geertmeersman/nexxtmove/tree/v0.6.0) (2023-06-20)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.5.1...v0.6.0)
