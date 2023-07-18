@@ -491,19 +491,20 @@ class NexxtmoveClient:
             """
 
             pin = self.device_pin(charging_device.get("id"))
-            key = format_entity_name(
-                f"{self.username} charging device {charging_device_id} pin"
-            )
-            data[key] = NexxtmoveItem(
-                name=f"{charging_device.get('name')} PIN",
-                key=key,
-                type="charging_device_pin",
-                sensor_type="sensor",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=pin.get("pin"),
-            )
+            if pin is not False:
+                key = format_entity_name(
+                    f"{self.username} charging device {charging_device_id} pin"
+                )
+                data[key] = NexxtmoveItem(
+                    name=f"{charging_device.get('name')} PIN",
+                    key=key,
+                    type="charging_device_pin",
+                    sensor_type="sensor",
+                    device_key=device_key,
+                    device_name=device_name,
+                    device_model=device_model,
+                    state=pin.get("pin"),
+                )
 
             events = self.device_events(charging_device.get("id"))
             if events.get("events") and len(events.get("events")):
