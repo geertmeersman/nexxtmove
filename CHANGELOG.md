@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.7.1](https://github.com/geertmeersman/nexxtmove/tree/v0.7.1) (2023-07-18)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.7.1-beta.2...v0.7.1)
+
+**Closed issues:**
+
+- error 404 device Pin [\#55](https://github.com/geertmeersman/nexxtmove/issues/55)
+
+**Merged pull requests:**
+
+- fix: ignore device events in case of 404 [\#57](https://github.com/geertmeersman/nexxtmove/pull/57) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v0.7.1-beta.2](https://github.com/geertmeersman/nexxtmove/tree/v0.7.1-beta.2) (2023-07-18)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.7.0...v0.7.1-beta.2)
+
 ## [v0.7.0](https://github.com/geertmeersman/nexxtmove/tree/v0.7.0) (2023-07-18)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.6.0...v0.7.0)
