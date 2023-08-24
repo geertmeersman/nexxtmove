@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.8.1](https://github.com/geertmeersman/nexxtmove/tree/v0.8.1) (2023-08-24)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.8.0...v0.8.1)
+
+**Merged pull requests:**
+
+- fix: remove critical debug line [\#65](https://github.com/geertmeersman/nexxtmove/pull/65) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.8.0](https://github.com/geertmeersman/nexxtmove/tree/v0.8.0) (2023-08-24)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.7.3...v0.8.0)
