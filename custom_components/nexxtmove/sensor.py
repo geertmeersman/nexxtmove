@@ -61,7 +61,7 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     ),
     NexxtmoveSensorDescription(key="counter", icon="mdi:counter"),
     NexxtmoveSensorDescription(key="charging_device", icon="mdi:ev-station"),
-    NexxtmoveSensorDescription(key="charging_point", icon="mdi:ev-plug-type1"),
+    NexxtmoveSensorDescription(key="charging_point", icon="mdi:ev-plug-ccs2"),
     NexxtmoveSensorDescription(
         key="charging_events", icon="mdi:calendar-multiple-check"
     ),
@@ -162,7 +162,7 @@ class NexxtmoveSensor(NexxtmoveEntity, SensorEntity):
         if not self.coordinator.data:
             return {}
         attributes = {
-            "last_synced": self.last_synced,
+            "last_nexxtmove_sync": self.last_synced,
         }
         if len(self.item.extra_attributes) > 0:
             for attr in self.item.extra_attributes:
