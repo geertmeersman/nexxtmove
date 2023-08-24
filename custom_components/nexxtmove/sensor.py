@@ -61,24 +61,25 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     ),
     NexxtmoveSensorDescription(key="counter", icon="mdi:counter"),
     NexxtmoveSensorDescription(key="charging_device", icon="mdi:ev-station"),
-    NexxtmoveSensorDescription(key="charging_point", icon="mdi:ev-plug-ccs2"),
+    NexxtmoveSensorDescription(key="charging_point", icon="mdi:ev-plug-type1"),
     NexxtmoveSensorDescription(
         key="charging_events", icon="mdi:calendar-multiple-check"
     ),
     NexxtmoveSensorDescription(
-        key="price", suggested_display_precision=1, icon="mdi:currency-eur"
+        key="price", suggested_display_precision=2, icon="mdi:currency-eur"
     ),
     NexxtmoveSensorDescription(key="charges", icon="mdi:currency-eur"),
     NexxtmoveSensorDescription(
         key="euro",
         icon="mdi:currency-eur",
-        suggested_display_precision=1,
+        suggested_display_precision=2,
         device_class=SensorDeviceClass.MONETARY,
         native_unit_of_measurement=CURRENCY_EURO,
     ),
     NexxtmoveSensorDescription(
         key="pricekwh",
         icon="mdi:currency-eur",
+        suggested_display_precision=2,
         device_class=SensorDeviceClass.MONETARY,
     ),
     NexxtmoveSensorDescription(key="residential_location", icon="mdi:home"),
@@ -162,7 +163,7 @@ class NexxtmoveSensor(NexxtmoveEntity, SensorEntity):
         if not self.coordinator.data:
             return {}
         attributes = {
-            "last_nexxtmove_sync": self.last_synced,
+            "last_synced": self.last_synced,
         }
         if len(self.item.extra_attributes) > 0:
             for attr in self.item.extra_attributes:

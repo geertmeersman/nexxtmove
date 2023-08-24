@@ -190,6 +190,26 @@ class NexxtmoveClient:
                 state=len(charge_latest.get("charges")),
                 extra_attributes=charge_latest,
             )
+            non_invoiced_charges = []
+            non_invoiced_amount = 0
+            for charge in charge_latest.get("charges"):
+                if charge.get("cleared") is False:
+                    non_invoiced_charges.append(charge)
+                    non_invoiced_amount += charge.get("costVat")
+
+            key = format_entity_name(f"{self.username} non invoiced")
+            data[key] = NexxtmoveItem(
+                name="Non invoiced",
+                key=key,
+                type="euro",
+                sensor_type="sensor",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=non_invoiced_amount,
+                extra_attributes={"charges": non_invoiced_charges},
+            )
+            _LOGGER.critical(non_invoiced_charges)
         consumption = self.consumption()
         if consumption.get("consumptionInKwh") is not None:
             charges = self.charges()
