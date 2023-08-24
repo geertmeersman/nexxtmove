@@ -1,22 +1,9 @@
 """Nexxtmove utils."""
 from __future__ import annotations
 
-import logging
 import re
 
 from jsonpath import jsonpath
-
-from .const import SHOW_DEBUG_AS_WARNING
-
-_LOGGER = logging.getLogger(__name__)
-
-
-def log_debug(input, force=False) -> None:
-    """Log to logger as debug or force as warning."""
-    if SHOW_DEBUG_AS_WARNING is True or force is True:
-        _LOGGER.warning(input)
-    else:
-        _LOGGER.debug(input)
 
 
 def str_to_float(input) -> float:

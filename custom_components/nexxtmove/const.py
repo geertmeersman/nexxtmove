@@ -1,15 +1,13 @@
 """Constants used by Nexxtmove."""
+from datetime import timedelta
 import json
 import logging
-from datetime import timedelta
 from pathlib import Path
 from typing import Final
 
 from homeassistant.const import Platform
 
 from .models import NexxtmoveEnvironment
-
-SHOW_DEBUG_AS_WARNING = False
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -30,6 +28,7 @@ BASE_HEADERS = {
 }
 
 GRAPH_START_DATE = "20220101"
+_LOGGER = logging.getLogger(__name__)
 
 COORDINATOR_UPDATE_INTERVAL = timedelta(minutes=5)
 CONNECTION_RETRY = 5
