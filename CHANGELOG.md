@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.7.2](https://github.com/geertmeersman/nexxtmove/tree/v0.7.2) (2023-08-24)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.7.1...v0.7.2)
+
+**Merged pull requests:**
+
+- fix: \_LOGGER improvement and device\_class fix [\#62](https://github.com/geertmeersman/nexxtmove/pull/62) ([geertmeersman](https://github.com/geertmeersman))
+- Bump ruff from 0.0.280 to 0.0.285 [\#61](https://github.com/geertmeersman/nexxtmove/pull/61) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump ruff from 0.0.278 to 0.0.280 [\#58](https://github.com/geertmeersman/nexxtmove/pull/58) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.7.1](https://github.com/geertmeersman/nexxtmove/tree/v0.7.1) (2023-07-18)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.7.1-beta.2...v0.7.1)
