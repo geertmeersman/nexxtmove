@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.8.0](https://github.com/geertmeersman/nexxtmove/tree/v0.8.0) (2023-08-24)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.7.3...v0.8.0)
+
+**Merged pull requests:**
+
+- feat: non invoiced sensor added in profile [\#64](https://github.com/geertmeersman/nexxtmove/pull/64) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.7.3](https://github.com/geertmeersman/nexxtmove/tree/v0.7.3) (2023-08-24)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.7.2...v0.7.3)
