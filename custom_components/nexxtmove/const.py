@@ -45,14 +45,12 @@ DOMAIN = manifest_data.get("domain")
 NAME = manifest_data.get("name")
 VERSION = manifest_data.get("version")
 ISSUEURL = manifest_data.get("issue_tracker")
-STARTUP = """
+STARTUP = f"""
 -------------------------------------------------------------------
-{name}
-Version: {version}
+{NAME}
+Version: {VERSION}
 This is a custom component
 If you have any issues with this you need to open an issue here:
-{issueurl}
+{ISSUEURL}
 -------------------------------------------------------------------
-""".format(
-    name=NAME, version=VERSION, issueurl=ISSUEURL
-)
+"""
