@@ -106,7 +106,7 @@ class NexxtmoveSwitch(NexxtmoveEntity, SwitchEntity):
         if not self.coordinator.data:
             return {}
         attributes = {
-            "last_synced": self.last_synced,
+            "last_nexxtmove_sync": self.last_synced,
         }
         if len(self.item.extra_attributes) > 0:
             for attr in self.item.extra_attributes:
