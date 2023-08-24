@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.7.3](https://github.com/geertmeersman/nexxtmove/tree/v0.7.3) (2023-08-24)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.7.2...v0.7.3)
+
+**Merged pull requests:**
+
+- fix: mdi:ev-plug-ccs2 icon for charger & last\_nexxtmove\_sync [\#63](https://github.com/geertmeersman/nexxtmove/pull/63) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.7.2](https://github.com/geertmeersman/nexxtmove/tree/v0.7.2) (2023-08-24)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.7.1...v0.7.2)
