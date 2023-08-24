@@ -7,6 +7,7 @@ from dateutil.relativedelta import relativedelta
 from requests import Session
 
 from .const import (
+    _LOGGER,
     BASE_HEADERS,
     CONNECTION_RETRY,
     DEFAULT_NEXXTMOVE_ENVIRONMENT,
@@ -15,7 +16,7 @@ from .const import (
 )
 from .exceptions import BadCredentialsException, NexxtmoveServiceException
 from .models import NexxtmoveEnvironment, NexxtmoveItem
-from .utils import format_entity_name, log_debug
+from .utils import format_entity_name
 
 
 class NexxtmoveClient:
@@ -54,25 +55,25 @@ class NexxtmoveClient:
     ) -> dict:
         """Send a request to Nexxtmove."""
         if data is None:
-            log_debug(f"{caller} Calling GET {url}")
+            _LOGGER.debug(f"{caller} Calling GET {url}")
             response = self.session.get(
                 url,
                 timeout=REQUEST_TIMEOUT,
                 headers=self._headers | {"Authorize": f"Token {self.token}"},
             )
         else:
-            log_debug(f"{caller} Calling POST {url} with {data}")
+            _LOGGER.debug(f"{caller} Calling POST {url} with {data}")
             response = self.session.post(
                 url,
                 json=data,
                 timeout=REQUEST_TIMEOUT,
                 headers=self._headers | {"Authorize": f"Token {self.token}"},
             )
-        log_debug(
+        _LOGGER.debug(
             f"{caller} http status code = {response.status_code} (expecting {expected})"
         )
         if log:
-            log_debug(f"{caller} Response:\n{response.text}")
+            _LOGGER.debug(f"{caller} Response:\n{response.text}")
         if expected is not None and response.status_code != expected:
             if response.status_code == 404:
                 self.request_error = response.json()
@@ -87,7 +88,7 @@ class NexxtmoveClient:
                 raise NexxtmoveServiceException(
                     f"[{caller}] Expecting HTTP {expected} | Response HTTP {response.status_code}, Response: {response.text}, Url: {response.url}"
                 )
-            log_debug(
+            _LOGGER.debug(
                 f"[NexxtmoveClient|request] Received a HTTP {response.status_code}, nothing to worry about! We give it another try :-)"
             )
             self.login()
@@ -99,7 +100,7 @@ class NexxtmoveClient:
     def login(self) -> dict:
         """Start a new Nexxtmove session with a user & password."""
 
-        log_debug("[NexxtmoveClient|login|start]")
+        _LOGGER.debug("[NexxtmoveClient|login|start]")
         """Login process"""
         if self.username is None or self.password is None:
             return False
@@ -112,7 +113,7 @@ class NexxtmoveClient:
         result = response.json()
         try:
             self.token = result.get("authToken")
-            log_debug(f"Setting Token {self.token}")
+            _LOGGER.debug(f"Setting Token {self.token}")
             self.profile = result.get("profile")
         except Exception as exception:
             raise BadCredentialsException(
@@ -472,7 +473,7 @@ class NexxtmoveClient:
 
             """
             tokens = self.charging_device_tokens(charging_device_id)
-            log_debug(f"Charging tokens: {tokens}", True)
+            _LOGGER.debug(f"Charging tokens: {tokens}", True)
 
             #Switch will be used when it becomes useful
             key = format_entity_name(
@@ -586,7 +587,7 @@ class NexxtmoveClient:
 
     def company(self):
         """Fetch Company info."""
-        log_debug("[NexxtmoveClient|company] Fetching company info from Nexxtmove")
+        _LOGGER.debug("[NexxtmoveClient|company] Fetching company info from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/company",
             "[NexxtmoveClient|company]",
@@ -599,7 +600,9 @@ class NexxtmoveClient:
 
     def device_list(self):
         """Fetch Device list."""
-        log_debug("[NexxtmoveClient|device_list] Fetching device list from Nexxtmove")
+        _LOGGER.debug(
+            "[NexxtmoveClient|device_list] Fetching device list from Nexxtmove"
+        )
         response = self.request(
             f"{self.environment.api_endpoint}/device/list",
             "[NexxtmoveClient|device_list]",
@@ -612,7 +615,7 @@ class NexxtmoveClient:
 
     def device_events(self, device_id):
         """Fetch Device events."""
-        log_debug(
+        _LOGGER.debug(
             "[NexxtmoveClient|device_events] Fetching device events from Nexxtmove"
         )
         response = self.request(
@@ -627,7 +630,7 @@ class NexxtmoveClient:
 
     def device_pin(self, device_id):
         """Fetch Device pin."""
-        log_debug("[NexxtmoveClient|device_pin] Fetching device pin from Nexxtmove")
+        _LOGGER.debug("[NexxtmoveClient|device_pin] Fetching device pin from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/device/{device_id}/pin",
             "[NexxtmoveClient|device_pin]",
@@ -640,7 +643,7 @@ class NexxtmoveClient:
 
     def charging_device_tokens(self, device_id):
         """Fetch Device tokens."""
-        log_debug(
+        _LOGGER.debug(
             "[NexxtmoveClient|charging_device_tokens] Fetching device tokens from Nexxtmove"
         )
         response = self.request(
@@ -655,7 +658,7 @@ class NexxtmoveClient:
 
     def charging_device_graph(self, device_id, start_date, end_date):
         """Fetch Charging graph data."""
-        log_debug(
+        _LOGGER.debug(
             "[NexxtmoveClient|charging_device_graph] Fetching charging graph data from Nexxtmove"
         )
         response = self.request(
@@ -670,7 +673,7 @@ class NexxtmoveClient:
 
     def charging_point(self, charging_point_id):
         """Fetch Charging point info."""
-        log_debug(
+        _LOGGER.debug(
             "[NexxtmoveClient|charging_point] Fetching charging point info from Nexxtmove"
         )
         response = self.request(
@@ -685,7 +688,7 @@ class NexxtmoveClient:
 
     def charging_point_events(self, device_id):
         """Fetch charging point events."""
-        log_debug(
+        _LOGGER.debug(
             "[NexxtmoveClient|charging_point_events] Fetching charging point events from Nexxtmove"
         )
         response = self.request(
@@ -700,7 +703,7 @@ class NexxtmoveClient:
 
     def charge_latest(self):
         """Fetch charges."""
-        log_debug("[NexxtmoveClient|charge_latest] Fetching charges from Nexxtmove")
+        _LOGGER.debug("[NexxtmoveClient|charge_latest] Fetching charges from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/charge/latest?maxRows=200&offset=0",
             "[NexxtmoveClient|charge_latest]",
@@ -713,7 +716,9 @@ class NexxtmoveClient:
 
     def consumption(self):
         """Fetch consumption."""
-        log_debug("[NexxtmoveClient|consumption] Fetching consumption from Nexxtmove")
+        _LOGGER.debug(
+            "[NexxtmoveClient|consumption] Fetching consumption from Nexxtmove"
+        )
         response = self.request(
             f"{self.environment.api_endpoint}/charge/consumption",
             "[NexxtmoveClient|consumption]",
@@ -726,7 +731,7 @@ class NexxtmoveClient:
 
     def charges(self):
         """Fetch charges."""
-        log_debug("[NexxtmoveClient|charges] Fetching charges from Nexxtmove")
+        _LOGGER.debug("[NexxtmoveClient|charges] Fetching charges from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/charge/current?maxRows=100&offset=0",
             "[NexxtmoveClient|charges]",
@@ -739,7 +744,7 @@ class NexxtmoveClient:
 
     def residential_buildings(self):
         """Fetch residential buildings."""
-        log_debug(
+        _LOGGER.debug(
             "[NexxtmoveClient|residential_buildings] Fetching residential buildings from Nexxtmove"
         )
         response = self.request(
@@ -754,7 +759,7 @@ class NexxtmoveClient:
 
     def work_buildings(self):
         """Fetch work buildings."""
-        log_debug(
+        _LOGGER.debug(
             "[NexxtmoveClient|work_buildings] Fetching work buildings from Nexxtmove"
         )
         response = self.request(

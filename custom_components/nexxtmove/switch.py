@@ -5,8 +5,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-from homeassistant.components.switch import SwitchEntity
-from homeassistant.components.switch import SwitchEntityDescription
+from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityDescription
@@ -14,10 +13,9 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
 
 from . import NexxtmoveDataUpdateCoordinator
-from .const import DOMAIN
+from .const import _LOGGER, DOMAIN
 from .entity import NexxtmoveEntity
 from .models import NexxtmoveItem
-from .utils import log_debug
 
 
 @dataclass
@@ -38,7 +36,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the Nexxtmove switches."""
-    log_debug("[switch|async_setup_entry|async_add_entities|start]")
+    _LOGGER.debug("[switch|async_setup_entry|async_add_entities|start]")
     coordinator: NexxtmoveDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
     entities: list[NexxtmoveSwitch] = []
 
@@ -46,7 +44,7 @@ async def async_setup_entry(
         description.key: description for description in SENSOR_DESCRIPTIONS
     }
 
-    # log_debug(f"[switch|async_setup_entry|async_add_entities|SUPPORTED_KEYS] {SUPPORTED_KEYS}")
+    # _LOGGER.debug(f"[switch|async_setup_entry|async_add_entities|SUPPORTED_KEYS] {SUPPORTED_KEYS}")
 
     if coordinator.data is not None:
         for item in coordinator.data:
@@ -59,7 +57,7 @@ async def async_setup_entry(
                         icon=description.icon,
                     )
 
-                    log_debug(f"[switch|async_setup_entry|adding] {item.name}")
+                    _LOGGER.debug(f"[switch|async_setup_entry|adding] {item.name}")
                     entities.append(
                         NexxtmoveSwitch(
                             coordinator=coordinator,
@@ -68,7 +66,7 @@ async def async_setup_entry(
                         )
                     )
                 else:
-                    log_debug(
+                    _LOGGER.debug(
                         f"[switch|async_setup_entry|no support type found] {item.name}, type: {item.type}, keys: {SUPPORTED_KEYS.get(item.type)}",
                         True,
                     )
@@ -124,8 +122,8 @@ class NexxtmoveSwitch(NexxtmoveEntity, SwitchEntity):
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the entity on."""
-        log_debug(f"Turning {self.item.name} on")
+        _LOGGER.debug(f"Turning {self.item.name} on")
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the entity off."""
-        log_debug(f"Turning {self.item.name} off")
+        _LOGGER.debug(f"Turning {self.item.name} off")

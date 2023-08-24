@@ -1,30 +1,24 @@
 """Config flow to configure the Nexxtmove integration."""
-from abc import ABC
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from typing import Any
 
-import homeassistant.helpers.config_validation as cv
-import voluptuous as vol
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.config_entries import ConfigFlow
-from homeassistant.config_entries import OptionsFlow
-from homeassistant.const import CONF_PASSWORD
-from homeassistant.const import CONF_USERNAME
+from homeassistant.config_entries import ConfigEntry, ConfigFlow, OptionsFlow
+from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.core import callback
-from homeassistant.data_entry_flow import FlowHandler
-from homeassistant.data_entry_flow import FlowResult
-from homeassistant.helpers.selector import TextSelector
-from homeassistant.helpers.selector import TextSelectorConfig
-from homeassistant.helpers.selector import TextSelectorType
+from homeassistant.data_entry_flow import FlowHandler, FlowResult
+import homeassistant.helpers.config_validation as cv
+from homeassistant.helpers.selector import (
+    TextSelector,
+    TextSelectorConfig,
+    TextSelectorType,
+)
 from homeassistant.helpers.typing import UNDEFINED
+import voluptuous as vol
 
 from .client import NexxtmoveClient
-from .const import DOMAIN
-from .const import NAME
-from .exceptions import BadCredentialsException
-from .exceptions import NexxtmoveServiceException
+from .const import _LOGGER, DOMAIN, NAME
+from .exceptions import BadCredentialsException, NexxtmoveServiceException
 from .models import NexxtmoveConfigEntryData
-from .utils import log_debug
 
 DEFAULT_ENTRY_DATA = NexxtmoveConfigEntryData(
     username=None,
@@ -70,7 +64,7 @@ class NexxtmoveCommonFlow(ABC, FlowHandler):
         if user_input is not None:
             user_input = self.new_data() | user_input
             test = await self.test_connection(user_input)
-            log_debug(f"Test result config flow: {test}")
+            _LOGGER.debug(f"Test result config flow: {test}")
             if not test["errors"]:
                 self.new_title = test["profile"].get("username")
                 self.new_entry_data |= user_input
@@ -78,7 +72,7 @@ class NexxtmoveCommonFlow(ABC, FlowHandler):
                     f"{DOMAIN}_" + test["profile"].get("username")
                 )
                 self._abort_if_unique_id_configured()
-                log_debug(f"New account {self.new_title} added")
+                _LOGGER.debug(f"New account {self.new_title} added")
                 return self.finish_flow()
             errors = test["errors"]
         fields = {
@@ -108,7 +102,7 @@ class NexxtmoveCommonFlow(ABC, FlowHandler):
                 profile = await self.async_validate_input(user_input)
             except AssertionError as exception:
                 errors["base"] = "cannot_connect"
-                log_debug(f"[async_step_password|login] AssertionError {exception}")
+                _LOGGER.debug(f"[async_step_password|login] AssertionError {exception}")
             except ConnectionError:
                 errors["base"] = "cannot_connect"
             except NexxtmoveServiceException:
@@ -117,7 +111,7 @@ class NexxtmoveCommonFlow(ABC, FlowHandler):
                 errors["base"] = "invalid_auth"
             except Exception as exception:
                 errors["base"] = "unknown"
-                log_debug(exception)
+                _LOGGER.debug(exception)
         return {"profile": profile, "errors": errors}
 
     async def async_step_password(self, user_input: dict | None = None) -> FlowResult:
@@ -131,7 +125,7 @@ class NexxtmoveCommonFlow(ABC, FlowHandler):
                 self.new_entry_data |= NexxtmoveConfigEntryData(
                     password=user_input[CONF_PASSWORD],
                 )
-                log_debug(f"Password changed for {user_input[CONF_USERNAME]}")
+                _LOGGER.debug(f"Password changed for {user_input[CONF_USERNAME]}")
                 return self.finish_flow()
 
         fields = {
