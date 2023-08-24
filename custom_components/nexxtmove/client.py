@@ -209,7 +209,6 @@ class NexxtmoveClient:
                 state=non_invoiced_amount,
                 extra_attributes={"charges": non_invoiced_charges},
             )
-            _LOGGER.critical(non_invoiced_charges)
         consumption = self.consumption()
         if consumption.get("consumptionInKwh") is not None:
             charges = self.charges()
