@@ -61,7 +61,7 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     ),
     NexxtmoveSensorDescription(key="counter", icon="mdi:counter"),
     NexxtmoveSensorDescription(key="charging_device", icon="mdi:ev-station"),
-    NexxtmoveSensorDescription(key="charging_point", icon="mdi:ev-plug-type1"),
+    NexxtmoveSensorDescription(key="charging_point", icon="mdi:ev-plug-ccs2"),
     NexxtmoveSensorDescription(
         key="charging_events", icon="mdi:calendar-multiple-check"
     ),
