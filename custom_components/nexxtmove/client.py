@@ -195,7 +195,9 @@ class NexxtmoveClient:
             for charge in charge_latest.get("charges"):
                 if charge.get("cleared") is False:
                     non_invoiced_charges.append(charge)
-                    non_invoiced_amount += charge.get("costVat")
+                    cost = charge.get("costVat")
+                    if isinstance(cost, int | float):
+                        non_invoiced_amount += cost
 
             key = format_entity_name(f"{self.username} non invoiced")
             data[key] = NexxtmoveItem(
