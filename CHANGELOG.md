@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.8.2](https://github.com/geertmeersman/nexxtmove/tree/v0.8.2) (2023-09-14)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.8.1...v0.8.2)
+
+**Merged pull requests:**
+
+- fix: check on numeric cost, references \#69 [\#70](https://github.com/geertmeersman/nexxtmove/pull/70) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump actions/checkout from 3 to 4 [\#68](https://github.com/geertmeersman/nexxtmove/pull/68) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.0.286 to 0.0.287 [\#67](https://github.com/geertmeersman/nexxtmove/pull/67) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.0.285 to 0.0.286 [\#66](https://github.com/geertmeersman/nexxtmove/pull/66) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.8.1](https://github.com/geertmeersman/nexxtmove/tree/v0.8.1) (2023-08-24)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.8.0...v0.8.1)
