@@ -170,7 +170,7 @@ class NexxtmoveOptionsFlow(NexxtmoveCommonFlow, OptionsFlow):
     ) -> FlowResult:
         """Manage Nexxtmove options."""
         return self.async_show_menu(
-            step_id="options_init",
+            step_id="init",
             menu_options=[
                 "password",
             ],

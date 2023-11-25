@@ -22,13 +22,6 @@
   },
   "options": {
     "step": {
-      "init": {
-        "title": "Reconfigure Nexxtmove",
-        "data": {
-          "username": "Username",
-          "password": "Password"
-        }
-      },
       "password": {
         "title": "Update your password",
         "description": "To do when you changed your password on 'Nexxtmove'",
@@ -36,7 +29,7 @@
           "password": "Password"
         }
       },
-      "options_init": {
+      "init": {
         "title": "Change options",
         "menu_options": {
           "password": "Password"
