@@ -1,5 +1,30 @@
 # Changelog
 
+## [v0.9.0](https://github.com/geertmeersman/nexxtmove/tree/v0.9.0) (2023-11-25)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.8.2...v0.9.0)
+
+**Closed issues:**
+
+- I've got following error: Exception unsupported operand type\(s\) for +=:'float' and 'NoneType'. Any idea to solve this? [\#69](https://github.com/geertmeersman/nexxtmove/issues/69)
+
+**Merged pull requests:**
+
+- fix: config flow fix [\#86](https://github.com/geertmeersman/nexxtmove/pull/86) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump actions/github-script from 6 to 7 [\#85](https://github.com/geertmeersman/nexxtmove/pull/85) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/upload-artifact from 2 to 3 [\#84](https://github.com/geertmeersman/nexxtmove/pull/84) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.5 to 0.1.6 [\#83](https://github.com/geertmeersman/nexxtmove/pull/83) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: Release workflow - remove path from zip [\#82](https://github.com/geertmeersman/nexxtmove/pull/82) ([geertmeersman](https://github.com/geertmeersman))
+- fix: Release workflow - add zip artifact [\#81](https://github.com/geertmeersman/nexxtmove/pull/81) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.1.4 to 0.1.5 [\#80](https://github.com/geertmeersman/nexxtmove/pull/80) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.3 to 0.1.4 [\#79](https://github.com/geertmeersman/nexxtmove/pull/79) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: Bump Python and HA [\#78](https://github.com/geertmeersman/nexxtmove/pull/78) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.0.291 to 0.1.3 [\#77](https://github.com/geertmeersman/nexxtmove/pull/77) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<23.3,\>=8.0.3 to \>=8.0.3,\<23.4 [\#75](https://github.com/geertmeersman/nexxtmove/pull/75) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/setup-python from 4.7.0 to 4.7.1 [\#73](https://github.com/geertmeersman/nexxtmove/pull/73) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.0.290 to 0.0.291 [\#72](https://github.com/geertmeersman/nexxtmove/pull/72) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.0.287 to 0.0.290 [\#71](https://github.com/geertmeersman/nexxtmove/pull/71) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.8.2](https://github.com/geertmeersman/nexxtmove/tree/v0.8.2) (2023-09-14)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.8.1...v0.8.2)
