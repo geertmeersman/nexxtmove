@@ -1,6 +1,8 @@
 """Nexxtmove integration."""
 from __future__ import annotations
 
+import logging
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.core import HomeAssistant
@@ -9,9 +11,11 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from requests.exceptions import ConnectionError
 
 from .client import NexxtmoveClient
-from .const import _LOGGER, COORDINATOR_UPDATE_INTERVAL, DOMAIN, PLATFORMS
+from .const import COORDINATOR_UPDATE_INTERVAL, DOMAIN, PLATFORMS
 from .exceptions import NexxtmoveException, NexxtmoveServiceException
 from .models import NexxtmoveItem
+
+_LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

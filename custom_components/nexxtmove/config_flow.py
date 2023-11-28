@@ -1,5 +1,6 @@
 """Config flow to configure the Nexxtmove integration."""
 from abc import ABC, abstractmethod
+import logging
 from typing import Any
 
 from homeassistant.config_entries import ConfigEntry, ConfigFlow, OptionsFlow
@@ -16,9 +17,11 @@ from homeassistant.helpers.typing import UNDEFINED
 import voluptuous as vol
 
 from .client import NexxtmoveClient
-from .const import _LOGGER, DOMAIN, NAME
+from .const import DOMAIN, NAME
 from .exceptions import BadCredentialsException, NexxtmoveServiceException
 from .models import NexxtmoveConfigEntryData
+
+_LOGGER = logging.getLogger(__name__)
 
 DEFAULT_ENTRY_DATA = NexxtmoveConfigEntryData(
     username=None,

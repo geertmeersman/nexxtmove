@@ -57,3 +57,22 @@ def get_json_dict_path(dictionary, path):
     if isinstance(json_dict, list):
         json_dict = json_dict[0]
     return json_dict
+
+
+def mask_fields(json_data, fields_to_mask):
+    """Mask sensitive fields."""
+    if isinstance(json_data, dict):
+        for field in fields_to_mask:
+            if field in json_data:
+                json_data[field] = "***FILTERED***"
+
+        for _, value in json_data.items():
+            mask_fields(
+                value, fields_to_mask
+            )  # Recursively traverse the JSON structure
+
+    elif isinstance(json_data, list):
+        for item in json_data:
+            mask_fields(
+                item, fields_to_mask
+            )  # Recursively traverse each item in the list
