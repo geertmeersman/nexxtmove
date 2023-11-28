@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.9.2](https://github.com/geertmeersman/nexxtmove/tree/v0.9.2) (2023-11-28)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.9.1...v0.9.2)
+
+**Merged pull requests:**
+
+- fix: sensitive fields filtering, logger improvement and UNRECORDED\_AT… [\#88](https://github.com/geertmeersman/nexxtmove/pull/88) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.9.1](https://github.com/geertmeersman/nexxtmove/tree/v0.9.1) (2023-11-28)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.9.0...v0.9.1)
