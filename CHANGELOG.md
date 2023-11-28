@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.9.1](https://github.com/geertmeersman/nexxtmove/tree/v0.9.1) (2023-11-28)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.9.0...v0.9.1)
+
+**Merged pull requests:**
+
+- fix: filter out password when debugging [\#87](https://github.com/geertmeersman/nexxtmove/pull/87) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.9.0](https://github.com/geertmeersman/nexxtmove/tree/v0.9.0) (2023-11-25)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.8.2...v0.9.0)
