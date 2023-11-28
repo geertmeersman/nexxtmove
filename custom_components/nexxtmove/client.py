@@ -1,6 +1,7 @@
 """Nexxtmove API Client."""
 from __future__ import annotations
 
+import copy
 import datetime
 
 from dateutil.relativedelta import relativedelta
@@ -62,7 +63,10 @@ class NexxtmoveClient:
                 headers=self._headers | {"Authorize": f"Token {self.token}"},
             )
         else:
-            _LOGGER.debug(f"{caller} Calling POST {url} with {data}")
+            data_copy = copy.deepcopy(data)
+            if "password" in data_copy:
+                data_copy["password"] = "***FILTERED***"
+            _LOGGER.debug(f"{caller} Calling POST {url} with {data_copy}")
             response = self.session.post(
                 url,
                 json=data,
