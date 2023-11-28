@@ -3,12 +3,12 @@ from __future__ import annotations
 
 import copy
 import datetime
+import logging
 
 from dateutil.relativedelta import relativedelta
 from requests import Session
 
 from .const import (
-    _LOGGER,
     BASE_HEADERS,
     CONNECTION_RETRY,
     DEFAULT_NEXXTMOVE_ENVIRONMENT,
@@ -17,7 +17,9 @@ from .const import (
 )
 from .exceptions import BadCredentialsException, NexxtmoveServiceException
 from .models import NexxtmoveEnvironment, NexxtmoveItem
-from .utils import format_entity_name
+from .utils import format_entity_name, mask_fields
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class NexxtmoveClient:
@@ -64,8 +66,7 @@ class NexxtmoveClient:
             )
         else:
             data_copy = copy.deepcopy(data)
-            if "password" in data_copy:
-                data_copy["password"] = "***FILTERED***"
+            mask_fields(data_copy, ["password"])
             _LOGGER.debug(f"{caller} Calling POST {url} with {data_copy}")
             response = self.session.post(
                 url,
@@ -117,7 +118,6 @@ class NexxtmoveClient:
         result = response.json()
         try:
             self.token = result.get("authToken")
-            _LOGGER.debug(f"Setting Token {self.token}")
             self.profile = result.get("profile")
         except Exception as exception:
             raise BadCredentialsException(

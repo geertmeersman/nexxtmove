@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
+import logging
 from typing import Any
 
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
@@ -13,9 +14,11 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
 
 from . import NexxtmoveDataUpdateCoordinator
-from .const import _LOGGER, DOMAIN
+from .const import DOMAIN
 from .entity import NexxtmoveEntity
 from .models import NexxtmoveItem
+
+_LOGGER = logging.getLogger(__name__)
 
 
 @dataclass

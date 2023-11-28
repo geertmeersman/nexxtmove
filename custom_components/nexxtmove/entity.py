@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+import logging
 
 from homeassistant.core import callback
 from homeassistant.helpers.device_registry import DeviceEntryType
@@ -9,14 +10,17 @@ from homeassistant.helpers.entity import DeviceInfo, EntityDescription
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from . import NexxtmoveDataUpdateCoordinator
-from .const import _LOGGER, ATTRIBUTION, DOMAIN, NAME, VERSION, WEBSITE
+from .const import ATTRIBUTION, DOMAIN, NAME, UNRECORDED_ATTRIBUTES, VERSION, WEBSITE
 from .models import NexxtmoveItem
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class NexxtmoveEntity(CoordinatorEntity[NexxtmoveDataUpdateCoordinator]):
     """Base Nexxtmove entity."""
 
     _attr_attribution = ATTRIBUTION
+    _unrecorded_attributes = frozenset(UNRECORDED_ATTRIBUTES)
 
     def __init__(
         self,
