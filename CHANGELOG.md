@@ -1,5 +1,25 @@
 # Changelog
 
+## [v0.9.3](https://github.com/geertmeersman/nexxtmove/tree/v0.9.3) (2023-12-21)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.9.2...v0.9.3)
+
+**Closed issues:**
+
+- Since Powerdale is bankrupt... now what ? [\#89](https://github.com/geertmeersman/nexxtmove/issues/89)
+
+**Merged pull requests:**
+
+- fix: remove unused get\_json\_dict\_path [\#100](https://github.com/geertmeersman/nexxtmove/pull/100) ([geertmeersman](https://github.com/geertmeersman))
+- fix: remove requirements [\#98](https://github.com/geertmeersman/nexxtmove/pull/98) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump actions/upload-artifact from 3 to 4 [\#97](https://github.com/geertmeersman/nexxtmove/pull/97) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump github/codeql-action from 2 to 3 [\#96](https://github.com/geertmeersman/nexxtmove/pull/96) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/setup-python from 4.7.1 to 5.0.0 [\#94](https://github.com/geertmeersman/nexxtmove/pull/94) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/stale from 8 to 9 [\#93](https://github.com/geertmeersman/nexxtmove/pull/93) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump heinrichreimer/github-changelog-generator-action from 2.3 to 2.4 [\#92](https://github.com/geertmeersman/nexxtmove/pull/92) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.6 to 0.1.7 [\#91](https://github.com/geertmeersman/nexxtmove/pull/91) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump colorlog from 6.7.0 to 6.8.0 [\#90](https://github.com/geertmeersman/nexxtmove/pull/90) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.9.2](https://github.com/geertmeersman/nexxtmove/tree/v0.9.2) (2023-11-28)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.9.1...v0.9.2)
