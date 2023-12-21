@@ -3,8 +3,6 @@ from __future__ import annotations
 
 import re
 
-from jsonpath import jsonpath
-
 
 def str_to_float(input) -> float:
     """Transform float to string."""
@@ -48,15 +46,6 @@ def sizeof_fmt(num, suffix="b"):
             return f"{num:3.1f}{unit}{suffix}"
         num /= 1024.0
     return f"{num:.1f}Yi{suffix}"
-
-
-def get_json_dict_path(dictionary, path):
-    """Fetch info based on jsonpath from dict."""
-    # log_debug(f"[get_json_dict_path] Path: {path}, Dict: {dictionary}")
-    json_dict = jsonpath(dictionary, path)
-    if isinstance(json_dict, list):
-        json_dict = json_dict[0]
-    return json_dict
 
 
 def mask_fields(json_data, fields_to_mask):
