@@ -87,7 +87,6 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
             raise UpdateFailed(f"NexxtmoveException {exception}") from exception
         except Exception as exception:
             raise UpdateFailed(f"Exception {exception}") from exception
-
         items: list[NexxtmoveItem] = items
 
         current_items = {
