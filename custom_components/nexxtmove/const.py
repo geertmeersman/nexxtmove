@@ -26,9 +26,7 @@ BASE_HEADERS = {
 
 UNRECORDED_ATTRIBUTES = {"charges", "events", "dates", "values"}
 
-GRAPH_START_DATE = "20220101"
-
-COORDINATOR_UPDATE_INTERVAL = timedelta(minutes=5)
+COORDINATOR_UPDATE_INTERVAL = timedelta(minutes=120)
 CONNECTION_RETRY = 5
 REQUEST_TIMEOUT = 20
 WEBSITE = "https://nexxtmove.me/"

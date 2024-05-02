@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import copy
-import datetime
+from datetime import datetime, timedelta
 import logging
 
 from dateutil.relativedelta import relativedelta
@@ -12,7 +12,6 @@ from .const import (
     BASE_HEADERS,
     CONNECTION_RETRY,
     DEFAULT_NEXXTMOVE_ENVIRONMENT,
-    GRAPH_START_DATE,
     REQUEST_TIMEOUT,
 )
 from .exceptions import BadCredentialsException, NexxtmoveServiceException
@@ -271,15 +270,19 @@ class NexxtmoveClient:
                 state=charging_device.get("buildingName"),
                 extra_attributes=charging_device,
             )
-
-            end_date = datetime.datetime.now().strftime("%Y%m%d")
+            start_date = (
+                (datetime.now().replace(day=1) - timedelta(days=datetime.now().day))
+                .replace(day=1)
+                .strftime("%Y%m%d")
+            )
+            end_date = datetime.now().strftime("%Y%m%d")
             extra_attributes = {
-                "start_date": GRAPH_START_DATE,
+                "start_date": start_date,
                 "end_date": end_date,
             }
             graph_data = self.charging_device_graph(
                 charging_device_id,
-                GRAPH_START_DATE,
+                start_date,
                 end_date,
             )
 
@@ -383,9 +386,7 @@ class NexxtmoveClient:
             )
             # Montly charge sessions
             start_date = (
-                datetime.datetime.now()
-                - relativedelta(months=1)
-                + relativedelta(days=1)
+                datetime.now() - relativedelta(months=1) + relativedelta(days=1)
             ).strftime("%Y%m%d")
             extra_attributes = {
                 "start_date": start_date,
@@ -495,26 +496,6 @@ class NexxtmoveClient:
                 extra_attributes=extra_attributes
                 | {"dates": monthly_date, "values": monthly_charges},
             )
-
-            """
-            tokens = self.charging_device_tokens(charging_device_id)
-            _LOGGER.debug(f"Charging tokens: {tokens}", True)
-
-            #Switch will be used when it becomes useful
-            key = format_entity_name(
-                f"{self.username} charging device {charging_device_id} switch"
-            )
-            data[key] = NexxtmoveItem(
-                name=charging_device.get("name"),
-                key=key,
-                type="charging_device",
-                sensor_type="switch",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=False,
-            )
-            """
 
             pin = self.device_pin(charging_device.get("id"))
             if pin is not False:
