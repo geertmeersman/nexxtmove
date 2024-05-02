@@ -1,5 +1,34 @@
 # Changelog
 
+## [v0.9.4](https://github.com/geertmeersman/nexxtmove/tree/v0.9.4) (2024-05-02)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.9.3...v0.9.4)
+
+**Merged pull requests:**
+
+- fix: update interval 2h & graph data limited to last and current month [\#123](https://github.com/geertmeersman/nexxtmove/pull/123) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.4.1 to 0.4.2 [\#122](https://github.com/geertmeersman/nexxtmove/pull/122) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.3.7 to 0.4.1 [\#121](https://github.com/geertmeersman/nexxtmove/pull/121) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.3.4 to 0.3.7 [\#120](https://github.com/geertmeersman/nexxtmove/pull/120) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.3.3 to 0.3.4 [\#118](https://github.com/geertmeersman/nexxtmove/pull/118) ([dependabot[bot]](https://github.com/apps/dependabot))
+- refactor: improve github workflows [\#117](https://github.com/geertmeersman/nexxtmove/pull/117) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.3.2 to 0.3.3 [\#116](https://github.com/geertmeersman/nexxtmove/pull/116) ([dependabot[bot]](https://github.com/apps/dependabot))
+- docs: bug\_report markdown [\#115](https://github.com/geertmeersman/nexxtmove/pull/115) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.3.0 to 0.3.2 [\#114](https://github.com/geertmeersman/nexxtmove/pull/114) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.2.2 to 0.3.0 [\#113](https://github.com/geertmeersman/nexxtmove/pull/113) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.2.1 to 0.2.2 [\#112](https://github.com/geertmeersman/nexxtmove/pull/112) ([dependabot[bot]](https://github.com/apps/dependabot))
+- refactor: lint [\#111](https://github.com/geertmeersman/nexxtmove/pull/111) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.2.0 to 0.2.1 [\#110](https://github.com/geertmeersman/nexxtmove/pull/110) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump release-drafter/release-drafter from 5 to 6 [\#109](https://github.com/geertmeersman/nexxtmove/pull/109) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<23.4,\>=8.0.3 to \>=8.0.3,\<24.1 [\#108](https://github.com/geertmeersman/nexxtmove/pull/108) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.14 to 0.2.0 [\#107](https://github.com/geertmeersman/nexxtmove/pull/107) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump colorlog from 6.8.0 to 6.8.2 [\#106](https://github.com/geertmeersman/nexxtmove/pull/106) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.13 to 0.1.14 [\#105](https://github.com/geertmeersman/nexxtmove/pull/105) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/dependency-review-action from 3 to 4 [\#104](https://github.com/geertmeersman/nexxtmove/pull/104) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.11 to 0.1.13 [\#103](https://github.com/geertmeersman/nexxtmove/pull/103) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.9 to 0.1.11 [\#102](https://github.com/geertmeersman/nexxtmove/pull/102) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.8 to 0.1.9 [\#101](https://github.com/geertmeersman/nexxtmove/pull/101) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.9.3](https://github.com/geertmeersman/nexxtmove/tree/v0.9.3) (2023-12-21)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.9.2...v0.9.3)
