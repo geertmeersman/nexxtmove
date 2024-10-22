@@ -16,6 +16,8 @@ A Home Assistant integration allowing to monitor your EV charging and manage you
 [![buyme_coffee](https://img.shields.io/badge/Buy%20me%20an%20Omer-donate-yellow?style=for-the-badge&logo=buymeacoffee)](https://www.buymeacoffee.com/geertmeersman)
 [![discord](https://img.shields.io/discord/1094331679327408320?style=for-the-badge&logo=discord)](https://discord.gg/PTpExQJsWA)
 
+[![discord](http://invidget.switchblade.xyz/PTpExQJsWA)](https://discord.gg/PTpExQJsWA)
+
 [![MIT License](https://img.shields.io/github/license/geertmeersman/nexxtmove?style=flat-square)](https://github.com/geertmeersman/nexxtmove/blob/master/LICENSE)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=flat-square)](https://github.com/hacs/integration)
 
@@ -87,6 +89,8 @@ This integration will set up the following platforms.
 If you want to contribute to this please read the [Contribution guidelines](CONTRIBUTING.md)
 
 ## Troubleshooting
+
+[![discord](http://invidget.switchblade.xyz/PTpExQJsWA)](https://discord.gg/PTpExQJsWA)
 
 ### Enable debug logging
 
