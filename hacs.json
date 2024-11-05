@@ -1,5 +1,6 @@
 {
   "name": "Nexxtmove",
   "render_readme": true,
-  "country": ["BE"]
+  "zip_release": true,
+  "filename": "nexxtmove.zip"
 }
