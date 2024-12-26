@@ -1,49 +1,49 @@
 {
   "config": {
-    "step": {
-      "connection_init": {
-        "title": "New Nexxtmove account",
-        "description": "Set up your Nexxtmove user account",
-        "data": {
-          "username": "Username",
-          "password": "Password"
-        }
-      }
-    },
     "abort": {
       "already_configured": "Account is already configured"
     },
     "error": {
       "cannot_connect": "Failed to connect",
       "invalid_auth": "Invalid authentication",
-      "unknown": "Unexpected error",
-      "service_error": "Service unavailable"
+      "service_error": "Service unavailable",
+      "unknown": "Unexpected error"
+    },
+    "step": {
+      "connection_init": {
+        "data": {
+          "password": "Password",
+          "username": "Username"
+        },
+        "description": "Set up your Nexxtmove user account",
+        "title": "New Nexxtmove account"
+      }
     }
   },
   "options": {
-    "step": {
-      "password": {
-        "title": "Update your password",
-        "description": "To do when you changed your password on 'Nexxtmove'",
-        "data": {
-          "password": "Password"
-        }
-      },
-      "init": {
-        "title": "Change options",
-        "menu_options": {
-          "password": "Password"
-        }
-      }
+    "abort": {
+      "already_configured": "Account is already configured"
     },
     "error": {
       "cannot_connect": "Failed to connect",
       "invalid_auth": "Invalid authentication",
-      "unknown": "Unexpected error",
-      "service_error": "Service unavailable"
+      "service_error": "Service unavailable",
+      "unknown": "Unexpected error"
     },
-    "abort": {
-      "already_configured": "Account is already configured"
+    "step": {
+      "init": {
+        "menu_options": {
+          "password": "Password"
+        },
+        "title": "Change options"
+      },
+      "password": {
+        "data": {
+          "password": "Password"
+        },
+        "description": "To do when you changed your password on 'Nexxtmove'",
+        "title": "Update your password"
+      }
     }
   }
 }
