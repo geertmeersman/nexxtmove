@@ -1,49 +1,49 @@
 {
   "config": {
-    "step": {
-      "connection_init": {
-        "title": "Nieuwe Nexxtmove account",
-        "description": "Configureer je Nexxtmove gebruikers account",
-        "data": {
-          "username": "Gebruiker",
-          "password": "Wachtwoord"
-        }
-      }
-    },
     "abort": {
       "already_configured": "Account is al geconfigureerd"
     },
     "error": {
       "cannot_connect": "Kan geen verbinding maken",
       "invalid_auth": "Ongeldige authenticatie",
-      "unknown": "Onverwachte fout",
-      "service_error": "Service niet beschikbaar"
+      "service_error": "Service niet beschikbaar",
+      "unknown": "Onverwachte fout"
+    },
+    "step": {
+      "connection_init": {
+        "data": {
+          "password": "Wachtwoord",
+          "username": "Gebruiker"
+        },
+        "description": "Configureer je Nexxtmove gebruikers account",
+        "title": "Nieuwe Nexxtmove account"
+      }
     }
   },
   "options": {
-    "step": {
-      "password": {
-        "title": "Pas je wachtwoord aan",
-        "description": "Te doen wanneer je je account wachtwoord gewijzigd hebt op 'Nexxtmove'",
-        "data": {
-          "password": "Wachtwoord"
-        }
-      },
-      "init": {
-        "title": "Opties wijzigen",
-        "menu_options": {
-          "password": "Wachtwoord"
-        }
-      }
-    },
     "abort": {
       "already_configured": "Account is al geconfigureerd"
     },
     "error": {
       "cannot_connect": "Kan geen verbinding maken",
       "invalid_auth": "Ongeldige authenticatie",
-      "unknown": "Onverwachte fout",
-      "service_error": "Service niet beschikbaar"
+      "service_error": "Service niet beschikbaar",
+      "unknown": "Onverwachte fout"
+    },
+    "step": {
+      "init": {
+        "menu_options": {
+          "password": "Wachtwoord"
+        },
+        "title": "Opties wijzigen"
+      },
+      "password": {
+        "data": {
+          "password": "Wachtwoord"
+        },
+        "description": "Te doen wanneer je je account wachtwoord gewijzigd hebt op 'Nexxtmove'",
+        "title": "Pas je wachtwoord aan"
+      }
     }
   }
 }
