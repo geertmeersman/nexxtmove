@@ -1,4 +1,5 @@
 """Nexxtmove API Client."""
+
 from __future__ import annotations
 
 import copy
@@ -384,7 +385,7 @@ class NexxtmoveClient:
                 extra_attributes=extra_attributes
                 | {"dates": monthly_date, "values": monthly_charges},
             )
-            # Montly charge sessions
+            # Monthly charge sessions
             start_date = (
                 datetime.now() - relativedelta(months=1) + relativedelta(days=1)
             ).strftime("%Y%m%d")

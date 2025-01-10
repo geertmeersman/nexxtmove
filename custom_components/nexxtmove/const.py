@@ -1,4 +1,5 @@
 """Constants used by Nexxtmove."""
+
 from datetime import timedelta
 import json
 from pathlib import Path
