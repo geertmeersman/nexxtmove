@@ -73,7 +73,7 @@ A Home Assistant integration allowing to monitor your EV charging and manage you
 
 ### Manual
 
-1. Copy the `custom_components/nexxtmove` directory of this repository as `config/custom_components/nexxtmove` in your Home Assistant instalation.
+1. Copy the `custom_components/nexxtmove` directory of this repository as `config/custom_components/nexxtmove` in your Home Assistant installation.
 2. Restart Home Assistant
 3. Add the 'Nexxtmove' integration via HA Settings > 'Devices and Services' > 'Integrations'
 4. Provide your Nexxtmove username and password
