@@ -151,22 +151,24 @@ class NexxtmoveCommonFlow(ABC, FlowHandler):
 class NexxtmoveOptionsFlow(NexxtmoveCommonFlow, OptionsFlow):
     """Handle Nexxtmove options."""
 
-    general_settings: dict
-
     def __init__(self, config_entry: ConfigEntry) -> None:
         """Initialize Nexxtmove options flow."""
-        self.config_entry = config_entry
         super().__init__(initial_data=config_entry.data)  # type: ignore[arg-type]
 
     @callback
     def finish_flow(self) -> FlowResult:
         """Update the ConfigEntry and finish the flow."""
         new_data = DEFAULT_ENTRY_DATA | self.initial_data | self.new_entry_data
-        self.hass.config_entries.async_update_entry(
-            self.config_entry,
-            data=new_data,
-            title=self.new_title or UNDEFINED,
-        )
+
+        if self.config_entry:
+            self.hass.config_entries.async_update_entry(
+                self.config_entry,
+                data=new_data,
+                title=self.new_title or UNDEFINED,
+            )
+            self.hass.async_create_task(
+                self.hass.config_entries.async_reload(self._config_entry_id)
+            )
         return self.async_create_entry(title="", data={})
 
     async def async_step_init(
