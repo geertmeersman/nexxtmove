@@ -1,5 +1,58 @@
 # Changelog
 
+## [v0.10.0](https://github.com/geertmeersman/nexxtmove/tree/v0.10.0) (2025-03-24)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.9.4...v0.10.0)
+
+**Closed issues:**
+
+- The connection dropped immediately after encrypted hello [\#133](https://github.com/geertmeersman/nexxtmove/issues/133)
+
+**Merged pull requests:**
+
+- fix: deprecation - new options flow properties [\#179](https://github.com/geertmeersman/nexxtmove/pull/179) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.9.9 to 0.11.0 [\#178](https://github.com/geertmeersman/nexxtmove/pull/178) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.9.7 to 0.9.9 [\#176](https://github.com/geertmeersman/nexxtmove/pull/176) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.8.6 to 0.9.7 [\#175](https://github.com/geertmeersman/nexxtmove/pull/175) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<24.4,\>=8.0.3 to \>=8.0.3,\<25.1 [\#171](https://github.com/geertmeersman/nexxtmove/pull/171) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore: github sync dev-current workflow [\#168](https://github.com/geertmeersman/nexxtmove/pull/168) ([geertmeersman](https://github.com/geertmeersman))
+- chore: spellcheck [\#167](https://github.com/geertmeersman/nexxtmove/pull/167) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.8.4 to 0.8.6 [\#166](https://github.com/geertmeersman/nexxtmove/pull/166) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: pretty-format-json [\#165](https://github.com/geertmeersman/nexxtmove/pull/165) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.8.3 to 0.8.4 [\#164](https://github.com/geertmeersman/nexxtmove/pull/164) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.8.2 to 0.8.3 [\#163](https://github.com/geertmeersman/nexxtmove/pull/163) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.8.1 to 0.8.2 [\#162](https://github.com/geertmeersman/nexxtmove/pull/162) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.8.0 to 0.8.1 [\#161](https://github.com/geertmeersman/nexxtmove/pull/161) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: github workflow delete pre-releases on release [\#160](https://github.com/geertmeersman/nexxtmove/pull/160) ([geertmeersman](https://github.com/geertmeersman))
+- fix: beta release zip file [\#159](https://github.com/geertmeersman/nexxtmove/pull/159) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.7.4 to 0.8.0 [\#158](https://github.com/geertmeersman/nexxtmove/pull/158) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.7.3 to 0.7.4 [\#157](https://github.com/geertmeersman/nexxtmove/pull/157) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.7.2 to 0.7.3 [\#156](https://github.com/geertmeersman/nexxtmove/pull/156) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore: zip\_release for hacs [\#155](https://github.com/geertmeersman/nexxtmove/pull/155) ([geertmeersman](https://github.com/geertmeersman))
+- docs: release template [\#154](https://github.com/geertmeersman/nexxtmove/pull/154) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump colorlog from 6.8.2 to 6.9.0 [\#153](https://github.com/geertmeersman/nexxtmove/pull/153) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.7.1 to 0.7.2 [\#152](https://github.com/geertmeersman/nexxtmove/pull/152) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.7.0 to 0.7.1 [\#151](https://github.com/geertmeersman/nexxtmove/pull/151) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<24.3,\>=8.0.3 to \>=8.0.3,\<24.4 [\#150](https://github.com/geertmeersman/nexxtmove/pull/150) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.9 to 0.7.0 [\#149](https://github.com/geertmeersman/nexxtmove/pull/149) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.8 to 0.6.9 [\#148](https://github.com/geertmeersman/nexxtmove/pull/148) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.7 to 0.6.8 [\#147](https://github.com/geertmeersman/nexxtmove/pull/147) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.5 to 0.6.7 [\#146](https://github.com/geertmeersman/nexxtmove/pull/146) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.3 to 0.6.5 [\#145](https://github.com/geertmeersman/nexxtmove/pull/145) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.2 to 0.6.3 [\#143](https://github.com/geertmeersman/nexxtmove/pull/143) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.5.1 to 0.6.2 [\#142](https://github.com/geertmeersman/nexxtmove/pull/142) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<24.2,\>=8.0.3 to \>=8.0.3,\<24.3 [\#137](https://github.com/geertmeersman/nexxtmove/pull/137) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.5.0 to 0.5.1 [\#134](https://github.com/geertmeersman/nexxtmove/pull/134) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.10 to 0.5.0 [\#132](https://github.com/geertmeersman/nexxtmove/pull/132) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<24.1,\>=8.0.3 to \>=8.0.3,\<24.2 [\#131](https://github.com/geertmeersman/nexxtmove/pull/131) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.9 to 0.4.10 [\#130](https://github.com/geertmeersman/nexxtmove/pull/130) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.8 to 0.4.9 [\#129](https://github.com/geertmeersman/nexxtmove/pull/129) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.7 to 0.4.8 [\#128](https://github.com/geertmeersman/nexxtmove/pull/128) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.5 to 0.4.7 [\#127](https://github.com/geertmeersman/nexxtmove/pull/127) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.4 to 0.4.5 [\#126](https://github.com/geertmeersman/nexxtmove/pull/126) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.3 to 0.4.4 [\#125](https://github.com/geertmeersman/nexxtmove/pull/125) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.2 to 0.4.3 [\#124](https://github.com/geertmeersman/nexxtmove/pull/124) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.9.4](https://github.com/geertmeersman/nexxtmove/tree/v0.9.4) (2024-05-02)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.9.3...v0.9.4)
@@ -137,7 +190,7 @@
 
 ## [v0.7.1](https://github.com/geertmeersman/nexxtmove/tree/v0.7.1) (2023-07-18)
 
-[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.7.1-beta.2...v0.7.1)
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.7.0...v0.7.1)
 
 **Closed issues:**
 
@@ -146,10 +199,6 @@
 **Merged pull requests:**
 
 - fix: ignore device events in case of 404 [\#57](https://github.com/geertmeersman/nexxtmove/pull/57) ([geertmeersman](https://github.com/geertmeersman))
-
-## [v0.7.1-beta.2](https://github.com/geertmeersman/nexxtmove/tree/v0.7.1-beta.2) (2023-07-18)
-
-[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.7.0...v0.7.1-beta.2)
 
 ## [v0.7.0](https://github.com/geertmeersman/nexxtmove/tree/v0.7.0) (2023-07-18)
 
