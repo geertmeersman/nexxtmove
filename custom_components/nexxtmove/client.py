@@ -83,6 +83,9 @@ class NexxtmoveClient:
             if response.status_code == 404:
                 self.request_error = response.json()
                 return False
+            if response.status_code == 406:
+                self.request_error = response.json()
+                return False
             if (
                 response.status_code != 403
                 and response.status_code != 401
@@ -645,6 +648,9 @@ class NexxtmoveClient:
             200,
         )
         if response is False:
+            _LOGGER.debug(
+                f"[NexxtmoveClient|device_pin] HTTP 406: {self.request_error}"
+            )
             return False
         return response.json()
 
