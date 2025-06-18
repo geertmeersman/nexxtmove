@@ -1,5 +1,20 @@
 # Changelog
 
+## [v0.10.1](https://github.com/geertmeersman/nexxtmove/tree/v0.10.1) (2025-06-18)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.10.0...v0.10.1)
+
+**Closed issues:**
+
+- Error 406 DEVICE\_BLUETOOTH\_PIN\_NOT\_FOUND" [\#192](https://github.com/geertmeersman/nexxtmove/issues/192)
+
+**Merged pull requests:**
+
+- fix: check on http 406, thrown when device pin is not found, fixes \#192 [\#193](https://github.com/geertmeersman/nexxtmove/pull/193) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.11.12 to 0.11.13 [\#191](https://github.com/geertmeersman/nexxtmove/pull/191) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.11.0 to 0.11.12 [\#190](https://github.com/geertmeersman/nexxtmove/pull/190) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<25.1,\>=8.0.3 to \>=8.0.3,\<25.2 [\#184](https://github.com/geertmeersman/nexxtmove/pull/184) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.10.0](https://github.com/geertmeersman/nexxtmove/tree/v0.10.0) (2025-03-24)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.9.4...v0.10.0)
