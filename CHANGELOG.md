@@ -1,5 +1,24 @@
 # Changelog
 
+## [v1.0.0](https://github.com/geertmeersman/nexxtmove/tree/v1.0.0) (2025-08-06)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.10.1...v1.0.0)
+
+**Closed issues:**
+
+- Feature request: badge id/token from events [\#194](https://github.com/geertmeersman/nexxtmove/issues/194)
+
+**Merged pull requests:**
+
+- chore: Pass config\_entry explicitly to DataUpdateCoordinator to avoid C… [\#202](https://github.com/geertmeersman/nexxtmove/pull/202) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump hugo19941994/delete-draft-releases from 1.0.1 to 2.0.0 [\#201](https://github.com/geertmeersman/nexxtmove/pull/201) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.3 to 0.12.7 [\#200](https://github.com/geertmeersman/nexxtmove/pull/200) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<25.2,\>=8.0.3 to \>=8.0.3,\<25.3 [\#199](https://github.com/geertmeersman/nexxtmove/pull/199) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.2 to 0.12.3 [\#198](https://github.com/geertmeersman/nexxtmove/pull/198) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.1 to 0.12.2 [\#197](https://github.com/geertmeersman/nexxtmove/pull/197) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.0 to 0.12.1 [\#196](https://github.com/geertmeersman/nexxtmove/pull/196) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.11.13 to 0.12.0 [\#195](https://github.com/geertmeersman/nexxtmove/pull/195) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.10.1](https://github.com/geertmeersman/nexxtmove/tree/v0.10.1) (2025-06-18)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.10.0...v0.10.1)
