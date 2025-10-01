@@ -40,7 +40,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the Nexxtmove switches."""
-    _LOGGER.debug("[switch|async_setup_entry|async_add_entities|start]")
+    _LOGGER.debug("[async_setup_entry|async_add_entities|start]")
     coordinator: NexxtmoveDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
     entities: list[NexxtmoveSwitch] = []
 
@@ -48,7 +48,7 @@ async def async_setup_entry(
         description.key: description for description in SENSOR_DESCRIPTIONS
     }
 
-    # _LOGGER.debug(f"[switch|async_setup_entry|async_add_entities|SUPPORTED_KEYS] {SUPPORTED_KEYS}")
+    # _LOGGER.debug(f"[async_setup_entry|async_add_entities|SUPPORTED_KEYS] {SUPPORTED_KEYS}")
 
     if coordinator.data is not None:
         for item in coordinator.data:
@@ -61,7 +61,7 @@ async def async_setup_entry(
                         icon=description.icon,
                     )
 
-                    _LOGGER.debug(f"[switch|async_setup_entry|adding] {item.name}")
+                    _LOGGER.debug(f"[async_setup_entry|adding] {item.name}")
                     entities.append(
                         NexxtmoveSwitch(
                             coordinator=coordinator,
@@ -71,7 +71,7 @@ async def async_setup_entry(
                     )
                 else:
                     _LOGGER.debug(
-                        f"[switch|async_setup_entry|no support type found] {item.name}, type: {item.type}, keys: {SUPPORTED_KEYS.get(item.type)}",
+                        f"[async_setup_entry|no support type found] {item.name}, type: {item.type}, keys: {SUPPORTED_KEYS.get(item.type)}",
                         True,
                     )
 

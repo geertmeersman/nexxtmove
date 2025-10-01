@@ -96,9 +96,7 @@ class NexxtmoveClient:
                 and connection_retry_left > 0
                 and not retrying
             ):
-                _LOGGER.debug(
-                    "[NexxtmoveClient|request] Token expired, retrying login..."
-                )
+                _LOGGER.debug("[request] Token expired, retrying login...")
                 self.profile = {}
                 self.login()
                 return self.request(
@@ -115,7 +113,7 @@ class NexxtmoveClient:
 
     def login(self) -> dict | bool:
         """Authenticate and get a session token."""
-        _LOGGER.debug("[NexxtmoveClient|login|start]")
+        _LOGGER.debug("[login|start]")
 
         if self.token is not None:
             return self.profile
@@ -125,7 +123,7 @@ class NexxtmoveClient:
 
         response = self.request(
             f"{self.environment.api_endpoint}/user/authenticate",
-            "[NexxtmoveClient|login|authenticate]",
+            "[login|authenticate]",
             {"username": self.username, "password": self.password},
             200,
         )
@@ -511,10 +509,10 @@ class NexxtmoveClient:
 
     def company(self) -> dict | bool:
         """Fetch Company info."""
-        _LOGGER.debug("[NexxtmoveClient|company] Fetching company info from Nexxtmove")
+        _LOGGER.debug("[company] Fetching company info from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/company",
-            "[NexxtmoveClient|company]",
+            "[company]",
             None,
             200,
         )
@@ -522,12 +520,10 @@ class NexxtmoveClient:
 
     def device_list(self) -> dict | bool:
         """Fetch Device list."""
-        _LOGGER.debug(
-            "[NexxtmoveClient|device_list] Fetching device list from Nexxtmove"
-        )
+        _LOGGER.debug("[device_list] Fetching device list from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/device/list",
-            "[NexxtmoveClient|device_list]",
+            "[device_list]",
             None,
             200,
         )
@@ -535,12 +531,10 @@ class NexxtmoveClient:
 
     def device_events(self, device_id: str) -> dict | bool:
         """Fetch Device events."""
-        _LOGGER.debug(
-            "[NexxtmoveClient|device_events] Fetching device events from Nexxtmove"
-        )
+        _LOGGER.debug("[device_events] Fetching device events from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/device/{device_id}/events",
-            "[NexxtmoveClient|device_events]",
+            "[device_events]",
             None,
             200,
         )
@@ -548,10 +542,10 @@ class NexxtmoveClient:
 
     def device_pin(self, device_id: str) -> dict | bool:
         """Fetch Device PIN."""
-        _LOGGER.debug("[NexxtmoveClient|device_pin] Fetching device pin from Nexxtmove")
+        _LOGGER.debug("[device_pin] Fetching device pin from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/device/{device_id}/pin",
-            "[NexxtmoveClient|device_pin]",
+            "[device_pin]",
             None,
             200,
         )
@@ -559,12 +553,10 @@ class NexxtmoveClient:
 
     def charging_device_tokens(self, device_id: str) -> dict | bool:
         """Fetch Device tokens."""
-        _LOGGER.debug(
-            "[NexxtmoveClient|charging_device_tokens] Fetching device tokens from Nexxtmove"
-        )
+        _LOGGER.debug("[charging_device_tokens] Fetching device tokens from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/charging-device-token/list?chargingDeviceId={device_id}",
-            "[NexxtmoveClient|charging_device_tokens]",
+            "[charging_device_tokens]",
             None,
             200,
         )
@@ -575,11 +567,11 @@ class NexxtmoveClient:
     ) -> dict | bool:
         """Fetch Charging graph data."""
         _LOGGER.debug(
-            "[NexxtmoveClient|charging_device_graph] Fetching charging graph data from Nexxtmove"
+            "[charging_device_graph] Fetching charging graph data from Nexxtmove"
         )
         response = self.request(
             f"{self.environment.api_endpoint}/graph/graph/{device_id}?startDate={start_date}&endDate={end_date}",
-            "[NexxtmoveClient|charging_device_graph]",
+            "[charging_device_graph]",
             None,
             200,
         )
@@ -587,12 +579,10 @@ class NexxtmoveClient:
 
     def charging_point(self, charging_point_id: str) -> dict | bool:
         """Fetch Charging point info."""
-        _LOGGER.debug(
-            "[NexxtmoveClient|charging_point] Fetching charging point info from Nexxtmove"
-        )
+        _LOGGER.debug("[charging_point] Fetching charging point info from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/point/{charging_point_id}",
-            "[NexxtmoveClient|charging_point]",
+            "[charging_point]",
             None,
             200,
         )
@@ -601,11 +591,11 @@ class NexxtmoveClient:
     def charging_point_events(self, device_id: str) -> dict | bool:
         """Fetch charging point events."""
         _LOGGER.debug(
-            "[NexxtmoveClient|charging_point_events] Fetching charging point events from Nexxtmove"
+            "[charging_point_events] Fetching charging point events from Nexxtmove"
         )
         response = self.request(
             f"{self.environment.api_endpoint}/point/{device_id}/events",
-            "[NexxtmoveClient|charging_point_events]",
+            "[charging_point_events]",
             None,
             200,
         )
@@ -613,10 +603,10 @@ class NexxtmoveClient:
 
     def charge_latest(self) -> dict:
         """Fetch latest charges."""
-        _LOGGER.debug("[NexxtmoveClient|charge_latest] Fetching charges from Nexxtmove")
+        _LOGGER.debug("[charge_latest] Fetching charges from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/charge/latest?maxRows={MAX_ROWS}&offset=0",
-            "[NexxtmoveClient|charge_latest]",
+            "[charge_latest]",
             None,
             200,
         )
@@ -624,12 +614,10 @@ class NexxtmoveClient:
 
     def consumption(self) -> dict | bool:
         """Fetch consumption."""
-        _LOGGER.debug(
-            "[NexxtmoveClient|consumption] Fetching consumption from Nexxtmove"
-        )
+        _LOGGER.debug("[consumption] Fetching consumption from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/charge/consumption",
-            "[NexxtmoveClient|consumption]",
+            "[consumption]",
             None,
             200,
         )
@@ -637,10 +625,10 @@ class NexxtmoveClient:
 
     def charges(self) -> dict | bool:
         """Fetch current charges."""
-        _LOGGER.debug("[NexxtmoveClient|charges] Fetching charges from Nexxtmove")
+        _LOGGER.debug("[charges] Fetching charges from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/charge/current?maxRows={MAX_ROWS}&offset=0",
-            "[NexxtmoveClient|charges]",
+            "[charges]",
             None,
             200,
         )
@@ -649,11 +637,11 @@ class NexxtmoveClient:
     def residential_buildings(self) -> dict | bool:
         """Fetch residential buildings."""
         _LOGGER.debug(
-            "[NexxtmoveClient|residential_buildings] Fetching residential buildings from Nexxtmove"
+            "[residential_buildings] Fetching residential buildings from Nexxtmove"
         )
         response = self.request(
             f"{self.environment.api_endpoint}/building/residential?maxRows={MAX_ROWS}&offset=0",
-            "[NexxtmoveClient|residential_buildings]",
+            "[residential_buildings]",
             None,
             200,
         )
@@ -661,12 +649,10 @@ class NexxtmoveClient:
 
     def work_buildings(self) -> dict | bool:
         """Fetch work buildings."""
-        _LOGGER.debug(
-            "[NexxtmoveClient|work_buildings] Fetching work buildings from Nexxtmove"
-        )
+        _LOGGER.debug("[work_buildings] Fetching work buildings from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/building/list/work?maxRows={MAX_ROWS}&offset=0",
-            "[NexxtmoveClient|work_buildings]",
+            "[work_buildings]",
             None,
             200,
         )

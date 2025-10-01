@@ -51,7 +51,7 @@ class NexxtmoveEntity(CoordinatorEntity[NexxtmoveDataUpdateCoordinator]):
         self.last_synced = datetime.now()
         self._attr_name = f"{self.item.name}".capitalize()
         self._item = item
-        _LOGGER.debug(f"[NexxtmoveEntity|init] {self._key}")
+        _LOGGER.debug(f"[init] {self._key}")
 
     @callback
     def _handle_coordinator_update(self) -> None:
@@ -65,7 +65,7 @@ class NexxtmoveEntity(CoordinatorEntity[NexxtmoveDataUpdateCoordinator]):
                     self.async_write_ha_state()
                     return
         _LOGGER.debug(
-            f"[NexxtmoveEntity|_handle_coordinator_update] {self._attr_unique_id}: async_write_ha_state ignored since API fetch failed or not found",
+            f"[_handle_coordinator_update] {self._attr_unique_id}: async_write_ha_state ignored since API fetch failed or not found",
             True,
         )
 
