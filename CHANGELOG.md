@@ -1,5 +1,24 @@
 # Changelog
 
+## [v1.0.1](https://github.com/geertmeersman/nexxtmove/tree/v1.0.1) (2025-10-01)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.0...v1.0.1)
+
+**Merged pull requests:**
+
+- fix: Stop calling when a http 500 occurs and reduce maxrows to 5 [\#214](https://github.com/geertmeersman/nexxtmove/pull/214) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.13.1 to 0.13.2 [\#213](https://github.com/geertmeersman/nexxtmove/pull/213) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.13.0 to 0.13.1 [\#212](https://github.com/geertmeersman/nexxtmove/pull/212) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.12 to 0.13.0 [\#211](https://github.com/geertmeersman/nexxtmove/pull/211) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/setup-python from 5 to 6 [\#210](https://github.com/geertmeersman/nexxtmove/pull/210) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/stale from 9 to 10 [\#209](https://github.com/geertmeersman/nexxtmove/pull/209) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/github-script from 7 to 8 [\#208](https://github.com/geertmeersman/nexxtmove/pull/208) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.11 to 0.12.12 [\#207](https://github.com/geertmeersman/nexxtmove/pull/207) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.10 to 0.12.11 [\#206](https://github.com/geertmeersman/nexxtmove/pull/206) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/checkout from 4 to 5 [\#205](https://github.com/geertmeersman/nexxtmove/pull/205) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.8 to 0.12.10 [\#204](https://github.com/geertmeersman/nexxtmove/pull/204) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.7 to 0.12.8 [\#203](https://github.com/geertmeersman/nexxtmove/pull/203) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.0.0](https://github.com/geertmeersman/nexxtmove/tree/v1.0.0) (2025-08-06)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v0.10.1...v1.0.0)
