@@ -52,12 +52,12 @@ class NexxtmoveClient:
         url,
         caller="Not set",
         data=None,
-        expected="200",
+        expected=200,
         log=False,
         retrying=False,
         connection_retry_left=CONNECTION_RETRY,
-    ) -> dict:
-        """Send a request to Nexxtmove."""
+    ) -> dict | bool:
+        """Send a request to Nexxtmove with token and optional retries."""
         if data is None:
             _LOGGER.debug(f"{caller} Calling GET {url}")
             response = self.session.get(
@@ -75,58 +75,64 @@ class NexxtmoveClient:
                 timeout=REQUEST_TIMEOUT,
                 headers=self._headers | {"Authorize": f"Token {self.token}"},
             )
+
         _LOGGER.debug(
             f"{caller} http status code = {response.status_code} (expecting {expected})"
         )
+
         if log:
             _LOGGER.debug(f"{caller} Response:\n{response.text}")
+
         if expected is not None and response.status_code != expected:
-            if response.status_code in (404, 406):
-                self.request_error = response.json()
+            if response.status_code in (404, 406, 400):
+                self.request_error = response.json() if response.content else {}
                 return False
 
             if 500 <= response.status_code < 600:
-                # Any server-side error (5xx) → return False
                 return False
 
             if (
-                response.status_code not in (401, 403)
+                response.status_code in (401, 403)
                 and connection_retry_left > 0
                 and not retrying
             ):
-                raise NexxtmoveServiceException(
-                    f"[{caller}] Expecting HTTP {expected} | "
-                    f"Response HTTP {response.status_code}, "
-                    f"Response: {response.text}, Url: {response.url}"
+                _LOGGER.debug(
+                    "[NexxtmoveClient|request] Token expired, retrying login..."
+                )
+                self.profile = {}
+                self.login()
+                return self.request(
+                    url, caller, data, expected, log, True, connection_retry_left - 1
                 )
 
-            _LOGGER.debug(
-                f"[NexxtmoveClient|request] Received a HTTP {response.status_code}, "
-                f"nothing to worry about! We give it another try :-), Url: {response.url}"
+            raise NexxtmoveServiceException(
+                f"[{caller}] Expecting HTTP {expected} | "
+                f"Response HTTP {response.status_code}, "
+                f"Response: {response.text}, Url: {response.url}"
             )
-            self.profile = {}
-            self.login()
-            response = self.request(
-                url, caller, data, expected, log, True, connection_retry_left - 1
-            )
+
         return response
 
-    def login(self) -> dict:
-        """Start a new Nexxtmove session with a user & password."""
-
+    def login(self) -> dict | bool:
+        """Authenticate and get a session token."""
         _LOGGER.debug("[NexxtmoveClient|login|start]")
-        """Login process"""
 
         if self.token is not None:
             return self.profile
+
         if self.username is None or self.password is None:
             return False
+
         response = self.request(
             f"{self.environment.api_endpoint}/user/authenticate",
             "[NexxtmoveClient|login|authenticate]",
             {"username": self.username, "password": self.password},
             200,
         )
+
+        if response is False:
+            return False
+
         result = response.json()
         try:
             self.token = result.get("authToken")
@@ -135,11 +141,12 @@ class NexxtmoveClient:
             raise BadCredentialsException(
                 f"HTTP {response.status_code} authToken {exception}"
             )
+
         return self.profile
 
-    def fetch_data(self):
-        """Fetch Nexxtmove data."""
-        data = {}
+    def fetch_data(self) -> dict:
+        """Fetch all Nexxtmove data for the account."""
+        data: dict = {}
         self.login()
         company = self.company()
 
@@ -147,9 +154,10 @@ class NexxtmoveClient:
         device_name = company.get("name")
         device_model = company.get("type")
 
+        # Company info
         key = format_entity_name(f"{self.username} company")
         data[key] = NexxtmoveItem(
-            name=company.get("name"),
+            name=device_name,
             key=key,
             type="company",
             sensor_type="sensor",
@@ -159,24 +167,26 @@ class NexxtmoveClient:
             state=company.get("type"),
             extra_attributes=company,
         )
-        buildings = self.work_buildings()
-        if buildings.get("locations") and len(buildings.get("locations")):
-            for location in buildings.get("locations"):
-                key = format_entity_name(
-                    f"{self.username} work location {location.get('id')}"
-                )
-                data[key] = NexxtmoveItem(
-                    name=location.get("name"),
-                    key=key,
-                    type="work_location",
-                    sensor_type="sensor",
-                    device_key=device_key,
-                    device_name=device_name,
-                    device_model=device_model,
-                    state=location.get("city"),
-                    extra_attributes=location,
-                )
 
+        # Work locations
+        buildings = self.work_buildings()
+        for location in buildings.get("locations", []):
+            key = format_entity_name(
+                f"{self.username} work location {location.get('id')}"
+            )
+            data[key] = NexxtmoveItem(
+                name=location.get("name"),
+                key=key,
+                type="work_location",
+                sensor_type="sensor",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=location.get("city"),
+                extra_attributes=location,
+            )
+
+        # Profile info
         device_key = format_entity_name(f"{self.username} account")
         device_name = f"Profile {self.username}"
         device_model = "Profile"
@@ -192,12 +202,10 @@ class NexxtmoveClient:
             state=self.profile.get("username"),
             extra_attributes=self.profile,
         )
+
+        # Charges
         charge_latest = self.charge_latest()
-        if (
-            charge_latest
-            and charge_latest.get("charges")
-            and len(charge_latest.get("charges"))
-        ):
+        if charge_latest and charge_latest.get("charges"):
             key = format_entity_name(f"{self.username} recent charges")
             data[key] = NexxtmoveItem(
                 name="Recent charges",
@@ -210,6 +218,8 @@ class NexxtmoveClient:
                 state=len(charge_latest.get("charges")),
                 extra_attributes=charge_latest,
             )
+
+            # Non invoiced
             non_invoiced_charges = []
             non_invoiced_amount = 0
             for charge in charge_latest.get("charges"):
@@ -218,7 +228,6 @@ class NexxtmoveClient:
                     cost = charge.get("costVat")
                     if isinstance(cost, int | float):
                         non_invoiced_amount += cost
-
             key = format_entity_name(f"{self.username} non invoiced")
             data[key] = NexxtmoveItem(
                 name="Non invoiced",
@@ -231,12 +240,11 @@ class NexxtmoveClient:
                 state=non_invoiced_amount,
                 extra_attributes={"charges": non_invoiced_charges},
             )
+
+        # Consumption
         consumption = self.consumption()
         if consumption.get("consumptionInKwh") is not None:
-            charges = self.charges()
-            if charges is False:
-                charges = {}
-
+            charges = self.charges() or {}
             key = format_entity_name(f"{self.username} consumption")
             data[key] = NexxtmoveItem(
                 name="Consumption",
@@ -249,366 +257,259 @@ class NexxtmoveClient:
                 state=consumption.get("consumptionInKwh"),
                 extra_attributes=charges,
             )
+
+        # Residential buildings
         buildings = self.residential_buildings()
-        if buildings.get("locations") and len(buildings.get("locations")):
-            for location in buildings.get("locations"):
-                key = format_entity_name(
-                    f"{self.username} residential location {location.get('id')}"
-                )
-                data[key] = NexxtmoveItem(
-                    name=location.get("name"),
-                    key=key,
-                    type="residential_location",
-                    sensor_type="sensor",
-                    device_key=device_key,
-                    device_name=device_name,
-                    device_model=device_model,
-                    state=location.get("city"),
-                    extra_attributes=location,
-                )
+        for location in buildings.get("locations", []):
+            key = format_entity_name(
+                f"{self.username} residential location {location.get('id')}"
+            )
+            data[key] = NexxtmoveItem(
+                name=location.get("name"),
+                key=key,
+                type="residential_location",
+                sensor_type="sensor",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=location.get("city"),
+                extra_attributes=location,
+            )
 
+        # Charging devices
         device_list = self.device_list()
-        for charging_device in device_list.get("chargingDevices"):
-            charging_device_id = charging_device.get("id")
-            key = format_entity_name(
-                f"{self.username} charging device {charging_device_id}"
-            )
-            device_key = key
-            device_name = charging_device.get("name")
-            device_model = charging_device.get("type")
-            data[key] = NexxtmoveItem(
-                name=charging_device.get("name"),
-                key=key,
-                type="charging_device",
-                sensor_type="sensor",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=charging_device.get("buildingName"),
-                extra_attributes=charging_device,
-            )
-            start_date = (
-                (datetime.now().replace(day=1) - timedelta(days=datetime.now().day))
-                .replace(day=1)
-                .strftime("%Y%m%d")
-            )
-            end_date = datetime.now().strftime("%Y%m%d")
-            extra_attributes = {
-                "start_date": start_date,
-                "end_date": end_date,
-            }
-            graph_data = self.charging_device_graph(
-                charging_device_id,
-                start_date,
-                end_date,
-            )
+        for charging_device in device_list.get("chargingDevices", []):
+            self._fetch_charging_device_data(charging_device, data)
 
-            suffix = "period reimbursed"
-            key = format_entity_name(
-                f"{self.username} charging device {charging_device_id} {suffix}"
-            )
-            data[key] = NexxtmoveItem(
-                name=f"{charging_device.get('name')} {suffix}",
-                key=key,
-                type="euro",
-                sensor_type="sensor",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=graph_data.get("totals").get("totalReimbursed"),
-                extra_attributes=extra_attributes,
-            )
-            monthly_date = []
-            monthly_cost = []
-            monthly_energy = []
-            monthly_charges = []
-            period_charges = 0
-            for record in graph_data.get("records"):
-                monthly_date.append(record.get("date"))
-                cost = {}
-                energy = {}
-                charges = {}
-                for category in ["home", "payment", "guest", "work"]:
-                    cost |= {
-                        category: record.get("detailsPerAccount")
-                        .get(category.upper())
-                        .get("cost")
-                    }
-                    energy |= {
-                        category: record.get("detailsPerAccount")
-                        .get(category.upper())
-                        .get("energyWh")
-                    }
-                    charges |= {
-                        category: record.get("detailsPerAccount")
-                        .get(category.upper())
-                        .get("charges")
-                    }
-                    period_charges += (
-                        record.get("detailsPerAccount")
-                        .get(category.upper())
-                        .get("charges")
-                    )
-                monthly_cost.append(cost)
-                monthly_energy.append(energy)
-                monthly_charges.append(charges)
-
-            suffix = "period cost"
-            key = format_entity_name(
-                f"{self.username} charging device {charging_device_id} {suffix}"
-            )
-            data[key] = NexxtmoveItem(
-                name=f"{charging_device.get('name')} {suffix}",
-                key=key,
-                type="euro",
-                sensor_type="sensor",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=graph_data.get("totals").get("totalCost"),
-                extra_attributes=extra_attributes
-                | {"dates": monthly_date, "values": monthly_cost},
-            )
-            suffix = "period energy"
-            key = format_entity_name(
-                f"{self.username} charging device {charging_device_id} {suffix}"
-            )
-            data[key] = NexxtmoveItem(
-                name=f"{charging_device.get('name')} {suffix}",
-                key=key,
-                type="consumption",
-                sensor_type="sensor",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=graph_data.get("totals").get("totalEnergyWh") / 1000,
-                extra_attributes=extra_attributes
-                | {"dates": monthly_date, "values": monthly_energy},
-            )
-            suffix = "period charges"
-            key = format_entity_name(
-                f"{self.username} charging device {charging_device_id} {suffix}"
-            )
-            data[key] = NexxtmoveItem(
-                name=f"{charging_device.get('name')} {suffix}",
-                key=key,
-                type="counter",
-                sensor_type="sensor",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=period_charges,
-                extra_attributes=extra_attributes
-                | {"dates": monthly_date, "values": monthly_charges},
-            )
-            # Monthly charge sessions
-            start_date = (
-                datetime.now() - relativedelta(months=1) + relativedelta(days=1)
-            ).strftime("%Y%m%d")
-            extra_attributes = {
-                "start_date": start_date,
-                "end_date": end_date,
-            }
-            graph_data = self.charging_device_graph(
-                charging_device_id,
-                start_date,
-                end_date,
-            )
-
-            suffix = "month reimbursed"
-            key = format_entity_name(
-                f"{self.username} charging device {charging_device_id} {suffix}"
-            )
-            data[key] = NexxtmoveItem(
-                name=f"{charging_device.get('name')} {suffix}",
-                key=key,
-                type="euro",
-                sensor_type="sensor",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=graph_data.get("totals").get("totalReimbursed"),
-                extra_attributes=extra_attributes,
-            )
-            monthly_date = []
-            monthly_cost = []
-            monthly_energy = []
-            monthly_charges = []
-            period_charges = 0
-            for record in graph_data.get("records"):
-                monthly_date.append(record.get("date"))
-                cost = {}
-                energy = {}
-                charges = {}
-                for category in ["home", "payment", "guest", "work"]:
-                    cost |= {
-                        category: record.get("detailsPerAccount")
-                        .get(category.upper())
-                        .get("cost")
-                    }
-                    energy |= {
-                        category: record.get("detailsPerAccount")
-                        .get(category.upper())
-                        .get("energyWh")
-                    }
-                    charges |= {
-                        category: record.get("detailsPerAccount")
-                        .get(category.upper())
-                        .get("charges")
-                    }
-                    period_charges += (
-                        record.get("detailsPerAccount")
-                        .get(category.upper())
-                        .get("charges")
-                    )
-                monthly_cost.append(cost)
-                monthly_energy.append(energy)
-                monthly_charges.append(charges)
-
-            suffix = "month cost"
-            key = format_entity_name(
-                f"{self.username} charging device {charging_device_id} {suffix}"
-            )
-            data[key] = NexxtmoveItem(
-                name=f"{charging_device.get('name')} {suffix}",
-                key=key,
-                type="euro",
-                sensor_type="sensor",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=graph_data.get("totals").get("totalCost"),
-                extra_attributes=extra_attributes
-                | {"dates": monthly_date, "values": monthly_cost},
-            )
-            suffix = "month energy"
-            key = format_entity_name(
-                f"{self.username} charging device {charging_device_id} {suffix}"
-            )
-            data[key] = NexxtmoveItem(
-                name=f"{charging_device.get('name')} {suffix}",
-                key=key,
-                type="consumption",
-                sensor_type="sensor",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=graph_data.get("totals").get("totalEnergyWh") / 1000,
-                extra_attributes=extra_attributes
-                | {"dates": monthly_date, "values": monthly_energy},
-            )
-            suffix = "month charges"
-            key = format_entity_name(
-                f"{self.username} charging device {charging_device_id} {suffix}"
-            )
-            data[key] = NexxtmoveItem(
-                name=f"{charging_device.get('name')} {suffix}",
-                key=key,
-                type="counter",
-                sensor_type="sensor",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=period_charges,
-                extra_attributes=extra_attributes
-                | {"dates": monthly_date, "values": monthly_charges},
-            )
-
-            pin = self.device_pin(charging_device.get("id"))
-            if pin is not False:
-                key = format_entity_name(
-                    f"{self.username} charging device {charging_device_id} pin"
-                )
-                data[key] = NexxtmoveItem(
-                    name=f"{charging_device.get('name')} PIN",
-                    key=key,
-                    type="charging_device_pin",
-                    sensor_type="sensor",
-                    device_key=device_key,
-                    device_name=device_name,
-                    device_model=device_model,
-                    state=pin.get("pin"),
-                )
-
-            events = self.device_events(charging_device.get("id"))
-            if (
-                events is not False
-                and events.get("events")
-                and len(events.get("events"))
-            ):
-                key = format_entity_name(
-                    f"{self.username} charging device {charging_device_id} events"
-                )
-                data[key] = NexxtmoveItem(
-                    name=f"{charging_device.get('name')} events",
-                    key=key,
-                    type="charging_events",
-                    sensor_type="sensor",
-                    device_key=device_key,
-                    device_name=device_name,
-                    device_model=device_model,
-                    state=len(events.get("events")),
-                    extra_attributes=events,
-                )
-
-            if len(charging_device.get("chargingPoints")):
-                for charging_point in charging_device.get("chargingPoints"):
-                    id = charging_point.get("id")
-                    charging_point = self.charging_point(id)
-                    key = format_entity_name(f"{self.username} charging point {id}")
-                    data[key] = NexxtmoveItem(
-                        name=charging_point.get("name"),
-                        key=key,
-                        type="charging_point",
-                        sensor_type="sensor",
-                        device_key=device_key,
-                        device_name=device_name,
-                        device_model=device_model,
-                        state=charging_point.get("status"),
-                        extra_attributes=charging_point,
-                    )
-                    key = format_entity_name(
-                        f"{self.username} charging point {id} price"
-                    )
-                    price = charging_point.get("price")
-                    if price is not None and len(price) != 0:
-                        price_info = price.split(" ")
-                        data[key] = NexxtmoveItem(
-                            name=f"{charging_point.get('name')} price",
-                            key=key,
-                            type="pricekwh",
-                            sensor_type="sensor",
-                            device_key=device_key,
-                            device_name=device_name,
-                            device_model=device_model,
-                            state=price_info[0],
-                            native_unit_of_measurement=self.price_to_ISO4217(
-                                price_info[1]
-                            ),
-                        )
-                    events = self.charging_point_events(id)
-                    if events.get("events") and len(events.get("events")):
-                        key = format_entity_name(
-                            f"{self.username} charging point {id} events"
-                        )
-                        data[key] = NexxtmoveItem(
-                            name=f"{charging_point.get('name')} events",
-                            key=key,
-                            type="charging_events",
-                            sensor_type="sensor",
-                            device_key=device_key,
-                            device_name=device_name,
-                            device_model=device_model,
-                            state=len(events.get("events")),
-                            extra_attributes=events,
-                        )
         return data
 
-    def price_to_ISO4217(self, unit):
+    # ------------------------
+    # Charging device helpers
+    # ------------------------
+    def _fetch_charging_device_data(self, charging_device: dict, data: dict) -> None:
+        """Fetch all data related to a single charging device."""
+        device_id = charging_device.get("id")
+        device_key = format_entity_name(f"{self.username} charging device {device_id}")
+        device_name = charging_device.get("name")
+        device_model = charging_device.get("type")
+
+        # Device info
+        data[device_key] = NexxtmoveItem(
+            name=device_name,
+            key=device_key,
+            type="charging_device",
+            sensor_type="sensor",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=charging_device.get("buildingName"),
+            extra_attributes=charging_device,
+        )
+
+        # Period & monthly graphs
+        self._fetch_charging_graphs(charging_device, data, device_key)
+
+        # Device PIN
+        pin = self.device_pin(device_id)
+        if pin:
+            key = format_entity_name(f"{self.username} charging device {device_id} pin")
+            data[key] = NexxtmoveItem(
+                name=f"{device_name} PIN",
+                key=key,
+                type="charging_device_pin",
+                sensor_type="sensor",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=pin.get("pin"),
+            )
+
+        # Device events
+        events = self.device_events(device_id)
+        if events and events.get("events"):
+            key = format_entity_name(
+                f"{self.username} charging device {device_id} events"
+            )
+            data[key] = NexxtmoveItem(
+                name=f"{device_name} events",
+                key=key,
+                type="charging_events",
+                sensor_type="sensor",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=len(events.get("events")),
+                extra_attributes=events,
+            )
+
+        # Charging points
+        for charging_point_info in charging_device.get("chargingPoints", []):
+            self._fetch_charging_point_data(charging_point_info, device_key, data)
+
+    def _fetch_charging_graphs(
+        self, charging_device: dict, data: dict, device_key: str
+    ) -> None:
+        """Fetch period and monthly graph data for a charging device."""
+        device_id = charging_device.get("id")
+        end_date = datetime.now().strftime("%Y%m%d")
+        start_date_period = (
+            (datetime.now().replace(day=1) - timedelta(days=datetime.now().day))
+            .replace(day=1)
+            .strftime("%Y%m%d")
+        )
+        start_date_month = (
+            datetime.now() - relativedelta(months=1) + relativedelta(days=1)
+        ).strftime("%Y%m%d")
+
+        for period_name, start_date in [
+            ("period", start_date_period),
+            ("month", start_date_month),
+        ]:
+            extra_attributes = {"start_date": start_date, "end_date": end_date}
+            graph_data = self.charging_device_graph(device_id, start_date, end_date)
+            if not graph_data:
+                continue
+
+            totals = graph_data.get("totals", {})
+            records = graph_data.get("records", [])
+
+            # Totals
+            for suffix, key_value in [
+                ("reimbursed", totals.get("totalReimbursed", 0)),
+                ("cost", totals.get("totalCost", 0)),
+                ("energy", totals.get("totalEnergyWh", 0)),
+            ]:
+                key = format_entity_name(
+                    f"{self.username} charging device {device_id} {period_name} {suffix}"
+                )
+                value = key_value
+                if suffix == "energy":
+                    value = value / 1000  # Wh → kWh
+                data[key] = NexxtmoveItem(
+                    name=f"{charging_device.get('name')} {period_name} {suffix}",
+                    key=key,
+                    type="euro" if suffix != "energy" else "consumption",
+                    sensor_type="sensor",
+                    device_key=device_key,
+                    device_name=charging_device.get("name"),
+                    device_model=charging_device.get("type"),
+                    state=value,
+                    extra_attributes=extra_attributes,
+                )
+
+            # Detailed per-category
+            monthly_date, monthly_cost, monthly_energy, monthly_charges = [], [], [], []
+            period_charges = 0
+            for record in records:
+                monthly_date.append(record.get("date"))
+                cost, energy, charges = {}, {}, {}
+                for category in ["home", "payment", "guest", "work"]:
+                    details = record.get("detailsPerAccount", {}).get(
+                        category.upper(), {}
+                    )
+                    cost[category] = details.get("cost")
+                    energy[category] = details.get("energyWh")
+                    charges[category] = details.get("charges")
+                    period_charges += details.get("charges", 0)
+                monthly_cost.append(cost)
+                monthly_energy.append(energy)
+                monthly_charges.append(charges)
+
+            # Store per-category counters
+            for suffix, values in [
+                ("cost", monthly_cost),
+                ("energy", monthly_energy),
+                ("charges", monthly_charges),
+            ]:
+                key = format_entity_name(
+                    f"{self.username} charging device {device_id} {period_name} {suffix}"
+                )
+                state_value = period_charges if suffix == "charges" else None
+                if suffix == "energy":
+                    state_value = (
+                        sum([sum(e.values()) for e in monthly_energy]) / 1000
+                    )  # Wh → kWh
+                elif suffix == "cost":
+                    state_value = sum([sum(c.values()) for c in monthly_cost])
+                data[key] = NexxtmoveItem(
+                    name=f"{charging_device.get('name')} {period_name} {suffix}",
+                    key=key,
+                    type=(
+                        "euro"
+                        if suffix != "energy"
+                        else "consumption" if suffix == "energy" else "counter"
+                    ),
+                    sensor_type="sensor",
+                    device_key=device_key,
+                    device_name=charging_device.get("name"),
+                    device_model=charging_device.get("type"),
+                    state=state_value,
+                    extra_attributes=extra_attributes
+                    | {"dates": monthly_date, "values": values},
+                )
+
+    def _fetch_charging_point_data(
+        self, charging_point_info: dict, device_key: str, data: dict
+    ) -> None:
+        """Fetch info and events for a single charging point."""
+        cp_id = charging_point_info.get("id")
+        charging_point = self.charging_point(cp_id)
+        if not charging_point:
+            return
+        key = format_entity_name(f"{self.username} charging point {cp_id}")
+        data[key] = NexxtmoveItem(
+            name=charging_point.get("name"),
+            key=key,
+            type="charging_point",
+            sensor_type="sensor",
+            device_key=device_key,
+            device_name=charging_point.get("name"),
+            device_model=charging_point.get("type"),
+            state=charging_point.get("status"),
+            extra_attributes=charging_point,
+        )
+
+        # Price info
+        price = charging_point.get("price")
+        if price:
+            price_info = price.split(" ")
+            key = format_entity_name(f"{self.username} charging point {cp_id} price")
+            data[key] = NexxtmoveItem(
+                name=f"{charging_point.get('name')} price",
+                key=key,
+                type="pricekwh",
+                sensor_type="sensor",
+                device_key=device_key,
+                device_name=charging_point.get("name"),
+                device_model=charging_point.get("type"),
+                state=price_info[0],
+                native_unit_of_measurement=self.price_to_ISO4217(price_info[1]),
+            )
+
+        # Events
+        events = self.charging_point_events(cp_id)
+        if events and events.get("events"):
+            key = format_entity_name(f"{self.username} charging point {cp_id} events")
+            data[key] = NexxtmoveItem(
+                name=f"{charging_point.get('name')} events",
+                key=key,
+                type="charging_events",
+                sensor_type="sensor",
+                device_key=device_key,
+                device_name=charging_point.get("name"),
+                device_model=charging_point.get("type"),
+                state=len(events.get("events")),
+                extra_attributes=events,
+            )
+
+    # ------------------------
+    # Utility functions
+    # ------------------------
+    def price_to_ISO4217(self, unit: str) -> str:
         """Convert price info to ISO4217."""
         return unit.replace("€", "EUR")
 
-    def company(self):
+    def company(self) -> dict | bool:
         """Fetch Company info."""
         _LOGGER.debug("[NexxtmoveClient|company] Fetching company info from Nexxtmove")
         response = self.request(
@@ -617,11 +518,9 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            return False
-        return response.json()
+        return response.json() if response else False
 
-    def device_list(self):
+    def device_list(self) -> dict | bool:
         """Fetch Device list."""
         _LOGGER.debug(
             "[NexxtmoveClient|device_list] Fetching device list from Nexxtmove"
@@ -632,11 +531,9 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            return False
-        return response.json()
+        return response.json() if response else False
 
-    def device_events(self, device_id):
+    def device_events(self, device_id: str) -> dict | bool:
         """Fetch Device events."""
         _LOGGER.debug(
             "[NexxtmoveClient|device_events] Fetching device events from Nexxtmove"
@@ -647,12 +544,10 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            return False
-        return response.json()
+        return response.json() if response else False
 
-    def device_pin(self, device_id):
-        """Fetch Device pin."""
+    def device_pin(self, device_id: str) -> dict | bool:
+        """Fetch Device PIN."""
         _LOGGER.debug("[NexxtmoveClient|device_pin] Fetching device pin from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/device/{device_id}/pin",
@@ -660,14 +555,9 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            _LOGGER.debug(
-                f"[NexxtmoveClient|device_pin] HTTP 406: {self.request_error}"
-            )
-            return False
-        return response.json()
+        return response.json() if response else False
 
-    def charging_device_tokens(self, device_id):
+    def charging_device_tokens(self, device_id: str) -> dict | bool:
         """Fetch Device tokens."""
         _LOGGER.debug(
             "[NexxtmoveClient|charging_device_tokens] Fetching device tokens from Nexxtmove"
@@ -678,11 +568,11 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            return False
-        return response.json()
+        return response.json() if response else False
 
-    def charging_device_graph(self, device_id, start_date, end_date):
+    def charging_device_graph(
+        self, device_id: str, start_date: str, end_date: str
+    ) -> dict | bool:
         """Fetch Charging graph data."""
         _LOGGER.debug(
             "[NexxtmoveClient|charging_device_graph] Fetching charging graph data from Nexxtmove"
@@ -693,11 +583,9 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            return False
-        return response.json()
+        return response.json() if response else False
 
-    def charging_point(self, charging_point_id):
+    def charging_point(self, charging_point_id: str) -> dict | bool:
         """Fetch Charging point info."""
         _LOGGER.debug(
             "[NexxtmoveClient|charging_point] Fetching charging point info from Nexxtmove"
@@ -708,11 +596,9 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            return False
-        return response.json()
+        return response.json() if response else False
 
-    def charging_point_events(self, device_id):
+    def charging_point_events(self, device_id: str) -> dict | bool:
         """Fetch charging point events."""
         _LOGGER.debug(
             "[NexxtmoveClient|charging_point_events] Fetching charging point events from Nexxtmove"
@@ -723,12 +609,10 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            return False
-        return response.json()
+        return response.json() if response else False
 
-    def charge_latest(self):
-        """Fetch charges."""
+    def charge_latest(self) -> dict:
+        """Fetch latest charges."""
         _LOGGER.debug("[NexxtmoveClient|charge_latest] Fetching charges from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/charge/latest?maxRows={MAX_ROWS}&offset=0",
@@ -736,11 +620,9 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            return {}
-        return response.json()
+        return response.json() if response else {}
 
-    def consumption(self):
+    def consumption(self) -> dict | bool:
         """Fetch consumption."""
         _LOGGER.debug(
             "[NexxtmoveClient|consumption] Fetching consumption from Nexxtmove"
@@ -751,12 +633,10 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            return False
-        return response.json()
+        return response.json() if response else False
 
-    def charges(self):
-        """Fetch charges."""
+    def charges(self) -> dict | bool:
+        """Fetch current charges."""
         _LOGGER.debug("[NexxtmoveClient|charges] Fetching charges from Nexxtmove")
         response = self.request(
             f"{self.environment.api_endpoint}/charge/current?maxRows={MAX_ROWS}&offset=0",
@@ -764,11 +644,9 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            return False
-        return response.json()
+        return response.json() if response else False
 
-    def residential_buildings(self):
+    def residential_buildings(self) -> dict | bool:
         """Fetch residential buildings."""
         _LOGGER.debug(
             "[NexxtmoveClient|residential_buildings] Fetching residential buildings from Nexxtmove"
@@ -779,11 +657,9 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            return False
-        return response.json()
+        return response.json() if response else False
 
-    def work_buildings(self):
+    def work_buildings(self) -> dict | bool:
         """Fetch work buildings."""
         _LOGGER.debug(
             "[NexxtmoveClient|work_buildings] Fetching work buildings from Nexxtmove"
@@ -794,6 +670,4 @@ class NexxtmoveClient:
             None,
             200,
         )
-        if response is False:
-            return False
-        return response.json()
+        return response.json() if response else False

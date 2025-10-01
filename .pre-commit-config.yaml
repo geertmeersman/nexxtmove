@@ -45,10 +45,7 @@ repos:
     rev: v0.8.4
     hooks:
       - id: ruff
-        args:
-          - --fix
-      - id: ruff-format
-        files: ^((custom_components|test)/.+)?[^/]+\.(py|pyi)$
+        args: []  # no --fix
   - repo: https://github.com/codespell-project/codespell
     rev: v2.3.0
     hooks:
