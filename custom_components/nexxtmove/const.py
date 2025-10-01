@@ -47,7 +47,7 @@ BASE_HEADERS = {
 UNRECORDED_ATTRIBUTES = {"charges", "events", "dates", "values"}
 
 COORDINATOR_UPDATE_INTERVAL = timedelta(minutes=120)
-CONNECTION_RETRY = 0
+CONNECTION_RETRY = 1
 REQUEST_TIMEOUT = 20
 MAX_ROWS = 5
 WEBSITE = "https://nexxtmove.me/"
