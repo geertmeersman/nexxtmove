@@ -97,7 +97,7 @@ class NexxtmoveClient:
                 and not retrying
             ):
                 _LOGGER.debug("[request] Token expired, retrying login...")
-                self.profile = {}
+                self.token = None
                 self.login()
                 return self.request(
                     url, caller, data, expected, log, True, connection_retry_left - 1
