@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.0.2](https://github.com/geertmeersman/nexxtmove/tree/v1.0.2) (2025-10-01)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.1...v1.0.2)
+
+**Merged pull requests:**
+
+- fix: refactored client [\#216](https://github.com/geertmeersman/nexxtmove/pull/216) ([geertmeersman](https://github.com/geertmeersman))
+- fix: Improved status code handling for http requests [\#215](https://github.com/geertmeersman/nexxtmove/pull/215) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.0.1](https://github.com/geertmeersman/nexxtmove/tree/v1.0.1) (2025-10-01)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.0...v1.0.1)
