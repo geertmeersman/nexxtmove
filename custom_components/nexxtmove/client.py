@@ -81,26 +81,28 @@ class NexxtmoveClient:
         if log:
             _LOGGER.debug(f"{caller} Response:\n{response.text}")
         if expected is not None and response.status_code != expected:
-            if response.status_code == 404:
+            if response.status_code in (404, 406):
                 self.request_error = response.json()
                 return False
-            if response.status_code == 406:
-                self.request_error = response.json()
+
+            if 500 <= response.status_code < 600:
+                # Any server-side error (5xx) → return False
                 return False
-            if response.status_code >= 500:
-                return False
+
             if (
-                response.status_code != 403
-                and response.status_code != 401
-                and response.status_code != 500
+                response.status_code not in (401, 403)
                 and connection_retry_left > 0
                 and not retrying
             ):
                 raise NexxtmoveServiceException(
-                    f"[{caller}] Expecting HTTP {expected} | Response HTTP {response.status_code}, Response: {response.text}, Url: {response.url}"
+                    f"[{caller}] Expecting HTTP {expected} | "
+                    f"Response HTTP {response.status_code}, "
+                    f"Response: {response.text}, Url: {response.url}"
                 )
+
             _LOGGER.debug(
-                f"[NexxtmoveClient|request] Received a HTTP {response.status_code}, nothing to worry about! We give it another try :-), Url: {response.url}"
+                f"[NexxtmoveClient|request] Received a HTTP {response.status_code}, "
+                f"nothing to worry about! We give it another try :-), Url: {response.url}"
             )
             self.profile = {}
             self.login()
