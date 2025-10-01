@@ -13,6 +13,7 @@ from .const import (
     BASE_HEADERS,
     CONNECTION_RETRY,
     DEFAULT_NEXXTMOVE_ENVIRONMENT,
+    MAX_ROWS,
     REQUEST_TIMEOUT,
 )
 from .exceptions import BadCredentialsException, NexxtmoveServiceException
@@ -86,6 +87,8 @@ class NexxtmoveClient:
             if response.status_code == 406:
                 self.request_error = response.json()
                 return False
+            if response.status_code >= 500:
+                return False
             if (
                 response.status_code != 403
                 and response.status_code != 401
@@ -97,8 +100,9 @@ class NexxtmoveClient:
                     f"[{caller}] Expecting HTTP {expected} | Response HTTP {response.status_code}, Response: {response.text}, Url: {response.url}"
                 )
             _LOGGER.debug(
-                f"[NexxtmoveClient|request] Received a HTTP {response.status_code}, nothing to worry about! We give it another try :-)"
+                f"[NexxtmoveClient|request] Received a HTTP {response.status_code}, nothing to worry about! We give it another try :-), Url: {response.url}"
             )
+            self.profile = {}
             self.login()
             response = self.request(
                 url, caller, data, expected, log, True, connection_retry_left - 1
@@ -110,6 +114,9 @@ class NexxtmoveClient:
 
         _LOGGER.debug("[NexxtmoveClient|login|start]")
         """Login process"""
+
+        if self.token is not None:
+            return self.profile
         if self.username is None or self.password is None:
             return False
         response = self.request(
@@ -184,7 +191,11 @@ class NexxtmoveClient:
             extra_attributes=self.profile,
         )
         charge_latest = self.charge_latest()
-        if charge_latest.get("charges") and len(charge_latest.get("charges")):
+        if (
+            charge_latest
+            and charge_latest.get("charges")
+            and len(charge_latest.get("charges"))
+        ):
             key = format_entity_name(f"{self.username} recent charges")
             data[key] = NexxtmoveItem(
                 name="Recent charges",
@@ -718,13 +729,13 @@ class NexxtmoveClient:
         """Fetch charges."""
         _LOGGER.debug("[NexxtmoveClient|charge_latest] Fetching charges from Nexxtmove")
         response = self.request(
-            f"{self.environment.api_endpoint}/charge/latest?maxRows=200&offset=0",
+            f"{self.environment.api_endpoint}/charge/latest?maxRows={MAX_ROWS}&offset=0",
             "[NexxtmoveClient|charge_latest]",
             None,
             200,
         )
         if response is False:
-            return False
+            return {}
         return response.json()
 
     def consumption(self):
@@ -746,7 +757,7 @@ class NexxtmoveClient:
         """Fetch charges."""
         _LOGGER.debug("[NexxtmoveClient|charges] Fetching charges from Nexxtmove")
         response = self.request(
-            f"{self.environment.api_endpoint}/charge/current?maxRows=100&offset=0",
+            f"{self.environment.api_endpoint}/charge/current?maxRows={MAX_ROWS}&offset=0",
             "[NexxtmoveClient|charges]",
             None,
             200,
@@ -761,7 +772,7 @@ class NexxtmoveClient:
             "[NexxtmoveClient|residential_buildings] Fetching residential buildings from Nexxtmove"
         )
         response = self.request(
-            f"{self.environment.api_endpoint}/building/residential?maxRows=20&offset=0",
+            f"{self.environment.api_endpoint}/building/residential?maxRows={MAX_ROWS}&offset=0",
             "[NexxtmoveClient|residential_buildings]",
             None,
             200,
@@ -776,7 +787,7 @@ class NexxtmoveClient:
             "[NexxtmoveClient|work_buildings] Fetching work buildings from Nexxtmove"
         )
         response = self.request(
-            f"{self.environment.api_endpoint}/building/list/work?maxRows=20&offset=0",
+            f"{self.environment.api_endpoint}/building/list/work?maxRows={MAX_ROWS}&offset=0",
             "[NexxtmoveClient|work_buildings]",
             None,
             200,
