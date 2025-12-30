@@ -128,7 +128,24 @@ class NexxtmoveClient:
             200,
         )
 
+        _LOGGER.debug(f"Login response: {response}, {self.request_error}")
+
         if response is False:
+            if self.request_error:
+                error_type = self.request_error.get("type")
+
+                if error_type in (
+                    "AUTHENTICATION_USERNAME_UNKNOWN",
+                    "AUTHENTICATION_PASSWORD_INVALID",
+                    "FORBIDDEN",
+                ):
+                    raise BadCredentialsException(
+                        self.request_error.get("userMessage", "Invalid credentials")
+                    )
+                raise NexxtmoveServiceException(
+                    self.request_error.get("userMessage", "Invalid credentials")
+                )
+
             return False
 
         result = response.json()
