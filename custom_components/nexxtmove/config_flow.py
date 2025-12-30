@@ -70,12 +70,13 @@ class NexxtmoveCommonFlow(ABC, FlowHandler):
             test = await self.test_connection(user_input)
             _LOGGER.debug(f"Test result config flow: {test}")
             if not test["errors"]:
-                self.new_title = test["profile"].get("username")
-                self.new_entry_data |= user_input
-                await self.async_set_unique_id(
-                    f"{DOMAIN}_" + test["profile"].get("username")
-                )
+                username = test["profile"].get("username")
+                await self.async_set_unique_id(f"{DOMAIN}_{username}")
                 self._abort_if_unique_id_configured()
+
+                self.new_title = username
+                self.new_entry_data |= user_input
+
                 _LOGGER.debug(f"New account {self.new_title} added")
                 return self.finish_flow()
             errors = test["errors"]
