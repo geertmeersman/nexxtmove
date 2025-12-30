@@ -1,5 +1,21 @@
 # Changelog
 
+## [v1.0.3](https://github.com/geertmeersman/nexxtmove/tree/v1.0.3) (2025-12-30)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.2...v1.0.3)
+
+**Merged pull requests:**
+
+- fix: Login error handling improved to raise specific exceptions for authentication failures and service errors [\#227](https://github.com/geertmeersman/nexxtmove/pull/227) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump actions/upload-artifact from 5 to 6 [\#226](https://github.com/geertmeersman/nexxtmove/pull/226) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/checkout from 5 to 6 [\#225](https://github.com/geertmeersman/nexxtmove/pull/225) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/upload-artifact from 4 to 5 [\#224](https://github.com/geertmeersman/nexxtmove/pull/224) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore: archived ruff-actions replaced [\#223](https://github.com/geertmeersman/nexxtmove/pull/223) ([geertmeersman](https://github.com/geertmeersman))
+- chore\(release\): improved release workflow [\#220](https://github.com/geertmeersman/nexxtmove/pull/220) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump github/codeql-action from 3 to 4 [\#219](https://github.com/geertmeersman/nexxtmove/pull/219) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.13.3 to 0.14.0 [\#218](https://github.com/geertmeersman/nexxtmove/pull/218) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.13.2 to 0.13.3 [\#217](https://github.com/geertmeersman/nexxtmove/pull/217) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.0.2](https://github.com/geertmeersman/nexxtmove/tree/v1.0.2) (2025-10-01)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.1...v1.0.2)
