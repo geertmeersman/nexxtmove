@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.0.4](https://github.com/geertmeersman/nexxtmove/tree/v1.0.4) (2025-12-30)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.3...v1.0.4)
+
+**Merged pull requests:**
+
+- fix: Unique ID should be set before storing data [\#229](https://github.com/geertmeersman/nexxtmove/pull/229) ([geertmeersman](https://github.com/geertmeersman))
+- chore: MAX\_ROWS increased to enable more accurate cost calculation [\#228](https://github.com/geertmeersman/nexxtmove/pull/228) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.0.3](https://github.com/geertmeersman/nexxtmove/tree/v1.0.3) (2025-12-30)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.2...v1.0.3)
