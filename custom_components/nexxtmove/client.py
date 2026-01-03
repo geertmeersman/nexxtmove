@@ -64,6 +64,7 @@ class NexxtmoveClient:
                 url,
                 timeout=REQUEST_TIMEOUT,
                 headers=self._headers | {"Authorize": f"Token {self.token}"},
+                allow_redirects=True,
             )
         else:
             data_copy = copy.deepcopy(data)
@@ -74,6 +75,7 @@ class NexxtmoveClient:
                 json=data,
                 timeout=REQUEST_TIMEOUT,
                 headers=self._headers | {"Authorize": f"Token {self.token}"},
+                allow_redirects=True,
             )
 
         _LOGGER.debug(
