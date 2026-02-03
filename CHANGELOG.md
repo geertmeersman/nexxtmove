@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.0.5](https://github.com/geertmeersman/nexxtmove/tree/v1.0.5) (2026-01-03)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.4...v1.0.5)
+
+**Merged pull requests:**
+
+- fix: Improved HTTP request handling by enabling automatic redirect following [\#230](https://github.com/geertmeersman/nexxtmove/pull/230) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.0.4](https://github.com/geertmeersman/nexxtmove/tree/v1.0.4) (2025-12-30)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.3...v1.0.4)
