@@ -490,6 +490,10 @@ class NexxtmoveClient:
         price = charging_point.get("price")
         if price:
             price_info = price.split(" ")
+            try:
+                price_value = float(price_info[0])
+            except ValueError:
+                price_value = 0.0
             key = format_entity_name(f"{self.username} charging point {cp_id} price")
             data[key] = NexxtmoveItem(
                 name=f"{charging_point.get('name')} price",
@@ -499,7 +503,7 @@ class NexxtmoveClient:
                 device_key=device_key,
                 device_name=charging_point.get("name"),
                 device_model=charging_point.get("type"),
-                state=price_info[0],
+                state=price_value,
                 native_unit_of_measurement=self.price_to_ISO4217(price_info[1]),
             )
 
