@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.0.6](https://github.com/geertmeersman/nexxtmove/tree/v1.0.6) (2026-02-03)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.5...v1.0.6)
+
+**Merged pull requests:**
+
+- fix: price sensor state type conversion [\#231](https://github.com/geertmeersman/nexxtmove/pull/231) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.0.5](https://github.com/geertmeersman/nexxtmove/tree/v1.0.5) (2026-01-03)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.4...v1.0.5)
