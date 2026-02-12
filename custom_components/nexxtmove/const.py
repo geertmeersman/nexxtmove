@@ -34,7 +34,7 @@ If you have any issues with this you need to open an issue here:
 
 DEFAULT_NEXXTMOVE_ENVIRONMENT = NexxtmoveEnvironment(
     api_endpoint="https://nexxtmove.me/b2bev-app-service/api",
-    api_key="3f3a7b768b0c689cd2487eaf9849142a",
+    api_key="41c71886-9afd-43dc-9492-e1e99f082569",
     x_app_platform="android",
 )
 
