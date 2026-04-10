@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.0.8](https://github.com/geertmeersman/nexxtmove/tree/v1.0.8) (2026-04-10)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.7...v1.0.8)
+
+**Merged pull requests:**
+
+- fix: Disabled charging device PIN retrieval [\#237](https://github.com/geertmeersman/nexxtmove/pull/237) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump hugo19941994/delete-draft-releases from 2.0.0 to 3.0.0 [\#236](https://github.com/geertmeersman/nexxtmove/pull/236) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump EndBug/add-and-commit from 9 to 10 [\#235](https://github.com/geertmeersman/nexxtmove/pull/235) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump release-drafter/release-drafter from 6 to 7 [\#234](https://github.com/geertmeersman/nexxtmove/pull/234) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/upload-artifact from 6 to 7 [\#233](https://github.com/geertmeersman/nexxtmove/pull/233) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.0.7](https://github.com/geertmeersman/nexxtmove/tree/v1.0.7) (2026-02-13)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.6...v1.0.7)
