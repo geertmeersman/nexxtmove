@@ -326,6 +326,8 @@ class NexxtmoveClient:
         # Period & monthly graphs
         self._fetch_charging_graphs(charging_device, data, device_key)
 
+        """
+        # Device PIN removed since only applicable for Nexxtender
         # Device PIN
         pin = self.device_pin(device_id)
         if pin:
@@ -340,6 +342,7 @@ class NexxtmoveClient:
                 device_model=device_model,
                 state=pin.get("pin"),
             )
+        """
 
         # Device events
         events = self.device_events(device_id)
