@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+import copy
 from dataclasses import dataclass
 import logging
 from typing import Any
@@ -10,7 +11,6 @@ from typing import Any
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import EntityDescription
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
 
@@ -22,63 +22,84 @@ from .models import NexxtmoveItem
 _LOGGER = logging.getLogger(__name__)
 
 
+# ------------------------
+# Switch descriptions
+# ------------------------
 @dataclass
 class NexxtmoveSwitchDescription(SwitchEntityDescription):
-    """Class to describe a Nexxtmove switch."""
+    """Describe a Nexxtmove switch."""
 
     value_fn: Callable[[Any], StateType] | None = None
 
 
-SENSOR_DESCRIPTIONS: list[SwitchEntityDescription] = [
+SWITCH_DESCRIPTIONS: list[NexxtmoveSwitchDescription] = [
     NexxtmoveSwitchDescription(key="charging_device", icon="mdi:ev-station"),
 ]
 
+SUPPORTED_KEYS = {desc.key: desc for desc in SWITCH_DESCRIPTIONS}
 
+
+# ------------------------
+# Setup
+# ------------------------
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up the Nexxtmove switches."""
-    _LOGGER.debug("[async_setup_entry|async_add_entities|start]")
+    """Set up Nexxtmove switches."""
+    _LOGGER.debug("[switch|setup] start")
+
     coordinator: NexxtmoveDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
-    entities: list[NexxtmoveSwitch] = []
 
-    SUPPORTED_KEYS = {
-        description.key: description for description in SENSOR_DESCRIPTIONS
-    }
+    known_keys: set[str] = set()
 
-    # _LOGGER.debug(f"[async_setup_entry|async_add_entities|SUPPORTED_KEYS] {SUPPORTED_KEYS}")
+    def _process_coordinator_update():
+        """Add new switch entities when coordinator updates."""
+        if not coordinator.data:
+            return
 
-    if coordinator.data is not None:
-        for item in coordinator.data:
-            item = coordinator.data[item]
-            if item.sensor_type == "switch":
-                if description := SUPPORTED_KEYS.get(item.type):
-                    switch_description = NexxtmoveSwitchDescription(
-                        key=str(item.key),
-                        name=item.name,
-                        icon=description.icon,
-                    )
+        new_entities: list[NexxtmoveSwitch] = []
 
-                    _LOGGER.debug(f"[async_setup_entry|adding] {item.name}")
-                    entities.append(
-                        NexxtmoveSwitch(
-                            coordinator=coordinator,
-                            description=switch_description,
-                            item=item,
-                        )
-                    )
-                else:
-                    _LOGGER.debug(
-                        f"[async_setup_entry|no support type found] {item.name}, type: {item.type}, keys: {SUPPORTED_KEYS.get(item.type)}",
-                        True,
-                    )
+        for item in coordinator.data.values():
+            if item.sensor_type != "switch":
+                continue
 
-        if len(entities):
-            async_add_entities(entities)
+            if item.key in known_keys:
+                continue
+
+            description = SUPPORTED_KEYS.get(item.type)
+            if not description:
+                _LOGGER.debug(f"[switch] unsupported type: {item.type} ({item.name})")
+                continue
+
+            switch_description = copy.deepcopy(description)
+
+            _LOGGER.debug(f"[switch] adding entity: {item.name}")
+
+            new_entities.append(
+                NexxtmoveSwitch(
+                    coordinator=coordinator,
+                    description=switch_description,
+                    item=item,
+                )
+            )
+
+            known_keys.add(item.key)
+
+        if new_entities:
+            async_add_entities(new_entities)
+
+    # 🔥 Initial population
+    _process_coordinator_update()
+
+    # 🔥 Listen for updates
+    coordinator.async_add_listener(_process_coordinator_update)
 
 
+# ------------------------
+# Entity
+# ------------------------
 class NexxtmoveSwitch(NexxtmoveEntity, SwitchEntity):
     """Representation of a Nexxtmove switch."""
 
@@ -87,47 +108,65 @@ class NexxtmoveSwitch(NexxtmoveEntity, SwitchEntity):
     def __init__(
         self,
         coordinator: NexxtmoveDataUpdateCoordinator,
-        description: EntityDescription,
+        description: NexxtmoveSwitchDescription,
         item: NexxtmoveItem,
     ) -> None:
-        """Set entity ID."""
+        """Initialize switch."""
         super().__init__(coordinator, description, item)
-        self.entity_id = f"switch.{DOMAIN}_{self.item.key}"
+        self.entity_id = f"switch.{DOMAIN}_{item.key}"
 
     @property
-    def native_value(self) -> str:
-        """Return the status of the switch."""
-        state = self.item.state
+    def is_on(self) -> bool | None:
+        """Return True if switch is on."""
+        item = self.item
+        if item is None:
+            return None
+
+        state = item.state
 
         if self.entity_description.value_fn:
             return self.entity_description.value_fn(state)
 
-        return state
+        return bool(state)
 
     @property
     def extra_state_attributes(self):
         """Return attributes for switch."""
-        if not self.coordinator.data:
+        item = self.item
+        if item is None:
             return {}
+
         attributes = {
-            "last_nexxtmove_sync": self.last_synced,
+            "last_synced": getattr(self.coordinator, "last_success", None),
         }
-        if len(self.item.extra_attributes) > 0:
-            for attr in self.item.extra_attributes:
-                attributes[attr] = self.item.extra_attributes[attr]
+
+        if item.extra_attributes:
+            attributes.update(item.extra_attributes)
+
         return attributes
 
-    @property
-    def is_on(self) -> bool | None:
-        """Return True if entity is on."""
-        state = self.item.state
-
-        return state
-
     async def async_turn_on(self, **kwargs: Any) -> None:
-        """Turn the entity on."""
-        _LOGGER.debug(f"Turning {self.item.name} on")
+        """Turn the switch on."""
+        item = self.item
+        if item is None:
+            return
+
+        _LOGGER.debug(f"Turning {item.name} on")
+
+        # TODO: call API here
+        # await self.hass.async_add_executor_job(self.coordinator.client.turn_on, item)
+
+        await self.coordinator.async_request_refresh()
 
     async def async_turn_off(self, **kwargs: Any) -> None:
-        """Turn the entity off."""
-        _LOGGER.debug(f"Turning {self.item.name} off")
+        """Turn the switch off."""
+        item = self.item
+        if item is None:
+            return
+
+        _LOGGER.debug(f"Turning {item.name} off")
+
+        # TODO: call API here
+        # await self.hass.async_add_executor_job(self.coordinator.client.turn_off, item)
+
+        await self.coordinator.async_request_refresh()

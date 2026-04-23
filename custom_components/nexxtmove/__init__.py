@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 import logging
 
 from homeassistant.config_entries import ConfigEntry
@@ -12,7 +13,13 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from requests.exceptions import ConnectionError
 
 from .client import NexxtmoveClient
-from .const import COORDINATOR_UPDATE_INTERVAL, DOMAIN, PLATFORMS
+from .const import (
+    API_RATE_LIMIT,
+    COORDINATOR_RATE_LIMITED_UPDATE_INTERVAL,
+    COORDINATOR_UPDATE_INTERVAL,
+    DOMAIN,
+    PLATFORMS,
+)
 from .exceptions import NexxtmoveException, NexxtmoveServiceException
 from .models import NexxtmoveItem
 
@@ -76,11 +83,29 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
         self._device_registry = dev_reg
         self.client = client
         self.hass = hass
+        self.last_success_time = None
+        _LOGGER.debug("Init")
 
     async def _async_update_data(self) -> dict | None:
         """Update data."""
+        now = datetime.utcnow()
+
+        if self.last_success_time and self.data:
+            if now - self.last_success_time < API_RATE_LIMIT:
+                _LOGGER.debug("Skipping update: within rate limit window")
+                return self.data
+        _LOGGER.debug("Updating")
+
         try:
             items = await self.hass.async_add_executor_job(self.client.fetch_data)
+        except NexxtmoveServiceException as exception:
+            if "429" in str(exception):
+                _LOGGER.warning("Rate limited, backing off")
+
+                self.update_interval = COORDINATOR_RATE_LIMITED_UPDATE_INTERVAL
+
+                # 🔥 DO NOT raise → return old data instead
+                return self.data or {}
         except ConnectionError as exception:
             raise UpdateFailed(f"ConnectionError {exception}") from exception
         except NexxtmoveServiceException as exception:
@@ -89,6 +114,9 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
             raise UpdateFailed(f"NexxtmoveException {exception}") from exception
         except Exception as exception:
             raise UpdateFailed(f"Exception {exception}") from exception
+
+        self.update_interval = COORDINATOR_UPDATE_INTERVAL
+        self.last_success_time = datetime.utcnow()
         items: list[NexxtmoveItem] = items
 
         current_items = {
@@ -98,31 +126,14 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
             )
         }
 
-        if len(items) > 0:
-            fetched_items = {str(items[item].device_key) for item in items}
-            _LOGGER.debug(
-                f"[init|NexxtmoveDataUpdateCoordinator|_async_update_data|fetched_items] {fetched_items}"
-            )
+        if items:
+            fetched_items = {str(item.device_key) for item in items.values()}
+
             if stale_items := current_items - fetched_items:
                 for device_key in stale_items:
                     if device := self._device_registry.async_get_device(
                         {(DOMAIN, device_key)}
                     ):
-                        _LOGGER.debug(
-                            f"[init|NexxtmoveDataUpdateCoordinator|_async_update_data|async_remove_device] {device_key}",
-                            True,
-                        )
                         self._device_registry.async_remove_device(device.id)
 
-            # If there are new items, we should reload the config entry so we can
-            # create new devices and entities.
-            if self.data and fetched_items - {
-                str(self.data[item].device_key) for item in self.data
-            }:
-                # _LOGGER.debug(f"[init|NexxtmoveDataUpdateCoordinator|_async_update_data|async_reload] {product.product_name}")
-                self.hass.async_create_task(
-                    self.hass.config_entries.async_reload(self._config_entry_id)
-                )
-                return None
-            return items
-        return []
+        return items or {}
