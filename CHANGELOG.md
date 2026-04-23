@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.1.1](https://github.com/geertmeersman/nexxtmove/tree/v1.1.1) (2026-04-23)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.1.0...v1.1.1)
+
+**Merged pull requests:**
+
+- fix: Use last\_success\_time for last\_synced [\#241](https://github.com/geertmeersman/nexxtmove/pull/241) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.1.0](https://github.com/geertmeersman/nexxtmove/tree/v1.1.0) (2026-04-23)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.9...v1.1.0)
