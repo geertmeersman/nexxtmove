@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.0.9](https://github.com/geertmeersman/nexxtmove/tree/v1.0.9) (2026-04-23)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.8...v1.0.9)
+
+**Merged pull requests:**
+
+- fix: Reduced maximum rows limit from 50 to 20 to be compliant with API limits [\#239](https://github.com/geertmeersman/nexxtmove/pull/239) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump actions/github-script from 8 to 9 [\#238](https://github.com/geertmeersman/nexxtmove/pull/238) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.0.8](https://github.com/geertmeersman/nexxtmove/tree/v1.0.8) (2026-04-10)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.0.7...v1.0.8)
