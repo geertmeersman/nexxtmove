@@ -17,7 +17,6 @@ from homeassistant.components.sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CURRENCY_EURO, UnitOfEnergy
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import EntityDescription
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
 
@@ -29,14 +28,17 @@ from .models import NexxtmoveItem
 _LOGGER = logging.getLogger(__name__)
 
 
+# ------------------------
+# Sensor descriptions
+# ------------------------
 @dataclass
 class NexxtmoveSensorDescription(SensorEntityDescription):
-    """Class to describe a Nexxtmove sensor."""
+    """Describe a Nexxtmove sensor."""
 
     value_fn: Callable[[Any], StateType] | None = None
 
 
-SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
+SENSOR_DESCRIPTIONS: list[NexxtmoveSensorDescription] = [
     NexxtmoveSensorDescription(key="company", icon="mdi:account-group"),
     NexxtmoveSensorDescription(key="charging_device_pin", icon="mdi:lock-question"),
     NexxtmoveSensorDescription(key="profile", icon="mdi:face-man"),
@@ -90,52 +92,75 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     NexxtmoveSensorDescription(key="work_location", icon="mdi:office-building"),
 ]
 
+SUPPORTED_KEYS = {desc.key: desc for desc in SENSOR_DESCRIPTIONS}
 
+
+# ------------------------
+# Setup
+# ------------------------
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up the Nexxtmove sensors."""
-    _LOGGER.debug("[async_setup_entry|async_add_entities|start]")
+    """Set up Nexxtmove sensors."""
+    _LOGGER.debug("[sensor|setup] start")
+
     coordinator: NexxtmoveDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
-    entities: list[NexxtmoveSensor] = []
 
-    SUPPORTED_KEYS = {
-        description.key: description for description in SENSOR_DESCRIPTIONS
-    }
+    known_keys: set[str] = set()
 
-    # _LOGGER.debug(f"[async_setup_entry|async_add_entities|SUPPORTED_KEYS] {SUPPORTED_KEYS}")
+    def _process_coordinator_update():
+        """Add new entities when coordinator updates."""
+        if not coordinator.data:
+            return
 
-    if coordinator.data is not None:
-        for item in coordinator.data:
-            item = coordinator.data[item]
-            if item.sensor_type == "sensor":
-                if description := SUPPORTED_KEYS.get(item.type):
-                    sensor_description = copy.deepcopy(description)
-                    if item.native_unit_of_measurement is not None:
-                        sensor_description.native_unit_of_measurement = (
-                            item.native_unit_of_measurement
-                        )
+        new_entities: list[NexxtmoveSensor] = []
 
-                    _LOGGER.debug(f"[async_setup_entry|adding] {item.name}")
-                    entities.append(
-                        NexxtmoveSensor(
-                            coordinator=coordinator,
-                            description=sensor_description,
-                            item=item,
-                        )
-                    )
-                else:
-                    _LOGGER.debug(
-                        f"[async_setup_entry|no support type found] {item.name}, type: {item.type}, keys: {SUPPORTED_KEYS.get(item.type)}",
-                        True,
-                    )
+        for item in coordinator.data.values():
+            if item.sensor_type != "sensor":
+                continue
 
-        if len(entities):
-            async_add_entities(entities)
+            if item.key in known_keys:
+                continue
+
+            description = SUPPORTED_KEYS.get(item.type)
+            if not description:
+                _LOGGER.debug(f"[sensor] unsupported type: {item.type} ({item.name})")
+                continue
+
+            sensor_description = copy.deepcopy(description)
+
+            if item.native_unit_of_measurement is not None:
+                sensor_description.native_unit_of_measurement = (
+                    item.native_unit_of_measurement
+                )
+
+            _LOGGER.debug(f"[sensor] adding entity: {item.name}")
+
+            new_entities.append(
+                NexxtmoveSensor(
+                    coordinator=coordinator,
+                    description=sensor_description,
+                    item=item,
+                )
+            )
+
+            known_keys.add(item.key)
+
+        if new_entities:
+            async_add_entities(new_entities)
+
+    # 🔥 Initial population (if data already exists)
+    _process_coordinator_update()
+
+    # 🔥 Listen for future updates
+    coordinator.async_add_listener(_process_coordinator_update)
 
 
+# ------------------------
+# Entity
+# ------------------------
 class NexxtmoveSensor(NexxtmoveEntity, SensorEntity):
     """Representation of a Nexxtmove sensor."""
 
@@ -144,32 +169,23 @@ class NexxtmoveSensor(NexxtmoveEntity, SensorEntity):
     def __init__(
         self,
         coordinator: NexxtmoveDataUpdateCoordinator,
-        description: EntityDescription,
+        description: NexxtmoveSensorDescription,
         item: NexxtmoveItem,
     ) -> None:
-        """Set entity ID."""
+        """Initialize sensor."""
         super().__init__(coordinator, description, item)
-        self.entity_id = f"sensor.{DOMAIN}_{self.item.key}"
+        self.entity_id = f"sensor.{DOMAIN}_{item.key}"
 
     @property
-    def native_value(self) -> str:
-        """Return the status of the sensor."""
-        state = self.item.state
+    def native_value(self):
+        """Return sensor value."""
+        item = self.item
+        if item is None:
+            return None
+
+        state = item.state
 
         if self.entity_description.value_fn:
             return self.entity_description.value_fn(state)
 
         return state
-
-    @property
-    def extra_state_attributes(self):
-        """Return attributes for sensor."""
-        if not self.coordinator.data:
-            return {}
-        attributes = {
-            "last_synced": self.last_synced,
-        }
-        if len(self.item.extra_attributes) > 0:
-            for attr in self.item.extra_attributes:
-                attributes[attr] = self.item.extra_attributes[attr]
-        return attributes

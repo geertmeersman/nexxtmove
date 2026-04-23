@@ -38,7 +38,7 @@ class NexxtmoveClient:
         environment: NexxtmoveEnvironment = DEFAULT_NEXXTMOVE_ENVIRONMENT,
     ) -> None:
         """Initialize NexxtmoveClient."""
-        self.session = Session()
+        self.session = session or Session()
         self.username = username
         self.password = password
         self.environment = environment

@@ -47,6 +47,8 @@ BASE_HEADERS = {
 UNRECORDED_ATTRIBUTES = {"charges", "events", "dates", "values"}
 
 COORDINATOR_UPDATE_INTERVAL = timedelta(minutes=120)
+COORDINATOR_RATE_LIMITED_UPDATE_INTERVAL = timedelta(minutes=20)
+API_RATE_LIMIT = timedelta(minutes=15)
 CONNECTION_RETRY = 1
 REQUEST_TIMEOUT = 20
 MAX_ROWS = 20
