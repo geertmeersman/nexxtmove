@@ -79,7 +79,7 @@ class NexxtmoveEntity(CoordinatorEntity[NexxtmoveDataUpdateCoordinator]):
             return {}
 
         attributes = {
-            "last_synced": getattr(self.coordinator, "last_success", None),
+            "last_synced": getattr(self.coordinator, "last_success_time", None),
         }
 
         if item.extra_attributes:
