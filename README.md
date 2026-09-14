@@ -449,18 +449,33 @@ card:
 ```
 type: markdown
 content: >
-  |Date/Time|Consumption|Cost|Point ID|Building|
+  |Date/Time|Duration|Consumption|Cost|Status|
 
   |----:|----:|----:|----:|----:|
 
-  {% for charge in
-  states.sensor.nexxtmove_<username>_recent_charges.attributes.charges -%}
-
-  | {{charge.startTimestamp | as_timestamp | timestamp_custom("%d-%m-%Y
-  %H:%M")}} |  {{charge.energyConsumedKWh|round(1)}} KWh | € {{charge.costVat |
-  round(2)}} | {{charge.chargingPointName}} | {{charge.buildingName}} |
-
-  {% endfor %}
+  {%- set current_month_start = now().replace(day=1).timestamp() -%}
+  {%- set previous_month_start = (now().replace(day=1) - timedelta(days=1)).replace(day=1).timestamp() -%}
+  {%- set charges = state_attr('sensor.nexxtmove_<username>_recent_charges', 'charges') or [] -%}
+  {%- set ns = namespace(total_kwh=0, total_cost=0) -%}
+  {%- for charge in charges -%}
+    {%- set start_ts = as_timestamp(charge.startTimestamp, default=0) -%}
+    {%- set end_ts = as_timestamp(charge.endTimestamp, default=0) -%}
+    {%- set cost = charge.costVat | float(default=0) | round(2) -%}
+    {%- if start_ts >= previous_month_start and cost > 0 -%}
+      {%- set duration = end_ts - start_ts -%}
+      {%- set hours = (duration // 3600) | int(default=0) -%}
+      {%- set minutes = ((duration % 3600) // 60) | int(default=0) -%}
+      {%- set kwh = charge.energyConsumedKWh | float(default=0) | round(1) -%}
+      {%- set is_cleared = charge.cleared | bool(default=false) -%}
+      {%- set status_icon = "✅" if is_cleared else "⏳" -%}
+      {%- if not is_cleared -%}
+        {%- set ns.total_kwh = ns.total_kwh + kwh -%}
+        {%- set ns.total_cost = ns.total_cost + cost -%}
+      {%- endif %}
+  | {{ start_ts | timestamp_custom("%d-%m %H:%M") }} | {{ hours }}u {{ minutes }}m | {{ kwh }} kWh | € {{ "%.2f" | format(cost) }} | {{ status_icon }} |
+    {%- endif -%}
+  {%- endfor %}
+  | **Total (⏳)** | | **{{ ns.total_kwh | round(1) }} kWh** | **€ {{ "%.2f" | format(ns.total_cost) }}** | |
 title: Latest charges
 
 ```
