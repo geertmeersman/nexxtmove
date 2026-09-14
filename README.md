@@ -449,7 +449,7 @@ card:
 ```
 type: markdown
 content: >
-  |Date/Time|Consumption|Cost|Status|
+  |Date/Time|Duration|Consumption|Cost|Status|
 
   |----:|----:|----:|----:|----:|
 
