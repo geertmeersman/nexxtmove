@@ -46,6 +46,7 @@ class NexxtmoveClient:
         self.profile = {}
         self.request_error = {}
         self.token = None
+        self.is_rate_limited = False
 
     def request(
         self,
@@ -91,6 +92,11 @@ class NexxtmoveClient:
                 return False
 
             if 500 <= response.status_code < 600:
+                return False
+
+            if response.status_code == 429:
+                _LOGGER.warning(f"{caller} Rate limited (429), skipping call")
+                self.is_rate_limited = True
                 return False
 
             if (
@@ -161,7 +167,7 @@ class NexxtmoveClient:
 
         return self.profile
 
-    def fetch_data(self) -> dict:
+    def fetch_data(self, charges_history: dict | None = None) -> dict:
         """Fetch all Nexxtmove data for the account."""
         data: dict = {}
         self.login()

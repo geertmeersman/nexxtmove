@@ -44,7 +44,7 @@ BASE_HEADERS = {
     "User-Agent": f"Home Assistant Integration Nexxtmove {VERSION}",
 }
 
-UNRECORDED_ATTRIBUTES = {"charges", "events", "dates", "values"}
+UNRECORDED_ATTRIBUTES = {"charges", "events", "dates", "values", "locations"}
 
 COORDINATOR_UPDATE_INTERVAL = timedelta(minutes=120)
 COORDINATOR_RATE_LIMITED_UPDATE_INTERVAL = timedelta(minutes=20)
