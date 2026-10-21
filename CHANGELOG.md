@@ -1,5 +1,34 @@
 # Changelog
 
+## [v1.2.0](https://github.com/geertmeersman/nexxtmove/tree/v1.2.0) (2026-10-21)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.1.1...v1.2.0)
+
+**Merged pull requests:**
+
+- docs: restructure README and add docs folder [\#263](https://github.com/geertmeersman/nexxtmove/pull/263) ([geertmeersman](https://github.com/geertmeersman))
+- feat: persist charges history in HA storage, merge by csid [\#262](https://github.com/geertmeersman/nexxtmove/pull/262) ([geertmeersman](https://github.com/geertmeersman))
+- fix: replace len\(result\) == 0 with not result \(PEP8\) [\#261](https://github.com/geertmeersman/nexxtmove/pull/261) ([geertmeersman](https://github.com/geertmeersman))
+- docs: add downloads \(latest release\) badge to README [\#260](https://github.com/geertmeersman/nexxtmove/pull/260) ([geertmeersman](https://github.com/geertmeersman))
+- chore: add local brand assets [\#259](https://github.com/geertmeersman/nexxtmove/pull/259) ([geertmeersman](https://github.com/geertmeersman))
+- chore: add semver fallback for missing tags in release workflows [\#258](https://github.com/geertmeersman/nexxtmove/pull/258) ([geertmeersman](https://github.com/geertmeersman))
+- chore\(deps\): bump github/codeql-action from 4.38.3 to 4.39.0 [\#257](https://github.com/geertmeersman/nexxtmove/pull/257) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump github/codeql-action from 4.38.2 to 4.38.3 [\#256](https://github.com/geertmeersman/nexxtmove/pull/256) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump github/codeql-action from 4.38.1 to 4.38.2 [\#255](https://github.com/geertmeersman/nexxtmove/pull/255) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump github/codeql-action from 4.38.0 to 4.38.1 [\#254](https://github.com/geertmeersman/nexxtmove/pull/254) ([dependabot[bot]](https://github.com/apps/dependabot))
+- docs: update README to reflect new charge status and total calculations [\#253](https://github.com/geertmeersman/nexxtmove/pull/253) ([geertmeersman](https://github.com/geertmeersman))
+- chore\(deps\): bump github/codeql-action from 4.37.9 to 4.38.0 [\#252](https://github.com/geertmeersman/nexxtmove/pull/252) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump github/codeql-action from 4.37.8 to 4.37.9 [\#251](https://github.com/geertmeersman/nexxtmove/pull/251) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump github/codeql-action from 4.37.7 to 4.37.8 [\#250](https://github.com/geertmeersman/nexxtmove/pull/250) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump EndBug/add-and-commit from 10 to 11 [\#249](https://github.com/geertmeersman/nexxtmove/pull/249) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump github/codeql-action from 4.37.6 to 4.37.7 [\#248](https://github.com/geertmeersman/nexxtmove/pull/248) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump github/codeql-action from 4.37.4 to 4.37.6 [\#247](https://github.com/geertmeersman/nexxtmove/pull/247) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/stale from 10 to 11 [\#246](https://github.com/geertmeersman/nexxtmove/pull/246) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump github/codeql-action from 4 to 4.37.4 [\#245](https://github.com/geertmeersman/nexxtmove/pull/245) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore: update funding, issue templates, and workflows; remove unused … [\#244](https://github.com/geertmeersman/nexxtmove/pull/244) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump actions/checkout from 6 to 7 [\#243](https://github.com/geertmeersman/nexxtmove/pull/243) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/dependency-review-action from 4 to 5 [\#242](https://github.com/geertmeersman/nexxtmove/pull/242) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.1.1](https://github.com/geertmeersman/nexxtmove/tree/v1.1.1) (2026-04-23)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.1.0...v1.1.1)
