@@ -34,6 +34,7 @@ A Home Assistant integration allowing to monitor your EV charging and manage you
 [![manifest version](https://img.shields.io/github/manifest-json/v/geertmeersman/nexxtmove/master?filename=custom_components%2Fnexxtmove%2Fmanifest.json)](https://github.com/geertmeersman/nexxtmove)
 [![github release](https://img.shields.io/github/v/release/geertmeersman/nexxtmove?logo=github)](https://github.com/geertmeersman/nexxtmove/releases)
 [![github release date](https://img.shields.io/github/release-date/geertmeersman/nexxtmove)](https://github.com/geertmeersman/nexxtmove/releases)
+[![Downloads (latest release)](https://img.shields.io/github/downloads/geertmeersman/nexxtmove/latest/total)](https://github.com/geertmeersman/nexxtmove/releases/latest)
 [![github last-commit](https://img.shields.io/github/last-commit/geertmeersman/nexxtmove)](https://github.com/geertmeersman/nexxtmove/commits)
 [![github contributors](https://img.shields.io/github/contributors/geertmeersman/nexxtmove)](https://github.com/geertmeersman/nexxtmove/graphs/contributors)
 [![github commit activity](https://img.shields.io/github/commit-activity/y/geertmeersman/nexxtmove?logo=github)](https://github.com/geertmeersman/nexxtmove/commits/main)
