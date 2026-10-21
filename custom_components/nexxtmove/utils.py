@@ -27,7 +27,7 @@ def float_to_timestring(float_time, unit_type) -> str:
         result += f" {minutes:02.0f}" + " min"
     if seconds:
         result += f" {seconds:02.0f}" + " sec"
-    if len(result) == 0:
+    if not result:
         result = "0 sec"
     return result.strip()
 
