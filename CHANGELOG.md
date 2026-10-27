@@ -1,5 +1,26 @@
 # Changelog
 
+## [v1.2.1](https://github.com/geertmeersman/nexxtmove/tree/v1.2.1) (2026-10-27)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.2.0...v1.2.1)
+
+**Merged pull requests:**
+
+- fix: rate limit robustness and store persistence [\#278](https://github.com/geertmeersman/nexxtmove/pull/278) ([geertmeersman](https://github.com/geertmeersman))
+- chore: remove redundant DISCORD\_WEBHOOK from step-level env [\#277](https://github.com/geertmeersman/nexxtmove/pull/277) ([geertmeersman](https://github.com/geertmeersman))
+- fix: use env var for Discord webhook conditional [\#276](https://github.com/geertmeersman/nexxtmove/pull/276) ([geertmeersman](https://github.com/geertmeersman))
+- chore: skip Discord notification if webhook secret is not set [\#275](https://github.com/geertmeersman/nexxtmove/pull/275) ([geertmeersman](https://github.com/geertmeersman))
+- chore\(deps\): bump github/codeql-action from 4.39.0 to 4.39.1 [\#274](https://github.com/geertmeersman/nexxtmove/pull/274) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: add maintainer badges and full changelog link to release template [\#273](https://github.com/geertmeersman/nexxtmove/pull/273) ([geertmeersman](https://github.com/geertmeersman))
+- fix: get version from draft release instead of semver-action [\#272](https://github.com/geertmeersman/nexxtmove/pull/272) ([geertmeersman](https://github.com/geertmeersman))
+- fix: let release-drafter determine version via semver-increment, remove semver-action [\#271](https://github.com/geertmeersman/nexxtmove/pull/271) ([geertmeersman](https://github.com/geertmeersman))
+- fix: add Release prefix to release name template [\#270](https://github.com/geertmeersman/nexxtmove/pull/270) ([geertmeersman](https://github.com/geertmeersman))
+- fix: migrate release-drafter to new format, remove deprecated version-resolver [\#269](https://github.com/geertmeersman/nexxtmove/pull/269) ([geertmeersman](https://github.com/geertmeersman))
+- fix: add semver-increment patch to Maintenance and Documentation categories [\#268](https://github.com/geertmeersman/nexxtmove/pull/268) ([geertmeersman](https://github.com/geertmeersman))
+- chore: only trigger release drafter on custom\_components changes [\#266](https://github.com/geertmeersman/nexxtmove/pull/266) ([geertmeersman](https://github.com/geertmeersman))
+- chore: update release drafter template, remove beta release and dev-current workflows [\#265](https://github.com/geertmeersman/nexxtmove/pull/265) ([geertmeersman](https://github.com/geertmeersman))
+- feat: add workflow to auto-label PRs without custom\_components changes as skip-changelog [\#264](https://github.com/geertmeersman/nexxtmove/pull/264) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.2.0](https://github.com/geertmeersman/nexxtmove/tree/v1.2.0) (2026-10-21)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.1.1...v1.2.0)
