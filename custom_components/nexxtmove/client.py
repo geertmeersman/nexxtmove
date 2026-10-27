@@ -95,7 +95,7 @@ class NexxtmoveClient:
                 return False
 
             if response.status_code == 429:
-                _LOGGER.warning(f"{caller} Rate limited (429), skipping call")
+                _LOGGER.debug(f"{caller} Rate limited (429), skipping call")
                 self.is_rate_limited = True
                 return False
 
@@ -172,6 +172,9 @@ class NexxtmoveClient:
         data: dict = {}
         self.login()
         company = self.company()
+        if not company or not isinstance(company, dict):
+            _LOGGER.debug("[fetch_data] Failed to fetch company info, aborting")
+            return {}
 
         device_key = format_entity_name(f"{self.username} company")
         device_name = company.get("name")
@@ -193,7 +196,7 @@ class NexxtmoveClient:
 
         # Work locations
         buildings = self.work_buildings()
-        for location in buildings.get("locations", []):
+        for location in buildings.get("locations", []) if buildings else []:
             key = format_entity_name(
                 f"{self.username} work location {location.get('id')}"
             )
@@ -266,7 +269,7 @@ class NexxtmoveClient:
 
         # Consumption
         consumption = self.consumption()
-        if consumption.get("consumptionInKwh") is not None:
+        if consumption and consumption.get("consumptionInKwh") is not None:
             charges = self.charges() or {}
             key = format_entity_name(f"{self.username} consumption")
             data[key] = NexxtmoveItem(
@@ -283,7 +286,7 @@ class NexxtmoveClient:
 
         # Residential buildings
         buildings = self.residential_buildings()
-        for location in buildings.get("locations", []):
+        for location in buildings.get("locations", []) if buildings else []:
             key = format_entity_name(
                 f"{self.username} residential location {location.get('id')}"
             )
@@ -301,7 +304,9 @@ class NexxtmoveClient:
 
         # Charging devices
         device_list = self.device_list()
-        for charging_device in device_list.get("chargingDevices", []):
+        for charging_device in (
+            device_list.get("chargingDevices", []) if device_list else []
+        ):
             self._fetch_charging_device_data(charging_device, data)
 
         return data

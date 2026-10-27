@@ -111,12 +111,39 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
         _LOGGER.debug("Init")
 
     async def async_config_entry_first_refresh(self) -> None:
-        """Load charges history from store before first refresh."""
+        """Load data, charges history and last_success_time from store before first refresh."""
         stored = await self.store.async_load()
         if stored:
-            self.charges_history = stored
-            _LOGGER.debug(f"Loaded {len(self.charges_history)} charges from store")
+            self.charges_history = stored.get("charges", {})
+            last_success = stored.get("last_success_time")
+            if last_success:
+                self.last_success_time = datetime.fromisoformat(last_success)
+            stored_data = stored.get("data", {})
+            if stored_data:
+                self.data = {
+                    key: NexxtmoveItem.from_dict(item)
+                    for key, item in stored_data.items()
+                }
+            _LOGGER.debug(
+                f"Loaded {len(self.charges_history)} charges from store, last success: {self.last_success_time}"
+            )
         await super().async_config_entry_first_refresh()
+
+    async def _save_store(self) -> None:
+        """Save charges, data and last_success_time to store."""
+        await self.store.async_save(
+            {
+                "charges": self.charges_history,
+                "last_success_time": (
+                    self.last_success_time.isoformat()
+                    if self.last_success_time
+                    else None
+                ),
+                "data": {
+                    key: item.to_dict() for key, item in (self.data or {}).items()
+                },
+            }
+        )
 
     async def _merge_charges(self, new_charges: list) -> None:
         """Merge new charges into history, overwriting existing by csid."""
@@ -124,7 +151,7 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
             csid = str(charge.get("csid"))
             if csid:
                 self.charges_history[csid] = charge
-        await self.store.async_save(self.charges_history)
+        await self._save_store()
         _LOGGER.debug(
             f"Charges history now contains {len(self.charges_history)} entries"
         )
@@ -153,7 +180,7 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
             raise UpdateFailed(f"Exception {exception}") from exception
 
         if self.client.is_rate_limited:
-            _LOGGER.warning("Rate limited, backing off")
+            _LOGGER.debug("Rate limited, backing off")
             self.client.is_rate_limited = False
             self.update_interval = COORDINATOR_RATE_LIMITED_UPDATE_INTERVAL
         else:
@@ -162,7 +189,13 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
 
         items: list[NexxtmoveItem] = items
 
+        if not items:
+            _LOGGER.debug("fetch_data returned empty, returning stored data")
+            return self.data or {}
+
         # Merge new charges into persistent history
+        self.data = items
+        charges_merged = False
         for item in (items or {}).values():
             if item.type == "charges" and isinstance(
                 item.extra_attributes.get("charges"), list
@@ -170,7 +203,11 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
                 await self._merge_charges(item.extra_attributes["charges"])
                 item.extra_attributes["charges"] = list(self.charges_history.values())
                 item.state = len(self.charges_history)
+                charges_merged = True
                 break
+
+        if not charges_merged:
+            await self._save_store()
 
         current_items = {
             list(device.identifiers)[0][1]
@@ -184,8 +221,8 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
 
             if stale_items := current_items - fetched_items:
                 for device_key in stale_items:
-                    if device := self._device_registry.async_get_device(
-                        {(DOMAIN, device_key)}
+                    if device := self._device_registry.async_get_device_by_identifier(
+                        (DOMAIN, device_key)
                     ):
                         self._device_registry.async_remove_device(device.id)
 
