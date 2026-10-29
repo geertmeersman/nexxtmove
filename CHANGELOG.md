@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.2.2](https://github.com/geertmeersman/nexxtmove/tree/v1.2.2) (2026-10-29)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.2.1...v1.2.2)
+
+**Merged pull requests:**
+
+- fix: use timezone-aware datetime for rate limit comparison [\#280](https://github.com/geertmeersman/nexxtmove/pull/280) ([geertmeersman](https://github.com/geertmeersman))
+- ci: combine PR workflows into single pr.yml [\#279](https://github.com/geertmeersman/nexxtmove/pull/279) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.2.1](https://github.com/geertmeersman/nexxtmove/tree/v1.2.1) (2026-10-27)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.2.0...v1.2.1)
