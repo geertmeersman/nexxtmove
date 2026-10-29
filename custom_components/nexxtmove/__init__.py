@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 from pathlib import Path
 
@@ -158,10 +158,13 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self) -> dict | None:
         """Update data."""
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
 
         if self.last_success_time and self.data:
-            if now - self.last_success_time < API_RATE_LIMIT:
+            last = self.last_success_time
+            if last.tzinfo is None:
+                last = last.replace(tzinfo=timezone.utc)
+            if now - last < API_RATE_LIMIT:
                 _LOGGER.debug("Skipping update: within rate limit window")
                 return self.data
         _LOGGER.debug("Updating")
@@ -185,7 +188,7 @@ class NexxtmoveDataUpdateCoordinator(DataUpdateCoordinator):
             self.update_interval = COORDINATOR_RATE_LIMITED_UPDATE_INTERVAL
         else:
             self.update_interval = COORDINATOR_UPDATE_INTERVAL
-            self.last_success_time = datetime.utcnow()
+            self.last_success_time = datetime.now(timezone.utc)
 
         items: list[NexxtmoveItem] = items
 
