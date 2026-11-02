@@ -187,7 +187,7 @@ class NexxtmoveOptionsFlow(NexxtmoveCommonFlow, OptionsFlow):
 class NexxtmoveConfigFlow(NexxtmoveCommonFlow, ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Nexxtmove."""
 
-    VERSION = 1
+    VERSION = 2
 
     def __init__(self) -> None:
         """Initialize Nexxtmove Config Flow."""
