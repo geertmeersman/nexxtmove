@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.2.3](https://github.com/geertmeersman/nexxtmove/tree/v1.2.3) (2026-11-02)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.2.2...v1.2.3)
+
+**Merged pull requests:**
+
+- fix: correct charging device type logic for charges/energy/euro [\#281](https://github.com/geertmeersman/nexxtmove/pull/281) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.2.2](https://github.com/geertmeersman/nexxtmove/tree/v1.2.2) (2026-10-29)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.2.1...v1.2.2)
