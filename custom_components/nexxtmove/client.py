@@ -466,9 +466,9 @@ class NexxtmoveClient:
                     name=f"{charging_device.get('name')} {period_name} {suffix}",
                     key=key,
                     type=(
-                        "euro"
-                        if suffix != "energy"
-                        else "consumption" if suffix == "energy" else "counter"
+                        "counter" if suffix == "charges"
+                        else "consumption" if suffix == "energy"
+                        else "euro"
                     ),
                     sensor_type="sensor",
                     device_key=device_key,
