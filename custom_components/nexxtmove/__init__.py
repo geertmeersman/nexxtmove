@@ -9,7 +9,7 @@ from pathlib import Path
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers import device_registry as dr, entity_registry as er
 from homeassistant.helpers.storage import Store
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from requests.exceptions import ConnectionError
@@ -26,6 +26,24 @@ from .exceptions import NexxtmoveException, NexxtmoveServiceException
 from .models import NexxtmoveItem
 
 _LOGGER = logging.getLogger(__name__)
+
+
+async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+    """Migrate old config entry to new version."""
+    _LOGGER.debug(f"Migrating config entry from version {config_entry.version}")
+
+    if config_entry.version == 1:
+        entity_reg = er.async_get(hass)
+        entries = er.async_entries_for_config_entry(entity_reg, config_entry.entry_id)
+        for entity in entries:
+            if entity.unique_id and entity.unique_id.endswith("_charges"):
+                entity_reg.async_remove(entity.entity_id)
+                _LOGGER.debug(f"Migrated entity {entity.entity_id}: removed for re-creation with correct type")
+
+        hass.config_entries.async_update_entry(config_entry, version=2)
+        _LOGGER.debug("Migration to version 2 complete")
+
+    return True
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
