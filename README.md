@@ -19,9 +19,9 @@ A Home Assistant integration to monitor your EV charging and manage your chargin
 [![discord](http://invidget.switchblade.xyz/PTpExQJsWA)](https://discord.gg/PTpExQJsWA)
 
 [![MIT License](https://img.shields.io/github/license/geertmeersman/nexxtmove?style=flat-square)](https://github.com/geertmeersman/nexxtmove/blob/master/LICENSE)
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=flat-square)](https://github.com/hacs/integration)
+[![ha_marketplace](https://img.shields.io/badge/HA-Marketplace-41BDF5.svg?style=flat-square)](https://www.home-assistant.io/integrations/marketplace/)
 
-[![Open your Home Assistant instance and open the repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg?style=flat-square)](https://my.home-assistant.io/redirect/hacs_repository/?owner=geertmeersman&repository=nexxtmove&category=integration)
+[![Open your Home Assistant instance and open the repository inside the Home Assistant Marketplace.](https://my.home-assistant.io/badges/hacs_repository.svg?style=flat-square)](https://my.home-assistant.io/redirect/hacs_repository/?owner=geertmeersman&repository=nexxtmove&category=integration)
 
 [![GitHub issues](https://img.shields.io/github/issues/geertmeersman/nexxtmove)](https://github.com/geertmeersman/nexxtmove/issues)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/geertmeersman/nexxtmove.svg)](http://isitmaintained.com/project/geertmeersman/nexxtmove)
@@ -66,15 +66,15 @@ device_id: <your_device_id>
 
 ## Installation
 
-### Using [HACS](https://hacs.xyz/) (recommended)
+### Using the [Home Assistant Marketplace](https://www.home-assistant.io/integrations/marketplace/) (recommended)
 
 **Click on this button:**
 
-[![Open your Home Assistant instance and open the repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg?style=flat-square)](https://my.home-assistant.io/redirect/hacs_repository/?owner=geertmeersman&repository=nexxtmove&category=integration)
+[![Open your Home Assistant instance and open the repository inside the Home Assistant Marketplace.](https://my.home-assistant.io/badges/hacs_repository.svg?style=flat-square)](https://my.home-assistant.io/redirect/hacs_repository/?owner=geertmeersman&repository=nexxtmove&category=integration)
 
 **or follow these steps:**
 
-1. Simply search for `Nexxtmove` in HACS and install it easily.
+1. Simply search for `Nexxtmove` in the Home Assistant Marketplace and install it easily.
 2. Restart Home Assistant
 3. Add the 'Nexxtmove' integration via HA Settings > 'Devices and Services' > 'Integrations'
 4. Provide your Nexxtmove username and password
