@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.3.0](https://github.com/geertmeersman/nexxtmove/tree/v1.3.0) (2026-11-16)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.2.3...v1.3.0)
+
+**Merged pull requests:**
+
+- feat: bundle Lovelace card with integration [\#283](https://github.com/geertmeersman/nexxtmove/pull/283) ([geertmeersman](https://github.com/geertmeersman))
+- chore\(deps\): bump github/codeql-action from 4.39.1 to 4.39.3 [\#282](https://github.com/geertmeersman/nexxtmove/pull/282) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.2.3](https://github.com/geertmeersman/nexxtmove/tree/v1.2.3) (2026-11-02)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.2.2...v1.2.3)
