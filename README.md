@@ -48,6 +48,17 @@ A Home Assistant integration to monitor your EV charging and manage your chargin
 | `sensor` | Profile, company, charging devices, charging points, charges history, consumption, locations |
 | `switch` | _(reserved for future use)_ |
 
+### Bundled Lovelace card
+
+The integration ships a built-in Lovelace card that is automatically registered as a resource. No manual installation needed.
+
+![Nexxtmove Device Card](https://raw.githubusercontent.com/geertmeersman/nexxtmove/main/images/screenshots/nexxtmove-device-card.png)
+
+```yaml
+type: custom:nexxtmove-device-card
+device_id: <your_device_id>
+```
+
 - → Full entity reference: [docs/entities.md](docs/entities.md)
 - → Lovelace examples: [docs/lovelace.md](docs/lovelace.md)
 - → Troubleshooting: [docs/troubleshooting.md](docs/troubleshooting.md)
