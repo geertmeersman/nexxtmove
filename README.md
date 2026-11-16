@@ -16,12 +16,10 @@ A Home Assistant integration to monitor your EV charging and manage your chargin
 [![buyme_coffee](https://img.shields.io/badge/Buy%20me%20an%20Omer-donate-yellow?style=for-the-badge&logo=buymeacoffee)](https://www.buymeacoffee.com/geertmeersman)
 [![discord](https://img.shields.io/discord/1094331679327408320?style=for-the-badge&logo=discord)](https://discord.gg/PTpExQJsWA)
 
-[![discord](http://invidget.switchblade.xyz/PTpExQJsWA)](https://discord.gg/PTpExQJsWA)
-
 [![MIT License](https://img.shields.io/github/license/geertmeersman/nexxtmove?style=flat-square)](https://github.com/geertmeersman/nexxtmove/blob/master/LICENSE)
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=flat-square)](https://github.com/hacs/integration)
+[![ha_marketplace](https://img.shields.io/badge/HA-Marketplace-41BDF5.svg?style=flat-square)](https://www.home-assistant.io/integrations/marketplace/)
 
-[![Open your Home Assistant instance and open the repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg?style=flat-square)](https://my.home-assistant.io/redirect/hacs_repository/?owner=geertmeersman&repository=nexxtmove&category=integration)
+[![Open your Home Assistant instance and open the repository inside the Home Assistant Marketplace.](https://my.home-assistant.io/badges/hacs_repository.svg?style=flat-square)](https://my.home-assistant.io/redirect/hacs_repository/?owner=geertmeersman&repository=nexxtmove&category=integration)
 
 [![GitHub issues](https://img.shields.io/github/issues/geertmeersman/nexxtmove)](https://github.com/geertmeersman/nexxtmove/issues)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/geertmeersman/nexxtmove.svg)](http://isitmaintained.com/project/geertmeersman/nexxtmove)
@@ -48,6 +46,17 @@ A Home Assistant integration to monitor your EV charging and manage your chargin
 | `sensor` | Profile, company, charging devices, charging points, charges history, consumption, locations |
 | `switch` | _(reserved for future use)_ |
 
+### Bundled Lovelace card
+
+The integration ships a built-in Lovelace card that is automatically registered as a resource. No manual installation needed.
+
+![Nexxtmove Device Card](https://raw.githubusercontent.com/geertmeersman/nexxtmove/main/images/screenshots/nexxtmove-device-card.png)
+
+```yaml
+type: custom:nexxtmove-device-card
+device_id: <your_device_id>
+```
+
 - → Full entity reference: [docs/entities.md](docs/entities.md)
 - → Lovelace examples: [docs/lovelace.md](docs/lovelace.md)
 - → Troubleshooting: [docs/troubleshooting.md](docs/troubleshooting.md)
@@ -55,15 +64,15 @@ A Home Assistant integration to monitor your EV charging and manage your chargin
 
 ## Installation
 
-### Using [HACS](https://hacs.xyz/) (recommended)
+### Using the [Home Assistant Marketplace](https://www.home-assistant.io/integrations/marketplace/) (recommended)
 
 **Click on this button:**
 
-[![Open your Home Assistant instance and open the repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg?style=flat-square)](https://my.home-assistant.io/redirect/hacs_repository/?owner=geertmeersman&repository=nexxtmove&category=integration)
+[![Open your Home Assistant instance and open the repository inside the Home Assistant Marketplace.](https://my.home-assistant.io/badges/hacs_repository.svg?style=flat-square)](https://my.home-assistant.io/redirect/hacs_repository/?owner=geertmeersman&repository=nexxtmove&category=integration)
 
 **or follow these steps:**
 
-1. Simply search for `Nexxtmove` in HACS and install it easily.
+1. Simply search for `Nexxtmove` in the Home Assistant Marketplace and install it easily.
 2. Restart Home Assistant
 3. Add the 'Nexxtmove' integration via HA Settings > 'Devices and Services' > 'Integrations'
 4. Provide your Nexxtmove username and password
@@ -81,7 +90,7 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 
 ## Troubleshooting
 
-[![discord](http://invidget.switchblade.xyz/PTpExQJsWA)](https://discord.gg/PTpExQJsWA)
+[![discord](https://img.shields.io/discord/1094331679327408320?style=for-the-badge&logo=discord)](https://discord.gg/PTpExQJsWA)
 
 → Full troubleshooting guide: [docs/troubleshooting.md](docs/troubleshooting.md)
 

@@ -51,7 +51,7 @@ repos:
     hooks:
       - id: codespell
         args:
-          - --ignore-words-list=hass,commitish,THIRDPARTY
+          - --ignore-words-list=hass,commitish,THIRDPARTY,te
           - --skip="./.*,*.csv,*.ambr"
           - --quiet-level=2
         exclude_types: [csv, json, html]

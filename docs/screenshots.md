@@ -2,6 +2,7 @@
 
 | Description | Screenshot |
 | --- | --- |
+| Nexxtmove Device Card | ![Nexxtmove Device Card](https://raw.githubusercontent.com/geertmeersman/nexxtmove/main/images/screenshots/nexxtmove-device-card.png) |
 | Period Graphs | ![Period Graphs](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/period_graphs.png) |
 | Profile | ![Profile](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/profile.png) |
 | Company | ![Company](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/company.png) |

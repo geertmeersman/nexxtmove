@@ -1,5 +1,20 @@
 # Lovelace examples
 
+## Bundled Nexxtmove Device Card
+
+The integration includes a built-in Lovelace card that is automatically registered when the integration is set up. No manual installation needed.
+
+![Nexxtmove Device Card](https://raw.githubusercontent.com/geertmeersman/nexxtmove/main/images/screenshots/nexxtmove-device-card.png)
+
+```yaml
+type: custom:nexxtmove-device-card
+device_id: <your_device_id>
+```
+
+The card supports Dutch, English, German and French.
+
+---
+
 ## Period graphs
 
 ![Period Graphs](https://github.com/geertmeersman/nexxtmove/raw/main/images/screenshots/period_graphs.png)

@@ -18,6 +18,15 @@ with open(manifestfile) as json_file:
     manifest_data = json.load(json_file)
 
 DOMAIN = manifest_data.get("domain")
+
+# ---------------------------------------------------------------------------
+# Bundled Lovelace card
+# ---------------------------------------------------------------------------
+CARD_FILENAME: Final = "nexxtmove-device-card.js"
+CARD_URL: Final = f"/{DOMAIN}/{CARD_FILENAME}"
+CARD_ICON_FILENAME: Final = "nexxtmove-icon.png"
+CARD_ICON_URL: Final = f"/{DOMAIN}/{CARD_ICON_FILENAME}"
+CARD_REGISTERED: Final = "card_registered"
 NAME = manifest_data.get("name")
 VERSION = manifest_data.get("version")
 ISSUEURL = manifest_data.get("issue_tracker")
