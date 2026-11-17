@@ -69,6 +69,10 @@ const NEXXTMOVE_I18N = {
   },
 };
 
+function _esc(str) {
+  return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
 function _t(hass, key) {
   const lang = (hass?.locale?.language || 'en').slice(0, 2).toLowerCase();
   return (NEXXTMOVE_I18N[lang] || NEXXTMOVE_I18N.en)[key] || NEXXTMOVE_I18N.en[key] || key;
@@ -344,10 +348,10 @@ class NexxtmoveDeviceCard extends HTMLElement {
             <ha-icon icon="mdi:ev-station" style="--mdc-icon-size:26px; color:var(--primary-color);display:none;"></ha-icon>
           </div>
           <div class="header-text">
-            <div class="header-name">${name}</div>
-            <div class="header-sub">${building}${lastComm ? ` · ${lastComm}` : ''}</div>
+            <div class="header-name">${_esc(name)}</div>
+            <div class="header-sub">${_esc(building)}${lastComm ? ` · ${_esc(lastComm)}` : ''}</div>
           </div>
-          <div class="status-badge">${pointStatus || '—'}</div>
+          <div class="status-badge">${_esc(pointStatus || '—')}</div>
         </div>
 
         ${show.stats || show.non_invoiced || show.price || show.max_power ? `
@@ -409,7 +413,7 @@ class NexxtmoveDeviceCard extends HTMLElement {
           ${recentEvents.map(e => `
           <div class="row">
             <ha-icon icon="${this._eventIcon(e.type)}"></ha-icon>
-            <span class="row-main">${e.message || e.type}</span>
+            <span class="row-main">${_esc(e.message || e.type)}</span>
             <span class="row-sub">${this._formatDate(e.date)}</span>
           </div>`).join('')}
         </div>` : ''}
@@ -505,7 +509,7 @@ class NexxtmoveDeviceCardEditor extends HTMLElement {
           <label>${t('charging_device')}</label>
           <select id="device-select">
             <option value="">${t('choose_device_label')}</option>
-            ${devices.map(d => `<option value="${d.id}" ${d.id === deviceId ? 'selected' : ''}>${d.name}</option>`).join('')}
+            ${devices.map(d => `<option value="${_esc(d.id)}" ${d.id === deviceId ? 'selected' : ''}>${_esc(d.name)}</option>`).join('')}
           </select>
         </div>
         <div>
