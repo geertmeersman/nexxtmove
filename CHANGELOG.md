@@ -1,5 +1,15 @@
 # Changelog
 
+## [v1.3.1](https://github.com/geertmeersman/nexxtmove/tree/v1.3.1) (2026-11-17)
+
+[Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.3.0...v1.3.1)
+
+**Merged pull requests:**
+
+- fix: escape innerHTML interpolations to prevent XSS [\#286](https://github.com/geertmeersman/nexxtmove/pull/286) ([geertmeersman](https://github.com/geertmeersman))
+- chore\(deps\): bump actions/checkout from 4 to 7 [\#285](https://github.com/geertmeersman/nexxtmove/pull/285) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump actions/setup-node from 4 to 7 [\#284](https://github.com/geertmeersman/nexxtmove/pull/284) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.3.0](https://github.com/geertmeersman/nexxtmove/tree/v1.3.0) (2026-11-16)
 
 [Full Changelog](https://github.com/geertmeersman/nexxtmove/compare/v1.2.3...v1.3.0)
